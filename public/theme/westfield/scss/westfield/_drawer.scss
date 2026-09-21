@@ -1,0 +1,63 @@
+/* =========================================================
+   WESTFIELD DRAWERS / SIDEBAR
+   ========================================================= */
+
+.drawer {
+    background: $wf-surface;
+
+    border-color: $wf-border !important;
+
+    box-shadow:
+        6px 0 24px rgba(0, 21, 54, .06);
+}
+
+.drawerheader {
+    background: $wf-surface;
+    border-bottom: 1px solid $wf-border;
+}
+
+
+/* Navigation items */
+
+.drawer .list-group-item {
+    border: 0;
+
+    border-radius: 10px;
+
+    margin: 3px 8px;
+
+    color: $wf-text;
+
+    transition:
+        background .2s ease,
+        color .2s ease,
+        transform .2s ease;
+}
+
+.drawer .list-group-item:hover {
+    background: $wf-blue-light;
+    color: $wf-navy-800;
+
+    transform: translateX(2px);
+}
+
+.drawer .list-group-item.active {
+    background: $wf-gradient;
+    color: $wf-white;
+}
+
+
+/* Icons */
+
+.drawer .list-group-item.active .icon {
+    color: $wf-white;
+}
+
+
+/* Drawer toggle */
+
+.drawertoggle {
+    border-radius: 10px !important;
+
+    box-shadow: $wf-shadow-sm;
+}

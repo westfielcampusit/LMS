@@ -1,0 +1,49 @@
+/* =========================================================
+   CALENDAR
+   ========================================================= */
+
+.maincalendar,
+.block_calendar_month {
+    background:
+        $wf-surface;
+
+    border-radius:
+        $wf-radius-lg;
+}
+
+.calendarwrapper {
+    border-radius:
+        $wf-radius;
+}
+
+.maincalendar .calendarmonth td {
+    border-color:
+        $wf-border;
+}
+
+.maincalendar .calendarmonth th {
+    color:
+        $wf-text;
+
+    font-weight:
+        700;
+}
+
+
+/* Today */
+
+.maincalendar .calendarmonth .today {
+    background:
+        $wf-blue-light;
+
+    color:
+        $wf-navy-800;
+}
+
+
+/* Calendar event */
+
+.calendar_event_course {
+    border-radius:
+        6px;
+}

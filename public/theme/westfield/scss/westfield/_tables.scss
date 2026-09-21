@@ -1,0 +1,58 @@
+/* =========================================================
+   TABLES
+   ========================================================= */
+
+.table {
+    color:
+        $wf-text;
+
+    background:
+        $wf-surface;
+}
+
+.table thead th {
+    background:
+        #f1f5fa;
+
+    color:
+        $wf-text;
+
+    font-weight:
+        700;
+
+    border-bottom:
+        1px solid $wf-border-dark;
+}
+
+.table td,
+.table th {
+    border-color:
+        $wf-border;
+
+    vertical-align:
+        middle;
+}
+
+.table tbody tr {
+    transition:
+        background .15s ease;
+}
+
+.table tbody tr:hover {
+    background:
+        $wf-surface-soft;
+}
+
+
+/* Responsive table wrapper */
+
+.table-responsive {
+    border:
+        1px solid $wf-border;
+
+    border-radius:
+        $wf-radius;
+
+    overflow:
+        hidden;
+}

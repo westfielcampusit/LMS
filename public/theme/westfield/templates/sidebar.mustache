@@ -1,0 +1,442 @@
+{{!
+    WestField Campus LMS
+    Student Sidebar
+}}
+
+<aside id="westfield-sidebar" class="westfield-sidebar">
+
+    <!-- =====================================================
+         SIDEBAR BRAND
+         ===================================================== -->
+
+    <div class="westfield-sidebar-brand">
+
+        <a href="{{{ config.homeurl }}}" class="westfield-sidebar-brand-link">
+
+            <img
+                src="{{{ config.wwwroot }}}/theme/westfield/pix/logo.png"
+                class="westfield-sidebar-logo"
+                alt="WestField Campus">
+
+            <div class="westfield-sidebar-brand-text">
+                <span class="westfield-sidebar-brand-main">
+                    WestField
+                </span>
+
+                <span class="westfield-sidebar-brand-small">
+                    CAMPUS LMS
+                </span>
+            </div>
+
+        </a>
+
+        <button
+            type="button"
+            class="westfield-sidebar-close"
+            id="westfield-sidebar-close"
+            aria-label="Close navigation">
+
+            <i class="fa fa-times"></i>
+
+        </button>
+
+    </div>
+
+
+    <!-- =====================================================
+         NAVIGATION
+         ===================================================== -->
+
+    <nav class="westfield-sidebar-navigation"
+         aria-label="Student navigation">
+
+
+        <!-- Dashboard -->
+
+        <a
+            href="{{{ config.wwwroot }}}/my/"
+            class="westfield-sidebar-item">
+
+            <span class="westfield-sidebar-icon">
+                <i class="fa fa-gauge-high fa-tachometer-alt"></i>
+            </span>
+
+            <span class="westfield-sidebar-label">
+                Dashboard
+            </span>
+
+        </a>
+
+
+        <!-- Site Home -->
+
+        <a
+            href="{{{ config.wwwroot }}}/"
+            class="westfield-sidebar-item">
+
+            <span class="westfield-sidebar-icon">
+                <i class="fa fa-home"></i>
+            </span>
+
+            <span class="westfield-sidebar-label">
+                Site home
+            </span>
+
+        </a>
+
+
+        <!-- Calendar -->
+
+        <a
+            href="{{{ config.wwwroot }}}/calendar/view.php?view=month"
+            class="westfield-sidebar-item">
+
+            <span class="westfield-sidebar-icon">
+                <i class="fa fa-calendar"></i>
+            </span>
+
+            <span class="westfield-sidebar-label">
+                Calendar
+            </span>
+
+        </a>
+
+
+        <!-- Private Files -->
+
+        <a
+            href="{{{ config.wwwroot }}}/user/files.php"
+            class="westfield-sidebar-item">
+
+            <span class="westfield-sidebar-icon">
+                <i class="fa fa-file"></i>
+            </span>
+
+            <span class="westfield-sidebar-label">
+                Private files
+            </span>
+
+        </a>
+
+
+        <!-- =================================================
+             MY COURSES
+             ================================================= -->
+
+        <div class="westfield-sidebar-course-section">
+
+            <button
+                type="button"
+                class="westfield-sidebar-item westfield-course-toggle"
+                id="westfield-course-toggle"
+                aria-expanded="true">
+
+                <span class="westfield-sidebar-icon">
+                    <i class="fa fa-graduation-cap"></i>
+                </span>
+
+                <span class="westfield-sidebar-label">
+                    My courses
+                </span>
+
+                <span class="westfield-course-arrow">
+                    <i class="fa fa-chevron-down"></i>
+                </span>
+
+            </button>
+
+
+            <div
+                class="westfield-course-list"
+                id="westfield-course-list">
+
+                {{#westfieldcourses}}
+
+                    <a
+                        href="{{{url}}}"
+                        class="westfield-course-item">
+
+                        <span class="westfield-course-dot"></span>
+
+                        <span class="westfield-course-name">
+                            {{name}}
+                        </span>
+
+                    </a>
+
+                {{/westfieldcourses}}
+
+
+                {{^westfieldcourses}}
+
+                    <a
+                        href="{{{ config.wwwroot }}}/my/courses.php"
+                        class="westfield-course-item">
+
+                        <span class="westfield-course-dot"></span>
+
+                        <span class="westfield-course-name">
+                            View my courses
+                        </span>
+
+                    </a>
+
+                {{/westfieldcourses}}
+
+            </div>
+
+        </div>
+
+
+        <!-- More -->
+
+        <a
+            href="{{{ config.wwwroot }}}/my/courses.php"
+            class="westfield-sidebar-item">
+
+            <span class="westfield-sidebar-icon">
+                <i class="fa fa-folder-open"></i>
+            </span>
+
+            <span class="westfield-sidebar-label">
+                More...
+            </span>
+
+        </a>
+
+    </nav>
+
+
+    <!-- =====================================================
+         BOTTOM AREA
+         ===================================================== -->
+
+    <div class="westfield-sidebar-bottom">
+
+        <a
+            href="{{{ config.wwwroot }}}/help.php"
+            class="westfield-sidebar-help">
+
+            <span class="westfield-sidebar-help-icon">
+                <i class="fa fa-circle-question fa-question-circle"></i>
+            </span>
+
+            <span>
+                Help & Support
+            </span>
+
+        </a>
+
+    </div>
+
+</aside>
+
+
+<!-- =========================================================
+     MOBILE BACKDROP
+     ========================================================= -->
+
+<div
+    id="westfield-sidebar-backdrop"
+    class="westfield-sidebar-backdrop">
+</div>
+
+
+<!-- =========================================================
+     MOBILE SIDEBAR BUTTON
+     ========================================================= -->
+
+<button
+    type="button"
+    id="westfield-sidebar-mobile-toggle"
+    class="westfield-sidebar-mobile-toggle"
+    aria-label="Open navigation">
+
+    <i class="fa fa-bars"></i>
+
+</button>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const sidebar =
+        document.getElementById("westfield-sidebar");
+
+    const openButton =
+        document.getElementById("westfield-sidebar-mobile-toggle");
+
+    const closeButton =
+        document.getElementById("westfield-sidebar-close");
+
+    const backdrop =
+        document.getElementById("westfield-sidebar-backdrop");
+
+    const courseToggle =
+        document.getElementById("westfield-course-toggle");
+
+    const courseList =
+        document.getElementById("westfield-course-list");
+
+
+    function openSidebar() {
+
+        if (!sidebar) {
+            return;
+        }
+
+        sidebar.classList.add("westfield-sidebar-open");
+
+        if (backdrop) {
+            backdrop.classList.add("show");
+        }
+
+        document.body.classList.add(
+            "westfield-sidebar-mobile-open"
+        );
+    }
+
+
+    function closeSidebar() {
+
+        if (!sidebar) {
+            return;
+        }
+
+        sidebar.classList.remove("westfield-sidebar-open");
+
+        if (backdrop) {
+            backdrop.classList.remove("show");
+        }
+
+        document.body.classList.remove(
+            "westfield-sidebar-mobile-open"
+        );
+    }
+
+
+    if (openButton) {
+        openButton.addEventListener(
+            "click",
+            openSidebar
+        );
+    }
+
+
+    if (closeButton) {
+        closeButton.addEventListener(
+            "click",
+            closeSidebar
+        );
+    }
+
+
+    if (backdrop) {
+        backdrop.addEventListener(
+            "click",
+            closeSidebar
+        );
+    }
+
+
+    if (courseToggle && courseList) {
+
+        courseToggle.addEventListener(
+            "click",
+            function () {
+
+                const collapsed =
+                    courseList.classList.toggle(
+                        "collapsed"
+                    );
+
+                courseToggle.classList.toggle(
+                    "collapsed",
+                    collapsed
+                );
+
+                courseToggle.setAttribute(
+                    "aria-expanded",
+                    collapsed ? "false" : "true"
+                );
+
+            }
+        );
+    }
+
+
+    /* =============================================
+       ACTIVE PAGE
+       ============================================= */
+
+    const currentURL =
+        window.location.pathname;
+
+    const links =
+        document.querySelectorAll(
+            ".westfield-sidebar-item[href], .westfield-course-item[href]"
+        );
+
+
+    links.forEach(function (link) {
+
+        try {
+
+            const url =
+                new URL(
+                    link.href,
+                    window.location.origin
+                );
+
+            if (
+                url.pathname !== "/" &&
+                currentURL.startsWith(url.pathname)
+            ) {
+
+                link.classList.add(
+                    "active"
+                );
+
+            }
+
+        } catch (error) {
+            // Ignore invalid URLs.
+        }
+
+    });
+
+
+    /* Exact home page */
+
+    if (
+        currentURL === "/" ||
+        currentURL.endsWith("/Moodle/")
+    ) {
+
+        const homeLink =
+            document.querySelector(
+                '.westfield-sidebar-item[href$="/"]'
+            );
+
+        if (homeLink) {
+            homeLink.classList.add("active");
+        }
+
+    }
+
+
+    /* Escape closes mobile sidebar */
+
+    document.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (event.key === "Escape") {
+                closeSidebar();
+            }
+
+        }
+    );
+
+});
+</script>

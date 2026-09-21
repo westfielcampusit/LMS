@@ -1,0 +1,73 @@
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.btn {
+    border-radius:
+        10px;
+
+    font-weight:
+        600;
+
+    transition:
+        transform .18s ease,
+        box-shadow .18s ease,
+        background .18s ease;
+}
+
+.btn:hover {
+    transform:
+        translateY(-1px);
+}
+
+
+/* Primary */
+
+.btn-primary {
+    background:
+        $wf-gradient !important;
+
+    border-color:
+        transparent !important;
+
+    color:
+        $wf-white !important;
+
+    box-shadow:
+        0 8px 20px rgba(4, 4, 92, .16);
+}
+
+.btn-primary:hover {
+    box-shadow:
+        0 12px 26px rgba(4, 4, 92, .24);
+}
+
+
+/* Secondary */
+
+.btn-secondary {
+    background:
+        $wf-surface;
+
+    border:
+        1px solid $wf-border-dark;
+
+    color:
+        $wf-text;
+}
+
+.btn-secondary:hover {
+    background:
+        $wf-blue-light;
+
+    color:
+        $wf-navy-800;
+}
+
+
+/* Danger */
+
+.btn-danger {
+    border-radius:
+        10px;
+}

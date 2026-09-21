@@ -1,0 +1,90 @@
+/* =========================================================
+   WESTFIELD DASHBOARD
+   ========================================================= */
+
+#page-my-index {
+    background: $wf-bg;
+}
+
+
+/* Dashboard title */
+
+#page-my-index .page-header-headings h1 {
+    font-size: 30px;
+    color: $wf-text;
+}
+
+
+/* Dashboard blocks */
+
+#page-my-index .block {
+    background: $wf-surface;
+
+    border:
+        1px solid $wf-border;
+
+    border-radius:
+        $wf-radius-lg;
+
+    box-shadow:
+        $wf-shadow;
+
+    overflow:
+        hidden;
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+}
+
+#page-my-index .block:hover {
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        $wf-shadow-lg;
+}
+
+
+#page-my-index .block .card-title {
+    color:
+        $wf-text;
+
+    font-weight:
+        700;
+}
+
+
+/* Timeline */
+
+#page-my-index .block_timeline {
+    border-radius:
+        $wf-radius-lg;
+}
+
+
+/* Course overview */
+
+#page-my-index .block_myoverview {
+    border-radius:
+        $wf-radius-lg;
+}
+
+
+/* Dashboard nav pills */
+
+#page-my-index .nav-pills .nav-link {
+    border-radius:
+        10px;
+
+    color:
+        $wf-text-secondary;
+}
+
+#page-my-index .nav-pills .nav-link.active {
+    background:
+        $wf-gradient;
+
+    color:
+        $wf-white;
+}

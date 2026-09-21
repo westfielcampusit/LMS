@@ -1,0 +1,48 @@
+/* =========================================================
+   WESTFIELD DESIGN TOKENS
+   ========================================================= */
+
+$wf-navy-950: #02001f;
+$wf-navy-900: #001536;
+$wf-navy-800: #04045c;
+$wf-blue: #0b63ce;
+$wf-blue-light: #eaf3ff;
+
+$wf-white: #ffffff;
+
+$wf-bg: #f5f7fb;
+$wf-surface: #ffffff;
+$wf-surface-soft: #f8faff;
+
+$wf-text: #001536;
+$wf-text-secondary: #667085;
+$wf-muted: #98a2b3;
+
+$wf-border: #e3e8f0;
+$wf-border-dark: #d0d7e2;
+
+$wf-success: #15803d;
+$wf-warning: #b45309;
+$wf-danger: #b42318;
+
+$wf-radius-sm: 8px;
+$wf-radius: 12px;
+$wf-radius-lg: 18px;
+$wf-radius-xl: 22px;
+
+$wf-shadow-sm:
+    0 2px 8px rgba(0, 21, 54, 0.06);
+
+$wf-shadow:
+    0 8px 24px rgba(0, 21, 54, 0.08);
+
+$wf-shadow-lg:
+    0 18px 45px rgba(0, 21, 54, 0.12);
+
+$wf-gradient:
+    linear-gradient(
+        100deg,
+        $wf-navy-900 0%,
+        $wf-navy-800 55%,
+        #0a0a7a 100%
+    );

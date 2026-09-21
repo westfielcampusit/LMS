@@ -1,0 +1,74 @@
+/* =========================================================
+   FORMS
+   ========================================================= */
+
+.form-control,
+.form-select,
+.custom-select {
+    min-height:
+        44px;
+
+    background:
+        $wf-surface-soft;
+
+    border:
+        1px solid $wf-border-dark;
+
+    border-radius:
+        10px;
+
+    color:
+        $wf-text;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
+}
+
+.form-control:hover,
+.form-select:hover,
+.custom-select:hover {
+    border-color:
+        #aeb8c8;
+
+    background:
+        $wf-white;
+}
+
+.form-control:focus,
+.form-select:focus,
+.custom-select:focus {
+    background:
+        $wf-white;
+
+    border-color:
+        $wf-navy-800;
+
+    box-shadow:
+        0 0 0 3px rgba(4, 4, 92, .10);
+}
+
+
+/* Labels */
+
+.form-label,
+.col-form-label,
+.form-group label {
+    color:
+        $wf-text;
+
+    font-weight:
+        600;
+}
+
+
+/* Checkboxes */
+
+.form-check-input:checked {
+    background-color:
+        $wf-navy-800;
+
+    border-color:
+        $wf-navy-800;
+}

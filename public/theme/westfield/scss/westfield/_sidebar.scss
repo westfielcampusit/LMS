@@ -1,0 +1,498 @@
+/* =========================================================
+   WESTFIELD SIDEBAR
+   ========================================================= */
+
+:root {
+    --westfield-sidebar-width: 270px;
+    --westfield-navbar-height: 64px;
+}
+
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+
+.westfield-sidebar {
+    position: fixed;
+
+    top:
+        var(--westfield-navbar-height);
+
+    left: 0;
+    bottom: 0;
+
+    width:
+        var(--westfield-sidebar-width);
+
+    display: flex;
+    flex-direction: column;
+
+    background:
+        linear-gradient(
+            180deg,
+            #001536 0%,
+            #02001f 55%,
+            #04045c 100%
+        );
+
+    color: #ffffff;
+
+    border-right:
+        1px solid rgba(255,255,255,.08);
+
+    box-shadow:
+        8px 0 35px rgba(0,0,0,.16);
+
+    z-index: 1025;
+
+    overflow: hidden;
+
+    transform:
+        translateX(0);
+
+    transition:
+        transform .28s
+        cubic-bezier(.16,1,.3,1),
+        box-shadow .28s ease;
+}
+
+
+/* Glow */
+
+.westfield-sidebar::before {
+    content: "";
+
+    position: absolute;
+
+    width: 260px;
+    height: 260px;
+
+    top: -120px;
+    right: -130px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(70,110,255,.16);
+
+    filter:
+        blur(55px);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   CONTENT
+   ========================================================= */
+
+.westfield-sidebar-content {
+    position: relative;
+
+    z-index: 1;
+
+    flex: 1 1 auto;
+
+    padding:
+        18px 12px 24px;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    scrollbar-width: thin;
+
+    scrollbar-color:
+        rgba(255,255,255,.30)
+        rgba(255,255,255,.04);
+}
+
+
+/* Chrome / Edge scrollbar */
+
+.westfield-sidebar-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+
+.westfield-sidebar-content::-webkit-scrollbar-track {
+    background:
+        rgba(255,255,255,.035);
+
+    border-radius: 20px;
+}
+
+
+.westfield-sidebar-content::-webkit-scrollbar-thumb {
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255,255,255,.42),
+            rgba(120,155,255,.60)
+        );
+
+    border-radius: 20px;
+
+    border:
+        1px solid rgba(255,255,255,.08);
+}
+
+
+.westfield-sidebar-content::-webkit-scrollbar-thumb:hover {
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255,255,255,.65),
+            rgba(130,165,255,.80)
+        );
+}
+
+
+/* =========================================================
+   SIDEBAR LINKS
+   ========================================================= */
+
+.westfield-sidebar-link {
+    position: relative;
+
+    width: 100%;
+    min-height: 48px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    padding:
+        10px 13px;
+
+    margin-bottom:
+        5px;
+
+    border-radius:
+        12px;
+
+    color:
+        rgba(255,255,255,.82) !important;
+
+    text-decoration:
+        none !important;
+
+    font-size:
+        14px;
+
+    font-weight:
+        500;
+
+    transition:
+        background .2s ease,
+        color .2s ease,
+        transform .2s ease;
+}
+
+
+.westfield-sidebar-link:hover {
+    background:
+        rgba(255,255,255,.09);
+
+    color:
+        #ffffff !important;
+
+    transform:
+        translateX(2px);
+}
+
+
+/* Active */
+
+.westfield-sidebar-link.active {
+    color:
+        #ffffff !important;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(48,102,230,.42),
+            rgba(62,90,210,.17)
+        );
+
+    box-shadow:
+        inset 0 0 0 1px
+        rgba(255,255,255,.07);
+}
+
+
+.westfield-sidebar-link.active::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+
+    top: 10px;
+    bottom: 10px;
+
+    width: 3px;
+
+    border-radius:
+        0 5px 5px 0;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 0 12px
+        rgba(255,255,255,.55);
+}
+
+
+/* =========================================================
+   ICONS
+   ========================================================= */
+
+.westfield-sidebar-icon {
+    width: 25px;
+    height: 25px;
+
+    flex:
+        0 0 25px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color:
+        rgba(255,255,255,.88);
+
+    font-size: 16px;
+}
+
+
+.westfield-sidebar-icon .fa {
+    width: 18px;
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    color: inherit;
+
+    font-size: 16px;
+
+    line-height: 1;
+}
+
+
+.westfield-sidebar-link:hover
+.westfield-sidebar-icon,
+.westfield-sidebar-link.active
+.westfield-sidebar-icon {
+    color: #ffffff;
+}
+
+
+.westfield-sidebar-label {
+    flex: 1 1 auto;
+
+    min-width: 0;
+}
+
+
+/* Arrow */
+
+.westfield-sidebar-arrow {
+    margin-left: auto;
+
+    color:
+        rgba(255,255,255,.45);
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   DIVIDER
+   ========================================================= */
+
+.westfield-sidebar-divider {
+    height: 1px;
+
+    margin:
+        10px 8px;
+
+    background:
+        rgba(255,255,255,.09);
+}
+
+
+/* =========================================================
+   BOTTOM
+   ========================================================= */
+
+.westfield-sidebar-bottom {
+    position: relative;
+
+    z-index: 1;
+
+    flex: 0 0 auto;
+
+    padding: 12px;
+
+    border-top:
+        1px solid rgba(255,255,255,.10);
+
+    background:
+        rgba(255,255,255,.035);
+}
+
+
+.westfield-sidebar-help {
+    min-height: 46px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 11px;
+
+    padding:
+        10px 13px;
+
+    border-radius: 11px;
+
+    color:
+        rgba(255,255,255,.84) !important;
+
+    text-decoration:
+        none !important;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    transition:
+        background .2s ease,
+        color .2s ease;
+}
+
+
+.westfield-sidebar-help:hover {
+    background:
+        rgba(255,255,255,.09);
+
+    color:
+        #ffffff !important;
+}
+
+
+/* =========================================================
+   PAGE MOVEMENT
+   ========================================================= */
+
+.westfield-page-area {
+    margin-left:
+        var(--westfield-sidebar-width);
+
+    transition:
+        margin-left .28s
+        cubic-bezier(.16,1,.3,1);
+}
+
+
+/* =========================================================
+   DESKTOP SIDEBAR HIDDEN
+   ========================================================= */
+
+@media (min-width: 992px) {
+
+    body.westfield-sidebar-collapsed
+    .westfield-sidebar {
+        transform:
+            translateX(-100%);
+    }
+
+
+    body.westfield-sidebar-collapsed
+    .westfield-page-area {
+        margin-left:
+            0 !important;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE OVERLAY
+   ========================================================= */
+
+.westfield-sidebar-overlay {
+    display: none;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 991.98px) {
+
+    .westfield-sidebar {
+        top: 0;
+
+        width: 280px;
+
+        max-width: 86vw;
+
+        transform:
+            translateX(-105%);
+
+        z-index: 1060;
+    }
+
+
+    .westfield-sidebar.westfield-sidebar-open {
+        transform:
+            translateX(0);
+    }
+
+
+    .westfield-page-area {
+        margin-left:
+            0 !important;
+    }
+
+
+    .westfield-sidebar-overlay {
+        position: fixed;
+
+        inset: 0;
+
+        z-index: 1055;
+
+        background:
+            rgba(2,0,31,.62);
+
+        backdrop-filter:
+            blur(3px);
+
+        opacity: 0;
+
+        visibility: hidden;
+
+        display: block;
+
+        transition:
+            opacity .25s ease,
+            visibility .25s ease;
+    }
+
+
+    .westfield-sidebar-overlay.westfield-overlay-open {
+        opacity: 1;
+
+        visibility: visible;
+    }
+
+
+    body.westfield-mobile-sidebar-open {
+        overflow: hidden;
+    }
+
+}

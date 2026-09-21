@@ -1,0 +1,42 @@
+/* =========================================================
+   USER PROFILE
+   ========================================================= */
+
+.userprofile .profile_tree section {
+    background:
+        $wf-surface;
+
+    border:
+        1px solid $wf-border;
+
+    border-radius:
+        $wf-radius-lg;
+
+    padding:
+        20px;
+
+    margin-bottom:
+        16px;
+
+    box-shadow:
+        $wf-shadow-sm;
+}
+
+.userprofile .profile_tree section h3 {
+    color:
+        $wf-text;
+
+    font-weight:
+        700;
+}
+
+
+/* User picture */
+
+.userpicture {
+    border:
+        3px solid $wf-white;
+
+    box-shadow:
+        0 4px 14px rgba(0,21,54,.14);
+}

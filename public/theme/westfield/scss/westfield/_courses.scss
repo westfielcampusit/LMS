@@ -1,0 +1,114 @@
+/* =========================================================
+   COURSES
+   ========================================================= */
+
+
+/* Course cards */
+
+.course-card,
+.dashboard-card {
+    background:
+        $wf-surface;
+
+    border:
+        1px solid $wf-border !important;
+
+    border-radius:
+        $wf-radius-lg !important;
+
+    overflow:
+        hidden;
+}
+
+
+/* Course image */
+
+.dashboard-card-img {
+    border-radius:
+        $wf-radius-lg
+        $wf-radius-lg
+        0
+        0;
+}
+
+
+/* Course name */
+
+.coursename,
+.course-card .coursename {
+    color:
+        $wf-text;
+
+    font-weight:
+        700;
+}
+
+
+/* Course sections */
+
+.course-section {
+    border:
+        1px solid $wf-border;
+
+    border-radius:
+        $wf-radius;
+
+    margin-bottom:
+        12px;
+
+    background:
+        $wf-surface;
+}
+
+
+/* Section header */
+
+.course-section .sectionname {
+    color:
+        $wf-text;
+
+    font-weight:
+        700;
+}
+
+
+/* Activities */
+
+.activity-item {
+    border:
+        1px solid transparent;
+
+    border-radius:
+        $wf-radius;
+
+    transition:
+        background .2s ease,
+        border-color .2s ease;
+}
+
+.activity-item:hover {
+    background:
+        $wf-surface-soft;
+
+    border-color:
+        $wf-border;
+}
+
+
+/* Progress */
+
+.progress {
+    border-radius:
+        50px;
+
+    background:
+        #e8edf5;
+
+    overflow:
+        hidden;
+}
+
+.progress-bar {
+    background:
+        $wf-gradient;
+}

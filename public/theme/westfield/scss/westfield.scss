@@ -1,0 +1,27 @@
+/* =========================================================
+   WESTFIELD CAMPUS LMS
+   MASTER STYLESHEET
+   ========================================================= */
+
+@import "westfield/variables";
+@import "westfield/global";
+
+@import "westfield/navbar";
+@import "westfield/login";
+@import "westfield/drawer";
+
+@import "westfield/dashboard";
+@import "westfield/courses";
+
+@import "westfield/cards";
+@import "westfield/forms";
+@import "westfield/buttons";
+@import "westfield/tables";
+
+@import "westfield/admin";
+@import "westfield/profile";
+@import "westfield/calendar";
+
+@import "westfield/footer";
+@import "westfield/responsive";
+@import "westfield/sidebar";

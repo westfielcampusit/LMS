@@ -1,0 +1,62 @@
+/* =========================================================
+   CARDS
+   ========================================================= */
+
+.card {
+    border:
+        1px solid $wf-border;
+
+    border-radius:
+        $wf-radius-lg;
+
+    box-shadow:
+        $wf-shadow-sm;
+
+    background:
+        $wf-surface;
+}
+
+.card-header {
+    background:
+        $wf-surface;
+
+    border-bottom:
+        1px solid $wf-border;
+
+    color:
+        $wf-text;
+
+    font-weight:
+        700;
+}
+
+.card-footer {
+    background:
+        $wf-surface-soft;
+
+    border-top:
+        1px solid $wf-border;
+}
+
+
+/* Interactive cards */
+
+.dashboard-card {
+    border-radius:
+        $wf-radius-lg !important;
+
+    overflow:
+        hidden;
+
+    transition:
+        transform .22s ease,
+        box-shadow .22s ease;
+}
+
+.dashboard-card:hover {
+    transform:
+        translateY(-4px);
+
+    box-shadow:
+        $wf-shadow-lg;
+}
