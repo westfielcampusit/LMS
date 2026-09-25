@@ -164,23 +164,26 @@ echo $OUTPUT->doctype();
 
         <?php if ($isadmin): ?>
 
+            <?php
+            $admincategorylinks = [
+                ['icon' => 'fa-dashboard', 'text' => 'Dashboard', 'url' => $dashboardurl],
+                ['icon' => 'fa-cogs', 'text' => 'Site administration', 'url' => new moodle_url('/admin/search.php')],
+            ];
+            ?>
+
             <nav class="westfield-admin-navbar-links">
 
-                <a
-                    href="<?php echo $dashboardurl; ?>"
-                    class="westfield-admin-navbar-link"
-                >
-                    <i class="fa fa-dashboard"></i>
-                    <span>Dashboard</span>
-                </a>
+                <?php foreach ($admincategorylinks as $link): ?>
 
-                <a
-                    href="<?php echo $CFG->wwwroot; ?>/admin/search.php"
-                    class="westfield-admin-navbar-link"
-                >
-                    <i class="fa fa-cogs"></i>
-                    <span>Site administration</span>
-                </a>
+                    <a
+                        href="<?php echo $link['url']; ?>"
+                        class="westfield-admin-navbar-link"
+                    >
+                        <i class="fa <?php echo $link['icon']; ?>"></i>
+                        <span><?php echo s($link['text']); ?></span>
+                    </a>
+
+                <?php endforeach; ?>
 
             </nav>
 
@@ -1310,8 +1313,14 @@ document.addEventListener(
 );
 </script>
 
-
 <?php echo $OUTPUT->standard_end_of_body_html(); ?>
+
+<script>
+M.util.js_pending('theme_boost/loader');
+require(['theme_boost/loader'], function(Loader) {
+    M.util.js_complete('theme_boost/loader');
+});
+</script>
 
 </body>
 </html>

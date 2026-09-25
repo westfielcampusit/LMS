@@ -3,605 +3,508 @@
    ========================================================= */
 
 :root {
-    --westfield-navbar-height: 64px;
-    --westfield-sidebar-width: 270px;
+  --westfield-navbar-height: 64px;
+  --westfield-sidebar-width: 270px;
 }
-
 
 .westfield-navbar {
-    position: fixed;
+  position: fixed;
 
-    top: 0;
-    left: 0;
-    right: 0;
+  top: 0;
+  left: 0;
+  right: 0;
 
-    height: var(--westfield-navbar-height);
+  height: var(--westfield-navbar-height);
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-    padding: 0 22px;
+  padding: 0 22px;
 
-    background:
-        linear-gradient(
-            100deg,
-            #02001f 0%,
-            #001536 45%,
-            #04045c 100%
-        );
+  background: linear-gradient(100deg, #02001f 0%, #001536 45%, #04045c 100%);
 
-    border-bottom:
-        1px solid rgba(255,255,255,.12);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
 
-    box-shadow:
-        0 4px 18px rgba(0,0,0,.16);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.16);
 
-    z-index: 1050;
+  z-index: 1050;
 }
-
 
 /* =========================================================
    LEFT
    ========================================================= */
 
 .westfield-navbar-left {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 
-    gap: 13px;
+  gap: 13px;
 }
-
 
 /* =========================================================
    SIDEBAR TOGGLE
    ========================================================= */
 
 .westfield-menu-button {
-    width: 42px;
-    height: 42px;
+  width: 42px;
+  height: 42px;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    padding: 0;
+  padding: 0;
 
-    border:
-        1px solid rgba(255,255,255,.10);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 
-    border-radius: 11px;
+  border-radius: 11px;
 
-    background:
-        rgba(255,255,255,.07);
+  background: rgba(255, 255, 255, 0.07);
 
-    color: #ffffff;
+  color: #ffffff;
 
-    cursor: pointer;
+  cursor: pointer;
 
-    transition:
-        background .2s ease,
-        transform .2s ease,
-        border-color .2s ease;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    border-color 0.2s ease;
 }
-
 
 .westfield-menu-button:hover {
-    background:
-        rgba(255,255,255,.14);
+  background: rgba(255, 255, 255, 0.14);
 
-    border-color:
-        rgba(255,255,255,.18);
+  border-color: rgba(255, 255, 255, 0.18);
 
-    transform:
-        translateY(-1px);
+  transform: translateY(-1px);
 }
-
 
 .westfield-menu-button .fa {
-    color: #ffffff;
+  color: #ffffff;
 
-    font-size: 17px;
+  font-size: 17px;
 }
-
 
 /* =========================================================
    BRAND
    ========================================================= */
 
 .westfield-brand {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 
-    gap: 10px;
+  gap: 10px;
 
-    color: #ffffff !important;
+  color: #ffffff !important;
 
-    text-decoration: none !important;
+  text-decoration: none !important;
 }
-
 
 .westfield-navbar-logo {
-    width: 40px !important;
-    height: 40px !important;
+  width: 40px !important;
+  height: 40px !important;
 
-    max-width: 40px !important;
-    max-height: 40px !important;
+  max-width: 40px !important;
+  max-height: 40px !important;
 
-    object-fit: contain;
+  object-fit: contain;
 
-    padding: 3px;
+  padding: 3px;
 
-    background: #ffffff;
+  background: #ffffff;
 
-    border-radius: 50%;
+  border-radius: 50%;
 
-    border:
-        2px solid rgba(255,255,255,.90);
+  border: 2px solid rgba(255, 255, 255, 0.9);
 
-    box-shadow:
-        0 3px 10px rgba(0,0,0,.20);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
 }
-
 
 .westfield-brand-text {
-    color: #ffffff;
+  color: #ffffff;
 
-    font-size: 19px;
-    font-weight: 700;
+  font-size: 19px;
+  font-weight: 700;
 
-    letter-spacing: -.02em;
+  letter-spacing: -0.02em;
 
-    white-space: nowrap;
+  white-space: nowrap;
 }
-
 
 /* =========================================================
    RIGHT
    ========================================================= */
 
 .westfield-navbar-right {
-    height: 100%;
+  height: 100%;
 
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 
-    gap: 12px;
+  gap: 12px;
 }
-
 
 /* Notification + Message icon spacing */
 
 .westfield-navbar-plugins {
-    display: flex;
-    align-items: center;
-    gap: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
 .westfield-navbar-plugins .icon,
 .westfield-navbar-plugins a {
-    color: #ffffff !important;
+  color: #ffffff !important;
 }
-
 
 /* =========================================================
    USER MENU
    ========================================================= */
 
 .westfield-user-menu {
-    position: relative;
+  position: relative;
 
-    height: 100%;
+  height: 100%;
 
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
-
 
 .westfield-user-trigger {
-    min-height: 48px;
+  min-height: 48px;
 
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 
-    gap: 10px;
+  gap: 10px;
 
-    padding:
-        5px 10px 5px 6px;
+  padding: 5px 10px 5px 6px;
 
-    border: 0;
+  border: 0;
 
-    border-radius: 13px;
+  border-radius: 13px;
 
-    background: transparent;
+  background: transparent;
 
-    color: #ffffff;
+  color: #ffffff;
 
-    cursor: pointer;
+  cursor: pointer;
 
-    transition:
-        background .2s ease;
+  transition: background 0.2s ease;
 }
-
 
 .westfield-user-trigger:hover,
-.westfield-user-menu-open
-.westfield-user-trigger {
-    background:
-        rgba(255,255,255,.10);
+.westfield-user-menu-open .westfield-user-trigger {
+  background: rgba(255, 255, 255, 0.1);
 }
-
 
 /* Avatar */
 
 .westfield-user-avatar {
-    width: 40px;
-    height: 40px;
+  width: 40px;
+  height: 40px;
 
-    flex: 0 0 40px;
+  flex: 0 0 40px;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    border-radius: 50%;
+  border-radius: 50%;
 
-    background: #ffffff;
+  background: #ffffff;
 
-    color: #04045c;
+  color: #04045c;
 
-    font-size: 13px;
-    font-weight: 800;
+  font-size: 13px;
+  font-weight: 800;
 
-    text-transform: uppercase;
+  text-transform: uppercase;
 
-    border:
-        2px solid rgba(255,255,255,.40);
+  border: 2px solid rgba(255, 255, 255, 0.4);
 
-    box-shadow:
-        0 3px 12px rgba(0,0,0,.16);
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.16);
 }
-
 
 /* User information */
 
 .westfield-user-info {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-    align-items: flex-start;
+  align-items: flex-start;
 
-    line-height: 1.2;
+  line-height: 1.2;
 }
-
 
 .westfield-user-name {
-    max-width: 180px;
+  max-width: 180px;
 
-    overflow: hidden;
+  overflow: hidden;
 
-    text-overflow: ellipsis;
+  text-overflow: ellipsis;
 
-    white-space: nowrap;
+  white-space: nowrap;
 
-    color: #ffffff;
+  color: #ffffff;
 
-    font-size: 14px;
-    font-weight: 700;
+  font-size: 14px;
+  font-weight: 700;
 }
-
 
 .westfield-user-role {
-    margin-top: 2px;
+  margin-top: 2px;
 
-    color:
-        rgba(255,255,255,.58);
+  color: rgba(255, 255, 255, 0.58);
 
-    font-size: 10px;
-    font-weight: 500;
+  font-size: 10px;
+  font-weight: 500;
 }
-
 
 /* Chevron */
 
 .westfield-user-chevron {
-    margin-left: 3px;
+  margin-left: 3px;
 
-    color:
-        rgba(255,255,255,.70);
+  color: rgba(255, 255, 255, 0.7);
 
-    font-size: 10px;
+  font-size: 10px;
 
-    transition:
-        transform .2s ease;
+  transition: transform 0.2s ease;
 }
 
-
-.westfield-user-menu-open
-.westfield-user-chevron {
-    transform:
-        rotate(180deg);
+.westfield-user-menu-open .westfield-user-chevron {
+  transform: rotate(180deg);
 }
-
 
 /* =========================================================
    USER DROPDOWN
    ========================================================= */
 
 .westfield-user-dropdown {
-    position: absolute;
+  position: absolute;
 
-    top: calc(100% - 4px);
-    right: 0;
+  top: calc(100% - 4px);
+  right: 0;
 
-    width: 285px;
+  width: 285px;
 
-    padding: 8px;
+  padding: 8px;
 
-    background: #ffffff;
+  background: #ffffff;
 
-    border:
-        1px solid rgba(0,21,54,.10);
+  border: 1px solid rgba(0, 21, 54, 0.1);
 
-    border-radius: 16px;
+  border-radius: 16px;
 
-    box-shadow:
-        0 20px 50px rgba(0,21,54,.20);
+  box-shadow: 0 20px 50px rgba(0, 21, 54, 0.2);
 
-    opacity: 0;
-    visibility: hidden;
+  opacity: 0;
+  visibility: hidden;
 
-    transform:
-        translateY(-7px)
-        scale(.98);
+  transform: translateY(-7px) scale(0.98);
 
-    transform-origin:
-        top right;
+  transform-origin: top right;
 
-    pointer-events: none;
+  pointer-events: none;
 
-    transition:
-        opacity .18s ease,
-        visibility .18s ease,
-        transform .18s ease;
+  transition:
+    opacity 0.18s ease,
+    visibility 0.18s ease,
+    transform 0.18s ease;
 
-    z-index: 1100;
+  z-index: 1100;
 }
 
+.westfield-user-menu-open .westfield-user-dropdown {
+  opacity: 1;
 
-.westfield-user-menu-open
-.westfield-user-dropdown {
-    opacity: 1;
+  visibility: visible;
 
-    visibility: visible;
+  transform: translateY(0) scale(1);
 
-    transform:
-        translateY(0)
-        scale(1);
-
-    pointer-events: auto;
+  pointer-events: auto;
 }
-
 
 /* =========================================================
    DROPDOWN USER
    ========================================================= */
 
 .westfield-dropdown-user {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 
-    gap: 11px;
+  gap: 11px;
 
-    padding:
-        10px 10px 12px;
+  padding: 10px 10px 12px;
 }
-
 
 .westfield-dropdown-avatar {
-    width: 42px;
-    height: 42px;
+  width: 42px;
+  height: 42px;
 
-    flex: 0 0 42px;
+  flex: 0 0 42px;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    border-radius: 50%;
+  border-radius: 50%;
 
-    background:
-        linear-gradient(
-            135deg,
-            #001536,
-            #04045c
-        );
+  background: linear-gradient(135deg, #001536, #04045c);
 
-    color: #ffffff;
+  color: #ffffff;
 
-    font-size: 13px;
-    font-weight: 800;
+  font-size: 13px;
+  font-weight: 800;
 
-    box-shadow:
-        0 5px 14px rgba(4,4,92,.18);
+  box-shadow: 0 5px 14px rgba(4, 4, 92, 0.18);
 }
-
 
 .westfield-dropdown-user-details {
-    min-width: 0;
+  min-width: 0;
 }
-
 
 .westfield-dropdown-name {
-    overflow: hidden;
+  overflow: hidden;
 
-    text-overflow: ellipsis;
+  text-overflow: ellipsis;
 
-    white-space: nowrap;
+  white-space: nowrap;
 
-    color: #001536;
+  color: #001536;
 
-    font-size: 13px;
-    font-weight: 700;
+  font-size: 13px;
+  font-weight: 700;
 }
-
 
 .westfield-dropdown-role {
-    margin-top: 2px;
+  margin-top: 2px;
 
-    color: #667085;
+  color: #667085;
 
-    font-size: 11px;
+  font-size: 11px;
 }
-
 
 /* =========================================================
    DROPDOWN ITEMS
    ========================================================= */
 
 .westfield-dropdown-item {
-    min-height: 42px;
+  min-height: 42px;
 
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 
-    gap: 11px;
+  gap: 11px;
 
-    padding:
-        9px 11px;
+  padding: 9px 11px;
 
-    border-radius: 10px;
+  border-radius: 10px;
 
-    color: #001536 !important;
+  color: #001536 !important;
 
-    text-decoration: none !important;
+  text-decoration: none !important;
 
-    font-size: 13px;
-    font-weight: 500;
+  font-size: 13px;
+  font-weight: 500;
 
-    transition:
-        background .18s ease,
-        color .18s ease,
-        transform .18s ease;
+  transition:
+    background 0.18s ease,
+    color 0.18s ease,
+    transform 0.18s ease;
 }
-
 
 .westfield-dropdown-item:hover {
-    background:
-        #f2f6ff;
+  background: #f2f6ff;
 
-    color:
-        #04045c !important;
+  color: #04045c !important;
 
-    transform:
-        translateX(2px);
+  transform: translateX(2px);
 }
-
 
 /* Dropdown icon */
 
 .westfield-dropdown-icon {
-    width: 22px;
-    height: 22px;
+  width: 22px;
+  height: 22px;
 
-    flex: 0 0 22px;
+  flex: 0 0 22px;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    color: #001536;
+  color: #001536;
 }
-
 
 .westfield-dropdown-icon .fa {
-    font-size: 14px;
+  font-size: 14px;
 }
-
 
 /* Divider */
 
 .westfield-dropdown-divider {
-    height: 1px;
+  height: 1px;
 
-    margin: 6px 5px;
+  margin: 6px 5px;
 
-    background:
-        #e3e8f0;
+  background: #e3e8f0;
 }
-
 
 /* =========================================================
    LOGOUT RED
    ========================================================= */
 
 .westfield-dropdown-logout {
-    color:
-        #b42318 !important;
+  color: #b42318 !important;
 }
 
-
-.westfield-dropdown-logout
-.westfield-dropdown-icon {
-    color:
-        #b42318 !important;
+.westfield-dropdown-logout .westfield-dropdown-icon {
+  color: #b42318 !important;
 }
-
 
 .westfield-dropdown-logout:hover {
-    color:
-        #b42318 !important;
+  color: #b42318 !important;
 
-    background:
-        #fff1f0;
+  background: #fff1f0;
 }
-
 
 /* =========================================================
    MOBILE
    ========================================================= */
 
 @media (max-width: 767px) {
+  .westfield-navbar {
+    padding: 0 12px;
+  }
 
-    .westfield-navbar {
-        padding:
-            0 12px;
-    }
+  .westfield-brand-text {
+    display: none;
+  }
 
-    .westfield-brand-text {
-        display: none;
-    }
+  .westfield-user-info {
+    display: none;
+  }
 
-    .westfield-user-info {
-        display: none;
-    }
+  .westfield-user-chevron {
+    display: none;
+  }
 
-    .westfield-user-chevron {
-        display: none;
-    }
+  .westfield-user-trigger {
+    padding: 4px;
+  }
 
-    .westfield-user-trigger {
-        padding: 4px;
-    }
+  .westfield-user-dropdown {
+    position: fixed;
 
-    .westfield-user-dropdown {
-        position: fixed;
+    top: calc(var(--westfield-navbar-height) - 2px);
 
-        top:
-            calc(
-                var(--westfield-navbar-height)
-                - 2px
-            );
+    right: 10px;
 
-        right: 10px;
-
-        width:
-            min(
-                285px,
-                calc(100vw - 20px)
-            );
-    }
-
+    width: min(285px, calc(100vw - 20px));
+  }
 }
 
 /* =========================================================
@@ -609,42 +512,46 @@
    ========================================================= */
 
 .westfield-admin-navbar-links {
-    display: flex;
-    align-items: center;
-    gap: 6px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  row-gap: 4px;
 
-    margin-left: 18px;
-    padding-left: 18px;
+  margin-left: 18px;
+  padding-left: 18px;
 
-    border-left:
-        1px solid rgba(255, 255, 255, .14);
+  max-width: 100%;
+  overflow-x: auto;
+
+  border-left: 1px solid rgba(255, 255, 255, 0.14);
 }
 
 .westfield-admin-navbar-link {
-    min-height: 38px;
+  min-height: 38px;
 
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 
-    gap: 8px;
+  gap: 8px;
 
-    padding: 8px 13px;
+  padding: 8px 13px;
 
-    border-radius: 9px;
+  border-radius: 9px;
 
-    color: #ffffff !important;
-    text-decoration: none !important;
+  color: #ffffff !important;
+  text-decoration: none !important;
 
-    font-size: 13px;
-    font-weight: 600;
+  font-size: 13px;
+  font-weight: 600;
 
-    white-space: nowrap;
+  white-space: nowrap;
 
-    transition:
-        background .18s ease,
-        color .18s ease,
-        transform .18s ease;
+  transition:
+    background 0.18s ease,
+    color 0.18s ease,
+    transform 0.18s ease;
 }
 
 .westfield-admin-navbar-link,
@@ -653,26 +560,24 @@
 .westfield-admin-navbar-link span,
 .westfield-admin-navbar-link i,
 .westfield-admin-navbar-link .fa {
-    color: #ffffff !important;
+  color: #ffffff !important;
 }
 
 .westfield-admin-navbar-link:hover,
 .westfield-admin-navbar-link:focus {
-    color: #ffffff !important;
+  color: #ffffff !important;
 
-    background:
-        rgba(255, 255, 255, .10);
+  background: rgba(255, 255, 255, 0.1);
 
-    text-decoration: none !important;
+  text-decoration: none !important;
 
-    transform:
-        translateY(-1px);
+  transform: translateY(-1px);
 }
 
 .westfield-admin-navbar-link:hover span,
 .westfield-admin-navbar-link:hover i,
 .westfield-admin-navbar-link:hover .fa {
-    color: #ffffff !important;
+  color: #ffffff !important;
 }
 
 /* =========================================================
@@ -684,28 +589,24 @@ body.path-admin .navbar.fixed-top,
 body.westfield-admin-layout .navbar.fixed-top,
 body.path-admin nav.navbar,
 body.westfield-admin-layout nav.navbar {
-    min-height: 64px !important;
-    height: 64px !important;
+  min-height: 64px !important;
+  height: 64px !important;
 
-    padding: 0 22px !important;
+  padding: 0 22px !important;
 
-    background:
-        linear-gradient(
-            100deg,
-            #02001f 0%,
-            #001536 45%,
-            #04045c 100%
-        ) !important;
+  background: linear-gradient(
+    100deg,
+    #02001f 0%,
+    #001536 45%,
+    #04045c 100%
+  ) !important;
 
-    border: 0 !important;
+  border: 0 !important;
 
-    border-bottom:
-        1px solid rgba(255, 255, 255, .12) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
 
-    box-shadow:
-        0 4px 18px rgba(0, 0, 0, .16) !important;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.16) !important;
 }
-
 
 /* =========================================================
    WESTFIELD LMS BRAND
@@ -713,23 +614,22 @@ body.westfield-admin-layout nav.navbar {
 
 body.path-admin .navbar .navbar-brand,
 body.westfield-admin-layout .navbar .navbar-brand {
-    color: #ffffff !important;
+  color: #ffffff !important;
 
-    font-size: 19px !important;
-    font-weight: 700 !important;
+  font-size: 19px !important;
+  font-weight: 700 !important;
 
-    text-decoration: none !important;
+  text-decoration: none !important;
 
-    margin-right: 22px !important;
+  margin-right: 22px !important;
 
-    letter-spacing: -.02em;
+  letter-spacing: -0.02em;
 }
 
 body.path-admin .navbar .navbar-brand:hover,
 body.westfield-admin-layout .navbar .navbar-brand:hover {
-    color: #ffffff !important;
+  color: #ffffff !important;
 }
-
 
 /* =========================================================
    DASHBOARD + SITE ADMINISTRATION
@@ -737,85 +637,71 @@ body.westfield-admin-layout .navbar .navbar-brand:hover {
 
 body.path-admin .navbar .primary-navigation .nav-link,
 body.westfield-admin-layout .navbar .primary-navigation .nav-link {
-    min-height: 64px !important;
+  min-height: 64px !important;
 
-    display: flex !important;
-    align-items: center !important;
+  display: flex !important;
+  align-items: center !important;
 
-    padding:
-        0 14px !important;
+  padding: 0 14px !important;
 
-    color:
-        rgba(255, 255, 255, .78) !important;
+  color: rgba(255, 255, 255, 0.78) !important;
 
-    background:
-        transparent !important;
+  background: transparent !important;
 
-    border:
-        0 !important;
+  border: 0 !important;
 
-    font-size:
-        14px !important;
+  font-size: 14px !important;
 
-    font-weight:
-        600 !important;
+  font-weight: 600 !important;
 
-    text-decoration:
-        none !important;
+  text-decoration: none !important;
 
-    position: relative;
+  position: relative;
 
-    transition:
-        color .18s ease,
-        background .18s ease !important;
+  transition:
+    color 0.18s ease,
+    background 0.18s ease !important;
 }
-
 
 /* Hover */
 
 body.path-admin .navbar .primary-navigation .nav-link:hover,
 body.westfield-admin-layout .navbar .primary-navigation .nav-link:hover {
-    color:
-        #ffffff !important;
+  color: #ffffff !important;
 
-    background:
-        rgba(255, 255, 255, .08) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
 }
-
 
 /* Active item */
 
 body.path-admin .navbar .primary-navigation .nav-link.active,
 body.westfield-admin-layout .navbar .primary-navigation .nav-link.active {
-    color:
-        #ffffff !important;
+  color: #ffffff !important;
 
-    background:
-        rgba(255, 255, 255, .06) !important;
+  background: rgba(255, 255, 255, 0.06) !important;
 }
-
 
 /* Active bottom line */
 
 body.path-admin .navbar .primary-navigation .nav-link.active::after,
-body.westfield-admin-layout .navbar .primary-navigation .nav-link.active::after {
-    content: "";
+body.westfield-admin-layout
+  .navbar
+  .primary-navigation
+  .nav-link.active::after {
+  content: "";
 
-    position: absolute;
+  position: absolute;
 
-    left: 12px;
-    right: 12px;
-    bottom: 0;
+  left: 12px;
+  right: 12px;
+  bottom: 0;
 
-    height: 3px;
+  height: 3px;
 
-    background:
-        #60a5fa;
+  background: #60a5fa;
 
-    border-radius:
-        3px 3px 0 0;
+  border-radius: 3px 3px 0 0;
 }
-
 
 /* =========================================================
    RIGHT SIDE
@@ -825,27 +711,22 @@ body.westfield-admin-layout .navbar .primary-navigation .nav-link.active::after 
 body.path-admin .navbar .navbar-nav .nav-link,
 body.path-admin .navbar .nav-link,
 body.westfield-admin-layout .navbar .navbar-nav .nav-link {
-    color:
-        rgba(255, 255, 255, .85) !important;
+  color: rgba(255, 255, 255, 0.85) !important;
 }
 
 body.path-admin .navbar .navbar-nav .nav-link:hover,
 body.path-admin .navbar .nav-link:hover,
 body.westfield-admin-layout .navbar .navbar-nav .nav-link:hover {
-    color:
-        #ffffff !important;
+  color: #ffffff !important;
 }
-
 
 /* Edit mode text */
 
 body.path-admin .navbar .form-check-label,
 body.path-admin .navbar label,
 body.westfield-admin-layout .navbar .form-check-label {
-    color:
-        #ffffff !important;
+  color: #ffffff !important;
 }
-
 
 /* Notification / message icons */
 
@@ -853,10 +734,8 @@ body.path-admin .navbar .icon,
 body.path-admin .navbar i,
 body.westfield-admin-layout .navbar .icon,
 body.westfield-admin-layout .navbar i {
-    color:
-        #ffffff !important;
+  color: #ffffff !important;
 }
-
 
 /* =========================================================
    USER AVATAR
@@ -864,22 +743,17 @@ body.westfield-admin-layout .navbar i {
 
 body.path-admin .navbar .userpicture,
 body.westfield-admin-layout .navbar .userpicture {
-    border:
-        2px solid rgba(255, 255, 255, .50);
+  border: 2px solid rgba(255, 255, 255, 0.5);
 
-    box-shadow:
-        0 3px 10px rgba(0, 0, 0, .18);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18);
 }
-
 
 /* User dropdown arrow */
 
 body.path-admin .navbar .usermenu .dropdown-toggle,
 body.westfield-admin-layout .navbar .usermenu .dropdown-toggle {
-    color:
-        #ffffff !important;
+  color: #ffffff !important;
 }
-
 
 /* =========================================================
    EDIT MODE SWITCH
@@ -887,13 +761,10 @@ body.westfield-admin-layout .navbar .usermenu .dropdown-toggle {
 
 body.path-admin .navbar .form-switch .form-check-input:checked,
 body.westfield-admin-layout .navbar .form-switch .form-check-input:checked {
-    background-color:
-        #2563eb !important;
+  background-color: #2563eb !important;
 
-    border-color:
-        #60a5fa !important;
+  border-color: #60a5fa !important;
 }
-
 
 /* =========================================================
    PAGE POSITION BELOW NAVBAR
@@ -901,38 +772,30 @@ body.westfield-admin-layout .navbar .form-switch .form-check-input:checked {
 
 body.path-admin #page,
 body.westfield-admin-layout #page {
-    margin-top:
-        64px !important;
+  margin-top: 64px !important;
 }
-
 
 /* =========================================================
    MOBILE
    ========================================================= */
 
 @media (max-width: 767.98px) {
+  body.path-admin .navbar.fixed-top,
+  body.westfield-admin-layout .navbar.fixed-top {
+    padding: 0 12px !important;
+  }
 
-    body.path-admin .navbar.fixed-top,
-    body.westfield-admin-layout .navbar.fixed-top {
-        padding:
-            0 12px !important;
-    }
+  body.path-admin .navbar .navbar-brand,
+  body.westfield-admin-layout .navbar .navbar-brand {
+    font-size: 16px !important;
 
-    body.path-admin .navbar .navbar-brand,
-    body.westfield-admin-layout .navbar .navbar-brand {
-        font-size:
-            16px !important;
+    margin-right: 8px !important;
+  }
 
-        margin-right:
-            8px !important;
-    }
+  body.path-admin .navbar .primary-navigation .nav-link,
+  body.westfield-admin-layout .navbar .primary-navigation .nav-link {
+    padding: 0 8px !important;
 
-    body.path-admin .navbar .primary-navigation .nav-link,
-    body.westfield-admin-layout .navbar .primary-navigation .nav-link {
-        padding:
-            0 8px !important;
-
-        font-size:
-            12px !important;
-    }
+    font-size: 12px !important;
+  }
 }
