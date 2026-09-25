@@ -3,47 +3,46 @@
    SITE ADMINISTRATION
    ========================================================= */
 
-
 /* =========================================================
    ADMIN PAGE BACKGROUND
    ========================================================= */
 
 body.path-admin {
-    background:
-        #f5f7fb;
+  background: #f5f7fb;
 }
 
 body.path-admin #page {
-    background:
-        #f5f7fb;
+  background: #f5f7fb;
 }
-
 
 /* =========================================================
    ADMIN MAIN CONTENT
    ========================================================= */
 
 body.path-admin #page-content {
-    padding:
-        24px 28px 40px;
+  padding: 24px 28px 40px;
+}
+
+/* =========================================================
+   NO SIDEBAR ON ADMIN SIDE
+   Reclaim the space normally reserved for the student sidebar.
+   ========================================================= */
+
+body.westfield-admin-layout .westfield-page-area {
+  margin-left: 0 !important;
 }
 
 body.path-admin #region-main {
-    background:
-        #ffffff;
+  background: #ffffff;
 
-    border:
-        1px solid rgba(0, 21, 54, .10);
+  border: 1px solid rgba(0, 21, 54, 0.1);
 
-    border-radius:
-        18px;
+  border-radius: 18px;
 
-    box-shadow:
-        0 8px 30px rgba(0, 21, 54, .06);
+  box-shadow: 0 8px 30px rgba(0, 21, 54, 0.06);
 
-    overflow: hidden;
+  overflow: hidden;
 }
-
 
 /* =========================================================
    PAGE TITLE
@@ -51,41 +50,30 @@ body.path-admin #region-main {
 
 body.path-admin .page-header-headings h1,
 body.path-admin h1 {
-    color:
-        #001536;
+  color: #001536;
 
-    font-weight:
-        750;
+  font-weight: 750;
 
-    letter-spacing:
-        -.025em;
+  letter-spacing: -0.025em;
 }
-
 
 /* =========================================================
    SITE ADMINISTRATION HEADER AREA
    ========================================================= */
 
 body.path-admin .tertiary-navigation {
-    background:
-        #ffffff;
+  background: #ffffff;
 
-    border:
-        1px solid rgba(0, 21, 54, .08);
+  border: 1px solid rgba(0, 21, 54, 0.08);
 
-    border-radius:
-        14px;
+  border-radius: 14px;
 
-    padding:
-        10px 14px;
+  padding: 10px 14px;
 
-    margin-bottom:
-        18px;
+  margin-bottom: 18px;
 
-    box-shadow:
-        0 4px 16px rgba(0, 21, 54, .04);
+  box-shadow: 0 4px 16px rgba(0, 21, 54, 0.04);
 }
-
 
 /* =========================================================
    ADMIN CATEGORY TABS
@@ -93,170 +81,125 @@ body.path-admin .tertiary-navigation {
    ========================================================= */
 
 body.path-admin .nav-tabs {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 
-    gap: 5px;
+  gap: 5px;
 
-    border-bottom:
-        1px solid #e4e9f2;
+  border-bottom: 1px solid #e4e9f2;
 
-    margin-bottom:
-        16px;
+  margin-bottom: 16px;
 }
 
 body.path-admin .nav-tabs .nav-item {
-    margin-bottom:
-        -1px;
+  margin-bottom: -1px;
 }
 
 body.path-admin .nav-tabs .nav-link {
-    position: relative;
+  position: relative;
 
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 
-    min-height:
-        48px;
+  min-height: 48px;
 
-    padding:
-        12px 16px;
+  padding: 12px 16px;
 
-    color:
-        #53627a !important;
+  color: #53627a !important;
 
-    background:
-        transparent !important;
+  background: transparent !important;
 
-    border:
-        0 !important;
+  border: 0 !important;
 
-    border-bottom:
-        3px solid transparent !important;
+  border-bottom: 3px solid transparent !important;
 
-    border-radius:
-        8px 8px 0 0;
+  border-radius: 8px 8px 0 0;
 
-    font-size:
-        14px;
+  font-size: 14px;
 
-    font-weight:
-        600;
+  font-weight: 600;
 
-    text-decoration:
-        none !important;
+  text-decoration: none !important;
 
-    transition:
-        color .18s ease,
-        background .18s ease,
-        border-color .18s ease;
+  transition:
+    color 0.18s ease,
+    background 0.18s ease,
+    border-color 0.18s ease;
 }
-
 
 /* Hover */
 
 body.path-admin .nav-tabs .nav-link:hover {
-    color:
-        #04045c !important;
+  color: #04045c !important;
 
-    background:
-        #f2f6ff !important;
+  background: #f2f6ff !important;
 
-    border-bottom-color:
-        rgba(4, 4, 92, .25) !important;
+  border-bottom-color: rgba(4, 4, 92, 0.25) !important;
 }
-
 
 /* Active */
 
 body.path-admin .nav-tabs .nav-link.active,
 body.path-admin .nav-tabs .nav-item.show .nav-link {
-    color:
-        #04045c !important;
+  color: #04045c !important;
 
-    background:
-        transparent !important;
+  background: transparent !important;
 
-    border-bottom-color:
-        #2563eb !important;
+  border-bottom-color: #2563eb !important;
 
-    font-weight:
-        700;
+  font-weight: 700;
 }
-
 
 /* =========================================================
    ADMIN SEARCH
    ========================================================= */
 
 body.path-admin #adminsearchquery {
-    min-height:
-        44px;
+  min-height: 44px;
 
-    padding:
-        9px 14px;
+  padding: 9px 14px;
 
-    background:
-        #ffffff;
+  background: #ffffff;
 
-    color:
-        #001536;
+  color: #001536;
 
-    border:
-        1px solid #cfd7e5;
+  border: 1px solid #cfd7e5;
 
-    border-radius:
-        10px 0 0 10px;
+  border-radius: 10px 0 0 10px;
 
-    box-shadow:
-        none;
+  box-shadow: none;
 
-    transition:
-        border-color .18s ease,
-        box-shadow .18s ease;
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
 }
 
 body.path-admin #adminsearchquery:focus {
-    border-color:
-        #2563eb;
+  border-color: #2563eb;
 
-    box-shadow:
-        0 0 0 3px rgba(37, 99, 235, .10);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
-
 
 /* Search button */
 
 body.path-admin #adminsearchquery + button,
 body.path-admin .adminsearchform button {
-    min-height:
-        44px;
+  min-height: 44px;
 
-    border-radius:
-        0 10px 10px 0;
+  border-radius: 0 10px 10px 0;
 
-    background:
-        linear-gradient(
-            135deg,
-            #001536,
-            #04045c
-        );
+  background: linear-gradient(135deg, #001536, #04045c);
 
-    border-color:
-        #04045c;
+  border-color: #04045c;
 
-    color:
-        #ffffff;
+  color: #ffffff;
 }
 
 body.path-admin .adminsearchform button:hover {
-    background:
-        #04045c;
+  background: #04045c;
 
-    color:
-        #ffffff;
+  color: #ffffff;
 }
-
 
 /* =========================================================
    ADMIN SECTIONS
@@ -265,18 +208,14 @@ body.path-admin .adminsearchform button:hover {
 body.path-admin .settingsform,
 body.path-admin .generalbox,
 body.path-admin .box {
-    border-radius:
-        14px;
+  border-radius: 14px;
 }
 
 body.path-admin .settingsform .form-item {
-    padding:
-        18px 16px;
+  padding: 18px 16px;
 
-    border-bottom:
-        1px solid #e7ebf2;
+  border-bottom: 1px solid #e7ebf2;
 }
-
 
 /* =========================================================
    ADMIN CATEGORY CONTENT
@@ -286,65 +225,46 @@ body.path-admin .settingsform h2,
 body.path-admin .settingsform h3,
 body.path-admin #region-main h2,
 body.path-admin #region-main h3 {
-    color:
-        #001536;
+  color: #001536;
 
-    font-weight:
-        700;
+  font-weight: 700;
 }
-
 
 /* =========================================================
    ADMIN LINKS
    ========================================================= */
 
 body.path-admin #region-main a:not(.btn):not(.nav-link) {
-    color:
-        #075fc9;
+  color: #075fc9;
 
-    text-decoration:
-        none;
+  text-decoration: none;
 }
 
 body.path-admin #region-main a:not(.btn):not(.nav-link):hover {
-    color:
-        #04045c;
+  color: #04045c;
 
-    text-decoration:
-        underline;
+  text-decoration: underline;
 }
-
 
 /* =========================================================
    BUTTONS
    ========================================================= */
 
 body.path-admin .btn-primary {
-    background:
-        linear-gradient(
-            135deg,
-            #075fc9,
-            #04045c
-        );
+  background: linear-gradient(135deg, #075fc9, #04045c);
 
-    border-color:
-        #075fc9;
+  border-color: #075fc9;
 
-    border-radius:
-        10px;
+  border-radius: 10px;
 
-    font-weight:
-        600;
+  font-weight: 600;
 }
 
 body.path-admin .btn-primary:hover {
-    background:
-        #04045c;
+  background: #04045c;
 
-    border-color:
-        #04045c;
+  border-color: #04045c;
 }
-
 
 /* =========================================================
    FORM CONTROLS
@@ -352,103 +272,76 @@ body.path-admin .btn-primary:hover {
 
 body.path-admin .form-control,
 body.path-admin .form-select {
-    border-radius:
-        10px;
+  border-radius: 10px;
 
-    border-color:
-        #cfd7e5;
+  border-color: #cfd7e5;
 }
 
 body.path-admin .form-control:focus,
 body.path-admin .form-select:focus {
-    border-color:
-        #2563eb;
+  border-color: #2563eb;
 
-    box-shadow:
-        0 0 0 3px rgba(37, 99, 235, .10);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
-
 
 /* =========================================================
    ADMIN CARDS
    ========================================================= */
 
 body.path-admin .card {
-    border:
-        1px solid rgba(0, 21, 54, .09);
+  border: 1px solid rgba(0, 21, 54, 0.09);
 
-    border-radius:
-        14px;
+  border-radius: 14px;
 
-    box-shadow:
-        0 4px 18px rgba(0, 21, 54, .04);
+  box-shadow: 0 4px 18px rgba(0, 21, 54, 0.04);
 }
-
 
 /* =========================================================
    TABLES
    ========================================================= */
 
 body.path-admin .table {
-    color:
-        #26354a;
+  color: #26354a;
 }
 
 body.path-admin .table thead th {
-    color:
-        #001536;
+  color: #001536;
 
-    background:
-        #f5f8fc;
+  background: #f5f8fc;
 
-    border-bottom:
-        1px solid #dfe5ee;
+  border-bottom: 1px solid #dfe5ee;
 
-    font-weight:
-        700;
+  font-weight: 700;
 }
-
 
 /* =========================================================
    MOBILE / TABLET
    ========================================================= */
 
 @media (max-width: 991.98px) {
+  body.path-admin #page-content {
+    padding: 18px 14px 30px;
+  }
 
-    body.path-admin #page-content {
-        padding:
-            18px 14px 30px;
-    }
+  body.path-admin .nav-tabs {
+    overflow-x: auto;
 
-    body.path-admin .nav-tabs {
-        overflow-x:
-            auto;
+    flex-wrap: nowrap;
 
-        flex-wrap:
-            nowrap;
+    scrollbar-width: thin;
+  }
 
-        scrollbar-width:
-            thin;
-    }
-
-    body.path-admin .nav-tabs .nav-link {
-        white-space:
-            nowrap;
-    }
-
+  body.path-admin .nav-tabs .nav-link {
+    white-space: nowrap;
+  }
 }
 
-
 @media (max-width: 575.98px) {
+  body.path-admin #page-content {
+    padding: 12px 8px 24px;
+  }
 
-    body.path-admin #page-content {
-        padding:
-            12px 8px 24px;
-    }
-
-    body.path-admin #region-main {
-        border-radius:
-            12px;
-    }
-
+  body.path-admin #region-main {
+    border-radius: 12px;
+  }
 }
