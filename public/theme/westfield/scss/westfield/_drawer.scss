@@ -61,3 +61,263 @@
 
     box-shadow: $wf-shadow-sm;
 }
+
+/* Message drawer: keep Moodle's routing, focus and collapse behaviour. */
+[data-region="right-hand-drawer"].drawer:has(> [data-region="message-drawer"]) {
+    top: calc(var(--westfield-navbar-height) + 12px);
+    right: 12px;
+    width: 380px;
+    max-width: calc(100vw - 24px);
+    height: calc(100dvh - var(--westfield-navbar-height) - 24px);
+    border: 1px solid $wf-border;
+    border-radius: $wf-radius-lg;
+    box-shadow: $wf-shadow-lg;
+    overflow: hidden;
+    z-index: 1100;
+
+    &.hidden {
+        right: -400px;
+    }
+}
+
+[data-region="message-drawer"].message-app {
+    color: $wf-text;
+    background: $wf-bg;
+
+    .closewidget,
+    .header-container {
+        background: $wf-gradient;
+        color: $wf-white;
+    }
+
+    .closewidget {
+        padding: 10px 12px 0 !important;
+
+        [data-action="closedrawer"] {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: $wf-radius-sm;
+            color: $wf-white !important;
+
+            &:hover {
+                background: rgba(255, 255, 255, .16);
+            }
+        }
+    }
+
+    .header-container {
+        padding: 8px 12px 14px;
+
+        > [data-region] {
+            border-bottom: 0 !important;
+        }
+
+        h3,
+        h4,
+        h5,
+        h6,
+        .btn-icon {
+            color: $wf-white;
+        }
+
+        .dropdown-menu {
+            color: $wf-text;
+        }
+
+        // Moodle adds bg-white here; keep the conversation on the navy header.
+        > [data-region="view-conversation"] {
+            background: transparent !important;
+            color: $wf-white;
+
+            [data-region="header-content"] strong,
+            [data-route-back],
+            .btn-icon {
+                color: $wf-white;
+            }
+
+            [data-region="favourite-icon-container"],
+            [data-region="muted-icon-container"] {
+                color: #93c5fd !important;
+            }
+        }
+
+        .simplesearchform {
+            position: relative;
+            border-radius: $wf-radius;
+            background: $wf-surface;
+
+            .form-control {
+                width: 100%;
+                padding-right: 48px;
+                // The visually hidden label triggers Bootstrap's square-left rule.
+                border-radius: $wf-radius !important;
+            }
+
+            .btn-submit {
+                position: absolute;
+                top: 4px;
+                right: 4px;
+                bottom: 4px;
+                z-index: 5;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 36px;
+                margin: 0;
+                padding: 0;
+                border: 0;
+                background: transparent;
+                color: $wf-navy-800;
+                border-radius: $wf-radius-sm !important;
+                transform: none;
+
+                &:hover {
+                    background: $wf-blue-light;
+                }
+            }
+        }
+    }
+
+    .form-control {
+        color: $wf-text;
+        background: $wf-surface;
+        border: 1px solid $wf-border;
+        border-radius: $wf-radius;
+
+        &::placeholder {
+            color: $wf-text-secondary;
+        }
+
+        &:focus {
+            border-color: $wf-blue;
+            box-shadow: 0 0 0 3px rgba($wf-blue, .18);
+        }
+    }
+
+    .view-overview-body {
+        padding: 10px;
+
+        .section {
+            margin-bottom: 8px;
+            background: $wf-surface;
+            border-radius: $wf-radius !important;
+            box-shadow: $wf-shadow-sm;
+        }
+
+        .card-header {
+            background: $wf-surface;
+            border: 0;
+            border-radius: $wf-radius !important;
+        }
+
+        .overview-section-toggle {
+            min-height: 46px;
+            color: $wf-navy-800;
+            font-size: 14px;
+        }
+    }
+
+    .list-group .list-group-item {
+        margin: 4px 6px;
+        width: auto;
+        min-height: 68px;
+        color: $wf-text;
+        background: $wf-surface;
+        border-radius: $wf-radius;
+
+        &:hover,
+        &:focus-visible,
+        &.active {
+            color: $wf-text;
+            background: $wf-blue-light;
+            transform: none;
+        }
+
+        .last-message,
+        [data-region="last-message-date"] {
+            color: $wf-text-secondary;
+            font-size: 12px;
+        }
+    }
+
+    .badge.bg-primary {
+        background-color: $wf-blue !important;
+    }
+
+    .message {
+        border-radius: $wf-radius !important;
+        box-shadow: $wf-shadow-sm;
+
+        &.send {
+            background: $wf-navy-800;
+            color: $wf-white;
+
+            .time,
+            a {
+                color: $wf-white;
+            }
+
+            .tail {
+                border-bottom-color: $wf-navy-800;
+            }
+        }
+
+        &.received {
+            background: $wf-surface;
+            color: $wf-text;
+
+            .time {
+                color: $wf-text-secondary;
+            }
+
+            .tail {
+                border-bottom-color: $wf-surface;
+            }
+        }
+
+        &[aria-checked="true"] {
+            outline: 2px solid $wf-blue;
+            outline-offset: 2px;
+        }
+    }
+
+    .day {
+        color: $wf-text-secondary;
+        font-size: 12px;
+    }
+
+    .footer-container {
+        padding: 8px;
+        background: $wf-surface;
+        border-top: 1px solid $wf-border;
+
+        [data-region="send-message-txt"] {
+            background: $wf-surface-soft !important;
+        }
+
+        [data-action="send-message"] {
+            color: $wf-white;
+            background: $wf-gradient;
+            border-radius: $wf-radius;
+        }
+    }
+
+    a:focus-visible,
+    button:focus-visible,
+    .message:focus-visible {
+        outline: 2px solid $wf-blue;
+        outline-offset: 2px;
+    }
+}
+
+@media (max-width: 575px) {
+    [data-region="right-hand-drawer"].drawer:has(> [data-region="message-drawer"]) {
+        top: 8px;
+        right: 8px;
+        max-width: calc(100vw - 16px);
+        height: calc(100dvh - 16px);
+    }
+}
