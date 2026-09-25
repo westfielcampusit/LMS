@@ -153,9 +153,203 @@
   gap: 16px;
 }
 
-.westfield-navbar-plugins .icon,
-.westfield-navbar-plugins a {
+/* Keep white icons on the dark navbar, outside the light popover content. */
+.westfield-navbar-plugins .popover-region-toggle,
+.westfield-navbar-plugins .popover-region-toggle .icon,
+.westfield-navbar-plugins > a,
+.westfield-navbar-plugins > a .icon {
   color: #ffffff !important;
+}
+
+/* =========================================================
+   NOTIFICATION POPOVER
+   ========================================================= */
+
+#nav-notification-popover-container {
+  .popover-region-toggle::before,
+  .popover-region-toggle::after {
+    display: none;
+  }
+
+  .popover-region-container {
+    top: calc(100% + 12px);
+    right: 0;
+    width: 380px;
+    max-width: calc(100vw - 24px);
+    max-height: min(520px, calc(100dvh - 96px));
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    color: $wf-text;
+    background: $wf-surface;
+    border: 1px solid $wf-border;
+    border-radius: $wf-radius-lg;
+    box-shadow: $wf-shadow-lg;
+    transition: opacity .18s ease, visibility .18s ease;
+  }
+
+  &:not(.collapsed) .popover-region-container {
+    height: auto;
+  }
+
+  .popover-region-header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-shrink: 0;
+    height: auto;
+    min-height: 64px;
+    padding: 14px 16px;
+    background: $wf-gradient;
+    border-bottom: 0;
+  }
+
+  .popover-region-header-text {
+    float: none;
+    color: $wf-white;
+    font-size: 16px;
+    line-height: 1.4;
+    font-weight: 700;
+  }
+
+  .popover-region-header-actions {
+    float: none;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      margin: 0;
+      color: $wf-white;
+      border-radius: $wf-radius-sm;
+      text-decoration: none;
+
+      &:hover {
+        background: rgba(255, 255, 255, .16);
+      }
+    }
+
+    .icon {
+      color: $wf-white;
+      font-size: 14px;
+    }
+  }
+
+  .popover-region-content-container {
+    height: auto;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+
+    .empty-message {
+      padding: 32px 20px;
+      color: $wf-text-secondary;
+      font-size: 14px;
+    }
+  }
+
+  .content-item-container {
+    display: flow-root;
+    padding: 16px 18px;
+    color: $wf-text;
+    border-bottom: 1px solid $wf-border;
+
+    &:last-child {
+      border-bottom: 0;
+    }
+
+    &.unread {
+      background: $wf-surface-soft;
+      box-shadow: inset 3px 0 $wf-blue;
+    }
+
+    &:hover,
+    &.selected,
+    &:focus-within {
+      color: $wf-text;
+      background: $wf-blue-light;
+    }
+
+    .content-item-body {
+      margin-bottom: 8px;
+    }
+
+    .notification-message {
+      width: 100%;
+      font-size: 14px;
+      line-height: 1.5;
+      overflow-wrap: anywhere;
+    }
+
+    .content-item-footer {
+      float: left;
+      margin-right: 12px;
+    }
+
+    .content-item-footer .timestamp {
+      color: $wf-text-secondary;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .view-more {
+      position: static;
+      display: block;
+      margin-top: 0;
+      text-align: right;
+      color: $wf-blue;
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1.5;
+
+      &:hover {
+        color: $wf-navy-800;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .see-all-link {
+    flex-shrink: 0;
+    color: $wf-navy-800;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+
+    &:hover .popover-region-footer-container {
+      background: $wf-blue-light;
+    }
+  }
+
+  .popover-region-footer-container {
+    height: auto;
+    padding: 14px 16px;
+    background: $wf-surface-soft;
+    border-top: 1px solid $wf-border;
+  }
+
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid $wf-blue;
+    outline-offset: 2px;
+  }
+}
+
+@media (max-width: 767px) {
+  #nav-notification-popover-container .popover-region-container {
+    position: fixed;
+    top: calc(var(--westfield-navbar-height) + 8px);
+    right: 12px;
+    left: auto;
+    bottom: auto;
+    width: 380px;
+  }
 }
 
 /* =========================================================
