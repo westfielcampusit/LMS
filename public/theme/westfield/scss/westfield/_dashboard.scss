@@ -144,6 +144,12 @@
 }
 
 
+#page-my-index .block_myoverview .card-title,
+#page-my-index .block_recentlyaccessedcourses .card-title {
+    text-transform: capitalize;
+}
+
+
 /* Timeline */
 
 #page-my-index .block_timeline {
@@ -157,6 +163,131 @@
 #page-my-index .block_myoverview {
     border-radius:
         $wf-radius-lg;
+
+    // Leave room for the full course filter menu above the next section.
+    min-height: 580px;
+
+    // Filters must remain visible even when the course list is short or empty.
+    overflow: visible;
+    position: relative;
+}
+
+#page-my-index .block_myoverview:focus-within {
+    // Keep open menus above neighbouring dashboard blocks.
+    z-index: 2;
+}
+
+#page-my-index .block_myoverview:hover {
+    // Moving the containing block also moves its open dropdown menus.
+    transform: none;
+}
+
+@media (max-width: 575.98px) {
+    #page-my-index .block_myoverview {
+        // Filter controls can wrap onto additional rows on small screens.
+        min-height: 640px;
+    }
+}
+
+
+/* Course count selector and pagination footer. */
+
+// Carry the block's available height down to the paged content wrapper.
+#page-my-index .block_myoverview {
+    > .card-body,
+    > .card-body > .content,
+    .block-myoverview,
+    .block-myoverview > .container-fluid,
+    [data-region="courses-view"],
+    [data-region="course-view-content"],
+    [data-region="paged-content-container"] {
+        display: flex;
+        flex-direction: column;
+        flex: 1 0 auto;
+        min-width: 0;
+    }
+
+    [data-region="page-container"] {
+        flex: 1 0 auto;
+    }
+}
+
+.westfield-single-page-count {
+    display: none;
+}
+
+#page-my-index .block_myoverview .westfield-single-page-count {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 40px;
+    padding: 6px 14px;
+    border: 1px solid $wf-border;
+    border-radius: 50px;
+    background: $wf-blue-light;
+    color: $wf-navy-900;
+    font-weight: 600;
+}
+
+#page-my-index .block_myoverview .westfield-page-count-value {
+    padding: 2px 10px;
+    border-radius: 50px;
+    background: $wf-surface;
+    color: $wf-navy-800;
+    font-weight: 700;
+}
+
+#page-my-index .block_myoverview [data-region="paging-control-container"] {
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 20px;
+    padding: 16px;
+    border: 1px solid $wf-border;
+    border-radius: $wf-radius;
+    background: $wf-surface-soft;
+}
+
+#page-my-index .block_myoverview [data-region="paging-control-limit-container"] {
+    gap: 10px;
+    color: $wf-text;
+    font-weight: 600;
+
+    [data-action="limit-toggle"] {
+        min-width: 84px;
+        min-height: 44px;
+        padding: 8px 16px;
+        border: 1px solid $wf-border-dark;
+        border-radius: 10px;
+        background: $wf-surface;
+        color: $wf-navy-900;
+        font-weight: 600;
+        box-shadow: $wf-shadow-sm;
+
+        &:hover,
+        &[aria-expanded="true"] {
+            border-color: $wf-blue;
+            background: $wf-blue-light;
+            color: $wf-navy-800;
+        }
+
+        &:focus-visible {
+            outline: 2px solid $wf-blue;
+            outline-offset: 3px;
+        }
+    }
+
+    .dropdown-menu {
+        min-width: 100px;
+        border-radius: $wf-radius;
+        box-shadow: $wf-shadow;
+    }
+
+    .dropdown-item[aria-current="true"] {
+        background: $wf-blue-light;
+        color: $wf-navy-800;
+        font-weight: 700;
+    }
 }
 
 
