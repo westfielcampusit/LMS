@@ -80,12 +80,14 @@
     }
 }
 
-[data-region="message-drawer"].message-app {
+[data-region="message-drawer"].message-app,
+[data-region="message-index"].message-app {
     color: $wf-text;
     background: $wf-bg;
 
     .closewidget,
-    .header-container {
+    .header-container,
+    .panel-header-container {
         background: $wf-gradient;
         color: $wf-white;
     }
@@ -108,7 +110,8 @@
         }
     }
 
-    .header-container {
+    .header-container,
+    .panel-header-container {
         padding: 8px 12px 14px;
 
         > [data-region] {
@@ -194,6 +197,42 @@
         &:focus {
             border-color: $wf-blue;
             box-shadow: 0 0 0 3px rgba($wf-blue, .18);
+        }
+    }
+
+    .header-container,
+    .panel-header-container {
+        a[data-route="view-contacts"] {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 10px;
+            border-radius: $wf-radius-sm;
+            background: transparent;
+            color: $wf-white;
+            text-decoration: none;
+            border: 1px solid rgba($wf-white, .25);
+            box-shadow: none !important;
+            transition: background-color .2s ease;
+
+            &:hover,
+            &:focus,
+            &.focus,
+            &:active {
+                background: rgba($wf-white, .14);
+                color: $wf-white;
+                text-decoration: none;
+                box-shadow: none;
+            }
+
+            &:focus:not(:focus-visible) {
+                outline: none;
+            }
+
+            &:focus-visible {
+                outline: 2px solid $wf-white;
+                outline-offset: -3px;
+            }
         }
     }
 
@@ -310,6 +349,112 @@
     .message:focus-visible {
         outline: 2px solid $wf-blue;
         outline-offset: 2px;
+    }
+}
+
+/* Full Messages page uses the same colours and controls as the message drawer. */
+#page-message-index #region-main {
+    padding: 0;
+    height: auto;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+
+    [data-region="message-index"].message-app.main {
+        height: calc(100dvh - 200px);
+        min-height: 540px;
+        border-color: $wf-border !important;
+        border-radius: $wf-radius-lg;
+        background: $wf-bg !important;
+        box-shadow: $wf-shadow;
+
+        > .container-fluid {
+            padding: 0;
+        }
+
+        .conversationcontainer {
+            min-width: 0;
+            background: $wf-surface;
+            border-start-start-radius: $wf-radius-lg;
+            border-end-start-radius: $wf-radius-lg;
+
+            > .border-end {
+                display: flex;
+                flex-direction: column;
+                min-height: 0;
+                border-color: $wf-border !important;
+            }
+
+            .section {
+                max-height: none;
+            }
+        }
+
+        .panel-header-container {
+            flex-shrink: 0;
+            border-start-start-radius: $wf-radius-lg;
+        }
+
+        .panel-body-container {
+            flex: 1;
+            min-height: 0;
+            overflow-y: auto;
+            background: $wf-surface-soft;
+            border-end-start-radius: $wf-radius-lg;
+        }
+
+        .header-container {
+            border-start-end-radius: $wf-radius-lg;
+        }
+
+        .body-container {
+            background: $wf-bg;
+        }
+
+        .footer-container {
+            border-end-end-radius: $wf-radius-lg;
+        }
+
+        .panel-header-container a:not(.dropdown-item) {
+            color: $wf-white;
+        }
+
+        .message {
+            line-height: 1.6;
+            overflow-wrap: anywhere;
+        }
+    }
+}
+
+@media (max-width: 767.98px) {
+    #page-message-index #region-main [data-region="message-index"].message-app.main {
+        height: auto;
+
+        > .container-fluid > .row > .col-4,
+        > .container-fluid > .row > .col-8 {
+            width: 100%;
+        }
+
+        .conversationcontainer {
+            height: 280px;
+        }
+
+        > .container-fluid > .row > .col-8 {
+            height: 65dvh;
+            min-height: 420px;
+        }
+
+        .panel-header-container {
+            border-start-end-radius: $wf-radius-lg;
+        }
+
+        .header-container {
+            border-radius: 0;
+        }
+
+        .footer-container {
+            border-end-start-radius: $wf-radius-lg;
+        }
     }
 }
 

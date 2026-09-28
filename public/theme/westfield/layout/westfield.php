@@ -6,6 +6,11 @@ global $PAGE, $OUTPUT, $SITE, $USER, $CFG;
 
 $isadmin = is_siteadmin($USER);
 
+// Keep profile headers free of dashboard customisation controls.
+if ($PAGE->pagetype === 'user-profile') {
+    $PAGE->set_button('');
+}
+
 $bodyclass = $isadmin
     ? 'westfield-admin-layout'
     : 'westfield-has-sidebar';
@@ -618,7 +623,7 @@ echo $OUTPUT->doctype();
 
         <!-- Page header -->
 
-        <?php if ($isadmin): ?>
+        <?php if ($isadmin || $PAGE->pagelayout === 'mypublic'): ?>
 
             <?php echo $OUTPUT->full_header(); ?>
 
