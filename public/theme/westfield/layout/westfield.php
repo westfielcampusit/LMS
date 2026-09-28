@@ -21,6 +21,9 @@ $bodyattributes = $OUTPUT->body_attributes([
 
 $fullname = fullname($USER);
 
+$showgradesidentity = in_array($PAGE->pagetype, ['grade-report-overview-index', 'grade-report-user-index'], true)
+    && ($PAGE->url->get_param('userid') === null || (int)$PAGE->url->get_param('userid') === (int)$USER->id);
+
 $userrole = $isadmin ? 'Administrator' : 'Student';
 
 $initials = '';
@@ -642,7 +645,22 @@ echo $OUTPUT->doctype();
                 <?php endif; ?>
 
 
-                <?php if (!empty($PAGE->heading)): ?>
+                <?php if ($showgradesidentity): ?>
+
+                    <div class="westfield-grades-identity d-flex align-items-center">
+                        <div class="westfield-grades-avatar" aria-hidden="true">
+                            <?php echo $OUTPUT->user_picture($USER, [
+                                'size' => 100,
+                                'link' => false,
+                                'alttext' => false,
+                            ]); ?>
+                        </div>
+                        <div class="westfield-grades-user">
+                            <h1 class="text-white mb-0"><?php echo s($fullname); ?></h1>
+                        </div>
+                    </div>
+
+                <?php elseif (!empty($PAGE->heading)): ?>
 
                     <h1 class="westfield-page-title">
 

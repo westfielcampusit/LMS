@@ -1,0 +1,37 @@
+{{! Profile courses and original Moodle details, rendered by the theme profile renderer. }}
+<div class="westfield-profile-tabs">
+    <div class="nav nav-pills westfield-profile-tablist" role="tablist" aria-label="{{#str}}profiletabs, theme_westfield{{/str}}">
+        <button class="nav-link active" id="westfield-courses-tab" data-bs-toggle="tab" data-bs-target="#westfield-profile-courses" type="button" role="tab" aria-controls="westfield-profile-courses" aria-selected="true">
+            {{#str}}courses{{/str}}
+        </button>
+        <button class="nav-link" id="westfield-details-tab" data-bs-toggle="tab" data-bs-target="#westfield-profile-details" type="button" role="tab" aria-controls="westfield-profile-details" aria-selected="false" tabindex="-1">
+            {{#str}}profiledetails, theme_westfield{{/str}}
+        </button>
+    </div>
+    <div class="tab-content">
+        <div class="tab-pane show active" id="westfield-profile-courses" role="tabpanel" aria-labelledby="westfield-courses-tab" tabindex="0">
+            {{#courses}}
+                <article class="westfield-profile-course">
+                    <img class="westfield-profile-course-image" src="{{image}}" alt="" loading="lazy">
+                    <div class="westfield-profile-course-info">
+                        <h3><a href="{{url}}">{{{name}}}</a></h3>
+                        {{#startdate}}<p>{{#str}}profilestartdate, theme_westfield{{/str}}: {{startdate}}</p>{{/startdate}}
+                    </div>
+                    {{#hasprogress}}
+                        <div class="westfield-profile-course-progress" style="--progress-angle: {{degrees}}deg" role="progressbar" aria-label="{{#str}}profileprogress, theme_westfield{{/str}}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{progress}}">
+                            <span>{{progress}}%</span>
+                        </div>
+                    {{/hasprogress}}
+                    {{^hasprogress}}<span class="westfield-profile-course-untracked">{{#str}}profilenoprogress, theme_westfield{{/str}}</span>{{/hasprogress}}
+                </article>
+            {{/courses}}
+            {{^hascourses}}
+                {{#coursehtml}}{{{coursehtml}}}{{/coursehtml}}
+                {{^coursehtml}}<p class="westfield-profile-empty">{{#str}}profilenocourses, theme_westfield{{/str}}</p>{{/coursehtml}}
+            {{/hascourses}}
+        </div>
+        <div class="tab-pane" id="westfield-profile-details" role="tabpanel" aria-labelledby="westfield-details-tab" tabindex="0">
+            <div class="profile_tree">{{{details}}}</div>
+        </div>
+    </div>
+</div>

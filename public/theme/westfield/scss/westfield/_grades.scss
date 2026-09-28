@@ -1,0 +1,175 @@
+/* Student grades overview and individual course report. */
+.path-grade-report-overview,
+.path-grade-report-user {
+    .westfield-page-header {
+        padding: 22px 26px;
+        border-radius: $wf-radius-lg;
+        background: $wf-gradient;
+        box-shadow: $wf-shadow;
+
+        .westfield-page-title,
+        .breadcrumb-item,
+        .breadcrumb-item::before,
+        a {
+            color: $wf-white;
+        }
+    }
+
+    #region-main {
+        min-width: 0;
+
+        .table-responsive,
+        .no-overflow,
+        .user-report-container {
+            overflow-x: auto;
+        }
+
+        .user-report-container {
+            padding: 16px;
+            border: 1px solid $wf-border;
+            border-radius: $wf-radius-lg;
+            background: $wf-surface-soft;
+        }
+
+        #overview-grade,
+        .user-grade {
+            width: 100%;
+            margin-bottom: 0;
+            border: 1px solid $wf-border;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: $wf-radius;
+            color: $wf-text;
+            background: $wf-surface;
+
+            thead th {
+                padding: 16px 18px;
+                border-bottom: 1px solid $wf-border;
+                background: $wf-navy-900;
+                color: $wf-white;
+                font-weight: 700;
+                white-space: nowrap;
+
+                a { color: $wf-white; }
+                &:first-child { border-start-start-radius: $wf-radius; }
+                &:last-child { border-start-end-radius: $wf-radius; }
+            }
+
+            tbody td,
+            tbody th {
+                padding: 16px 18px;
+                border-color: $wf-border;
+                vertical-align: middle;
+            }
+        }
+
+        #overview-grade {
+            tbody td {
+                border-bottom: 1px solid $wf-border;
+                background: $wf-surface;
+            }
+
+            tbody tr:last-child td { border-bottom: 0; }
+            tbody tr:nth-child(even) td { background: $wf-surface-soft; }
+            tbody tr:hover td { background: $wf-blue-light; }
+            .column-coursename a { font-weight: 600; text-transform: capitalize; }
+            .column-grade { font-weight: 700; font-variant-numeric: tabular-nums; }
+        }
+
+        .user-grade {
+            .column-grade,
+            .column-percentage { font-variant-numeric: tabular-nums; }
+
+            .baggt,
+            .baggb {
+                background: $wf-blue-light;
+                color: $wf-navy-800;
+            }
+
+            // Keep Moodle's narrow category hierarchy columns intact.
+            .b1l { padding: 0; }
+        }
+
+        .tertiary-navigation {
+            margin-bottom: 20px;
+            padding: 12px;
+            border: 1px solid $wf-border;
+            border-radius: $wf-radius;
+            background: $wf-surface-soft;
+        }
+
+        select.form-select {
+            background-image: escape-svg($form-select-indicator);
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 16px 12px;
+            padding-inline-end: 36px;
+        }
+    }
+}
+
+.westfield-page-header .westfield-grades-identity {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 20px;
+    padding-top: 16px;
+    color: $wf-white;
+}
+
+.westfield-page-header .westfield-grades-avatar {
+    flex: 0 0 88px;
+    width: 88px;
+    height: 88px;
+
+    .userpicture,
+    .userinitials {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        border: 3px solid rgba($wf-white, .7);
+        border-radius: 24px;
+        background: $wf-blue-light;
+        color: $wf-navy-900;
+        object-fit: cover;
+        font-size: 30px;
+        font-weight: 700;
+        box-shadow: 0 6px 18px rgba($wf-navy-950, .25);
+    }
+}
+
+.westfield-page-header .westfield-grades-user {
+    flex: 1;
+    min-width: 0;
+
+    p { margin: 0 0 6px; color: $wf-blue-light; }
+    h1 { margin: 0; color: $wf-white; font-size: 30px; line-height: 1.3; overflow-wrap: anywhere; }
+}
+
+@media (max-width: 767.98px) {
+    .westfield-page-header .westfield-grades-identity { gap: 14px; }
+    .westfield-page-header .westfield-grades-avatar { flex-basis: 64px; width: 64px; height: 64px; }
+    .westfield-page-header .westfield-grades-user h1 { font-size: 24px; }
+
+    .path-grade-report-overview,
+    .path-grade-report-user {
+        .westfield-page-header { padding: 18px; }
+
+        #region-main {
+            padding: 16px;
+
+            #overview-grade,
+            .user-grade {
+                thead th,
+                tbody td,
+                tbody th { padding: 12px; }
+            }
+
+            .user-grade .b1l { padding: 0; }
+        }
+    }
+}

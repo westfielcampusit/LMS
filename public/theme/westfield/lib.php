@@ -106,6 +106,7 @@ function theme_westfield_get_main_scss_content($theme) {
         '_forms.scss',
         '_buttons.scss',
         '_tables.scss',
+        '_grades.scss',
         '_admin.scss',
         '_profile.scss',
         '_calendar.scss',

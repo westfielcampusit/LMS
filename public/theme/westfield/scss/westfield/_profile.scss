@@ -111,6 +111,91 @@
     background: $wf-white;
 }
 
+.westfield-profile-tablist {
+    gap: 8px;
+    padding-bottom: 16px;
+    margin-bottom: 22px;
+    border-bottom: 1px solid $wf-border;
+
+    .nav-link {
+        padding: 12px 24px;
+        border-radius: $wf-radius;
+        color: $wf-navy-800;
+        font-weight: 600;
+
+        &:hover { background: $wf-blue-light; }
+        &.active { background: $wf-gradient; color: $wf-white; }
+        &:focus-visible { outline: 2px solid $wf-blue; outline-offset: 3px; }
+    }
+}
+
+.westfield-profile-course {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 20px;
+    margin-bottom: 16px;
+    border: 1px solid $wf-border;
+    border-radius: $wf-radius-lg;
+    background: $wf-surface;
+    box-shadow: $wf-shadow-sm;
+}
+
+.westfield-profile-course-image {
+    width: 170px;
+    height: 120px;
+    flex-shrink: 0;
+    object-fit: cover;
+    border-radius: $wf-radius;
+}
+
+.westfield-profile-course-info {
+    flex: 1;
+    min-width: 0;
+    overflow-wrap: anywhere;
+
+    h3 { margin: 0 0 10px; font-size: 20px; line-height: 1.5; text-transform: capitalize; }
+    p { margin: 0; color: $wf-text-secondary; font-size: 14px; }
+}
+
+.westfield-profile-course-progress {
+    display: grid;
+    place-items: center;
+    width: 96px;
+    height: 96px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: conic-gradient($wf-blue var(--progress-angle), $wf-border 0);
+
+    span {
+        display: grid;
+        place-items: center;
+        width: 76px;
+        height: 76px;
+        border-radius: 50%;
+        background: $wf-surface;
+        color: $wf-navy-900;
+        font-size: 20px;
+        font-weight: 700;
+    }
+}
+
+.westfield-profile-course-untracked,
+.westfield-profile-empty {
+    padding: 12px;
+    border-radius: $wf-radius;
+    background: $wf-surface-soft;
+    color: $wf-text-secondary;
+}
+
+@media (max-width: 767.98px) {
+    .westfield-profile-course { flex-wrap: wrap; gap: 16px; padding: 16px; }
+    .westfield-profile-course-image { width: 100%; height: 160px; }
+    .westfield-profile-course-info h3 { font-size: 18px; }
+    .westfield-profile-course-progress { width: 76px; height: 76px; }
+    .westfield-profile-course-progress span { width: 60px; height: 60px; font-size: 17px; }
+}
+
 .pagelayout-mypublic {
     #page-header {
         max-width: none;
@@ -129,9 +214,21 @@
             color: $wf-white;
         }
 
+        .d-flex.flex-column:has(.page-context-header) {
+            flex: 1;
+            min-width: 0;
+        }
+
         .page-context-header {
             gap: 20px;
             padding: 20px 0 0;
+            width: 100%;
+        }
+
+        .header-button-group {
+            margin-inline-start: auto !important;
+            margin-inline-end: 0 !important;
+            flex-shrink: 0;
         }
 
         .page-header-image {
@@ -158,6 +255,7 @@
         }
 
         .page-header-headings {
+            flex: 1 1 180px;
             min-width: 0;
             overflow-wrap: anywhere;
 
