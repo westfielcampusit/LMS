@@ -672,6 +672,24 @@ echo $OUTPUT->doctype();
             aria-label="Content"
         >
 
+            <?php if ($PAGE->pagetype === 'my-index' && !$isadmin && isloggedin() && !isguestuser()): ?>
+                <section class="westfield-dashboard-profile" aria-labelledby="westfield-dashboard-name">
+                    <div class="westfield-dashboard-avatar" aria-hidden="true">
+                        <?php echo $OUTPUT->user_picture($USER, [
+                            'size' => 100,
+                            'link' => false,
+                            'alttext' => false,
+                        ]); ?>
+                    </div>
+                    <div class="westfield-dashboard-identity">
+                        <h2 id="westfield-dashboard-name">
+                            <span class="westfield-dashboard-welcome"><?php echo get_string('dashboardwelcome', 'theme_westfield'); ?>,</span>
+                            <span><?php echo s($fullname); ?></span>
+                        </h2>
+                    </div>
+                </section>
+            <?php endif; ?>
+
             <?php echo $OUTPUT->main_content(); ?>
 
         </main>
