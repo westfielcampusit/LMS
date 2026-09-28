@@ -53,6 +53,7 @@ function theme_westfield_get_main_scss_content($theme) {
         '_admin.scss',
         '_profile.scss',
         '_calendar.scss',
+        '_filemanager.scss',
         '_footer.scss',
         '_responsive.scss',
     ];
