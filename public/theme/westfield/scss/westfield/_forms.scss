@@ -72,3 +72,25 @@
     border-color:
         $wf-navy-800;
 }
+
+// Westfield scrolls the document without Boost's #page container. Keep action
+// bars in the content flow so their buttons remain reachable on every screen.
+.stickyfooter.westfield-action-footer {
+    position: static;
+    height: auto;
+    margin-top: 1.5rem;
+    box-shadow: none;
+
+    .sticky-footer-content {
+        max-width: none;
+        overflow: visible;
+    }
+}
+
+// Form actions use the full width, with wrapping for narrow screens.
+.mform .westfield-action-footer {
+    .sticky-footer-content,
+    [data-groupname="buttonar"] > [data-fieldtype="group"] > .d-flex {
+        justify-content: center !important;
+    }
+}

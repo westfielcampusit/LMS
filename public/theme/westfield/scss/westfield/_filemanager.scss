@@ -1,0 +1,155 @@
+/* File edit dialog, scoped to the file manager selection panel. */
+.moodle-dialogue-base .moodle-dialogue:has(.filemanager.fp-select) {
+    max-width: calc(100vw - 24px);
+
+    .moodle-dialogue-wrap {
+        border: 1px solid $wf-border;
+        border-radius: $wf-radius-xl;
+        background: $wf-surface;
+        box-shadow: $wf-shadow-lg;
+        overflow: hidden;
+    }
+
+    .moodle-dialogue-hd.yui3-widget-hd {
+        padding: 20px 24px;
+        border-bottom: 0;
+        background: $wf-gradient;
+        color: $wf-white;
+
+        h5 {
+            padding-inline-end: 32px;
+            margin: 0;
+            color: $wf-white;
+            font-size: 21px;
+            font-weight: 700;
+            line-height: 1.4;
+            overflow-wrap: anywhere;
+        }
+
+        .closebutton {
+            filter: brightness(0) invert(1);
+            opacity: .85;
+
+            &:hover,
+            &:focus-visible {
+                opacity: 1;
+            }
+        }
+    }
+
+    .moodle-dialogue-bd {
+        padding: 24px;
+        max-height: calc(100dvh - 160px);
+        overflow-y: auto;
+        background: $wf-surface;
+    }
+}
+
+.filemanager.fp-select {
+    .form-control-label {
+        padding-top: 10px;
+        color: $wf-text;
+        font-weight: 600;
+    }
+
+    .row > .col-8 {
+        padding-inline-end: 0;
+        min-width: 0;
+    }
+
+    .form-control,
+    .form-select {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .fp-file-download {
+        border-color: $wf-border;
+        background: $wf-blue-light;
+        color: $wf-navy-800;
+    }
+
+    .fp-file-delete {
+        border-color: rgba($wf-danger, .25);
+        background: rgba($wf-danger, .06);
+        color: $wf-danger;
+
+        &:hover,
+        &:focus-visible {
+            border-color: $wf-danger;
+            background: $wf-danger;
+            color: $wf-white;
+        }
+    }
+
+    .fp-select-buttons {
+        float: none;
+        display: flex;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding-top: 16px;
+        border-top: 1px solid $wf-border;
+    }
+
+    .fp-info {
+        padding: 16px;
+        border: 1px solid $wf-border;
+        border-radius: $wf-radius;
+        background: $wf-surface-soft;
+
+        > hr {
+            display: none;
+        }
+    }
+
+    .fp-thumbnail {
+        min-width: 76px;
+        min-height: 76px;
+        line-height: 76px;
+        margin: 0 16px 8px 0;
+        border: 1px solid $wf-border;
+        border-radius: $wf-radius;
+        box-shadow: none;
+
+        img {
+            max-width: 60px;
+            max-height: 60px;
+            width: auto;
+            height: auto;
+            margin: 8px;
+            border: 0;
+        }
+    }
+
+    .fp-fileinfo {
+        display: block;
+        margin-top: 0;
+        color: $wf-text-secondary;
+        line-height: 1.6;
+        overflow-wrap: anywhere;
+
+        .fp-value {
+            color: $wf-text;
+        }
+    }
+}
+
+@media (max-width: 575.98px) {
+    .moodle-dialogue-base .moodle-dialogue:has(.filemanager.fp-select) .moodle-dialogue-bd {
+        padding: 16px;
+    }
+
+    .filemanager.fp-select .row {
+        > .col-4,
+        > .col-8 {
+            width: 100%;
+            padding-inline: 0;
+        }
+
+        > .col-4 {
+            padding-top: 0;
+            margin-bottom: 6px;
+        }
+    }
+}
