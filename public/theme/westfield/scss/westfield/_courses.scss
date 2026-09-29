@@ -5,6 +5,200 @@
 
 /* Course cards */
 
+// Full catalogue and category pages, separate from the Course overview block.
+body.westfield-course-catalogue {
+    #page-header {
+        padding: 8px 0 20px;
+        margin-bottom: 0;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none;
+    }
+
+    .page-header-headings h1 {
+        font-size: clamp(1.6rem, 3vw, 2.15rem);
+        margin-bottom: 0;
+    }
+
+    .westfield-admin-secondary-navigation {
+        margin-bottom: 24px;
+        padding: 0;
+        border: 0;
+        border-bottom: 1px solid $wf-border-dark;
+        border-radius: 0;
+        background: transparent;
+
+        .moremenu,
+        .nav-tabs {
+            background: transparent;
+        }
+
+        .nav-tabs {
+            border-bottom: 0;
+            gap: 6px;
+        }
+
+        .nav-link {
+            border: 0;
+            border-bottom: 3px solid transparent;
+            border-radius: 0;
+            padding: 14px 18px;
+            color: $wf-text-secondary;
+            font-weight: 600;
+
+            &:hover {
+                color: $wf-navy-800;
+                background: transparent;
+                border-bottom-color: $wf-border-dark;
+            }
+
+            &.active {
+                background: transparent;
+                border-bottom-color: $wf-navy-800;
+                color: $wf-navy-800;
+            }
+        }
+    }
+
+    #region-main.westfield-main-content {
+        min-height: 0;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none;
+    }
+
+    #region-main div.simplesearchform {
+        margin: 0 0 24px;
+
+        .input-group {
+            width: 100%;
+            max-width: 520px;
+        }
+
+        input[type="text"] {
+            min-width: 0;
+        }
+    }
+
+    .coursebox {
+        margin: 0;
+        padding: 24px 0;
+        border: 0;
+        border-bottom: 1px solid $wf-border;
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none;
+
+        &.even,
+        &.odd {
+            background: transparent;
+        }
+
+        .coursename {
+            font-size: 1.2rem;
+            line-height: 1.5;
+            margin-bottom: 6px;
+            text-transform: capitalize;
+        }
+
+        .content {
+            margin-top: 8px;
+        }
+
+        .teachers {
+            padding: 0;
+            margin: 6px 0 0;
+            list-style: none;
+            color: $wf-text-secondary;
+        }
+
+        .courseimage img {
+            border-radius: $wf-radius-sm;
+        }
+    }
+
+    @media (max-width: 575.98px) {
+        .coursebox {
+            padding: 20px 0;
+        }
+
+        .westfield-admin-secondary-navigation .nav-link {
+            padding: 12px;
+        }
+
+        .coursebox .content > .d-flex {
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+    }
+}
+
+// Course content uses one section boundary instead of nested cards.
+body.westfield-course-view {
+    .westfield-page-header {
+        margin-bottom: 24px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid $wf-border-dark;
+    }
+
+    .westfield-course-title {
+        font-size: clamp(1.75rem, 3vw, 2.25rem);
+        line-height: 1.3;
+        text-transform: capitalize;
+        overflow-wrap: anywhere;
+    }
+
+    #region-main.westfield-main-content {
+        min-height: 0;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none;
+    }
+
+    .course-content .course-section {
+        margin-bottom: 16px;
+        border: 0;
+        border-radius: $wf-radius;
+        background: $wf-surface;
+
+        > .section-item {
+            padding: 20px 24px;
+            border: 1px solid $wf-border;
+            border-radius: $wf-radius;
+        }
+
+        .sectionname {
+            font-size: 1.2rem;
+            line-height: 1.4;
+            color: $wf-text;
+        }
+
+        .activity-item {
+            border-radius: $wf-radius-sm;
+        }
+    }
+
+    @media (max-width: 575.98px) {
+        .course-content .course-section > .section-item {
+            padding: 16px;
+        }
+    }
+}
+
+// My courses already has a Course Overview card; remove the second outer surface.
+body.page-mycourses #region-main.westfield-main-content {
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
 .course-card,
 .dashboard-card {
     background:

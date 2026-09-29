@@ -5,6 +5,7 @@ defined('MOODLE_INTERNAL') || die();
 global $PAGE, $OUTPUT, $SITE, $USER, $CFG;
 
 $isadmin = is_siteadmin($USER);
+$showcourseheading = !$isadmin && $PAGE->pagelayout === 'course' && $PAGE->course->id != SITEID;
 
 // Keep profile headers free of dashboard customisation controls.
 if ($PAGE->pagetype === 'user-profile') {
@@ -14,6 +15,9 @@ if ($PAGE->pagetype === 'user-profile') {
 $bodyclass = $isadmin
     ? 'westfield-admin-layout'
     : 'westfield-has-sidebar';
+if ($showcourseheading) {
+    $bodyclass .= ' westfield-course-view';
+}
 
 $bodyattributes = $OUTPUT->body_attributes([
     'class' => $bodyclass
@@ -514,10 +518,6 @@ echo $OUTPUT->doctype();
                 My courses
             </span>
 
-            <span class="westfield-sidebar-arrow">
-                <i class="fa fa-chevron-right"></i>
-            </span>
-
         </a>
 
 
@@ -575,7 +575,6 @@ echo $OUTPUT->doctype();
         </a>
 
     </div>
-
 
     <!-- =================================================
          SIDEBAR BOTTOM
@@ -645,7 +644,15 @@ echo $OUTPUT->doctype();
                 <?php endif; ?>
 
 
-                <?php if ($showgradesidentity): ?>
+                <?php if ($showcourseheading): ?>
+
+                    <h1 class="westfield-page-title westfield-course-title"><?php
+                        echo format_string($PAGE->course->fullname, true, [
+                            'context' => context_course::instance($PAGE->course->id),
+                        ]);
+                    ?></h1>
+
+                <?php elseif ($showgradesidentity): ?>
 
                     <div class="westfield-grades-identity d-flex align-items-center">
                         <div class="westfield-grades-avatar" aria-hidden="true">
@@ -695,7 +702,8 @@ echo $OUTPUT->doctype();
             aria-label="Content"
         >
 
-            <?php if ($PAGE->pagetype === 'my-index' && !$isadmin && isloggedin() && !isguestuser()): ?>
+            <?php if ($PAGE->pagetype === 'my-index' && $PAGE->pagelayout === 'mydashboard'
+                    && !$isadmin && isloggedin() && !isguestuser()): ?>
                 <section class="westfield-dashboard-profile" aria-labelledby="westfield-dashboard-name">
                     <div class="westfield-dashboard-avatar" aria-hidden="true">
                         <?php echo $OUTPUT->user_picture($USER, [
@@ -946,6 +954,28 @@ echo $OUTPUT->doctype();
 document.addEventListener(
     'DOMContentLoaded',
     function () {
+
+        <?php if ($isadmin): ?>
+        // Course overview redraws its paging controls after each AJAX refresh.
+        document.querySelectorAll('[data-region="myoverview"]').forEach(function (overview) {
+            const addViewAll = function () {
+                overview.querySelectorAll('[data-region="paging-control-container"]').forEach(function (controls) {
+                    if (controls.querySelector('.westfield-overview-view-all')) {
+                        return;
+                    }
+                    const link = document.createElement('a');
+                    link.href = <?php echo json_encode((new moodle_url('/course/index.php'))->out(false)); ?>;
+                    link.className = 'btn btn-primary westfield-overview-view-all';
+                    link.textContent = <?php echo json_encode(get_string('viewall', 'theme_westfield')); ?>;
+                    link.setAttribute('aria-label', <?php echo json_encode(get_string('viewallcourses')); ?>);
+                    controls.appendChild(link);
+                    controls.classList.add('westfield-admin-overview-paging');
+                });
+            };
+            addViewAll();
+            new MutationObserver(addViewAll).observe(overview, {childList: true, subtree: true});
+        });
+        <?php endif; ?>
 
         /* ================================================
            ELEMENTS
@@ -1208,9 +1238,8 @@ document.addEventListener(
 
                     if (
                         linkURL.pathname !== '/' &&
-                        currentPath.startsWith(
-                            linkURL.pathname
-                        )
+                        currentPath.replace(/\/index\.php$|\/$/g, '') ===
+                            linkURL.pathname.replace(/\/index\.php$|\/$/g, '')
                     ) {
 
                         link.classList.add(

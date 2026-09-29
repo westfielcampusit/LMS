@@ -296,6 +296,27 @@
 }
 
 
+// Replace the page-size control only in the administrator's course overview.
+body.westfield-admin-layout [data-region="myoverview"] .westfield-admin-overview-paging {
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    .westfield-single-page-count,
+    [data-region="paging-control-limit-container"] {
+        display: none !important;
+    }
+
+    [data-region="paging-bar"] {
+        margin-inline-start: 0 !important;
+    }
+
+    .westfield-overview-view-all {
+        margin-inline-start: auto;
+        white-space: nowrap;
+    }
+}
+
 /* Dashboard nav pills */
 
 #page-my-index .nav-pills .nav-link {
