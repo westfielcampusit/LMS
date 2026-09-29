@@ -26,12 +26,16 @@
 require_once("../config.php");
 require_once($CFG->dirroot. '/course/lib.php');
 
-$categoryid = optional_param('categoryid', 0, PARAM_INT); // Category id
-$site = get_site();
-
-if ($CFG->forcelogin) {
-    require_login();
+// The full course catalogue (including category URLs) is for site administrators only.
+require_login();
+if (!is_siteadmin()) {
+    throw new moodle_exception('nopermissions', 'error', new moodle_url('/my/courses.php'),
+        get_string('viewallcourses'));
 }
+
+$categoryid = optional_param('categoryid', 0, PARAM_INT); // Category id
+$isallcourses = !$categoryid;
+$site = get_site();
 
 $heading = $site->fullname;
 if ($categoryid) {
@@ -66,6 +70,14 @@ $courserenderer = $PAGE->get_renderer('core', 'course');
 
 $PAGE->set_heading($heading);
 $content = $courserenderer->course_category($categoryid);
+
+if ($PAGE->theme->name === 'westfield') {
+    $PAGE->add_body_class('westfield-course-catalogue');
+    if ($isallcourses) {
+        $PAGE->set_heading(get_string('allcourses', 'theme_westfield'));
+        $PAGE->set_title(get_string('allcourses', 'theme_westfield'));
+    }
+}
 
 $PAGE->set_secondary_active_tab('categorymain');
 
