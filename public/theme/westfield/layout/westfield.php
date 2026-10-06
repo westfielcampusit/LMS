@@ -10,7 +10,6 @@ if ($PAGE->pagetype === 'course-management') {
 }
 $showcourseheading = !$isadmin && $PAGE->pagelayout === 'course' && $PAGE->course->id != SITEID;
 
-// Keep profile headers free of dashboard customisation controls.
 if ($PAGE->pagetype === 'user-profile') {
     $PAGE->set_button('');
 }
@@ -664,6 +663,20 @@ $adminsidebarlinks = [
 
         <?php if ($PAGE->pagetype === 'course-management'): ?>
             <div class="westfield-breadcrumb"><?php echo $OUTPUT->navbar(); ?></div>
+        <?php elseif ($PAGE->pagetype === 'admin-user'): ?>
+            <div class="westfield-breadcrumb"><?php echo $OUTPUT->navbar(); ?></div>
+            <header class="westfield-users-heading">
+                <h1><?php echo get_string('users'); ?></h1>
+                <?php if ($secondarynavigation): ?>
+                    <details class="westfield-users-settings d-print-none">
+                        <summary><?php echo get_string('userssettings', 'theme_westfield'); ?></summary>
+                        <div class="westfield-admin-secondary-navigation">
+                            <?php echo $OUTPUT->render_from_template('core/moremenu', $secondarynavigation); ?>
+                        </div>
+                    </details>
+                <?php endif; ?>
+                <p><?php echo get_string('usersintro', 'theme_westfield'); ?></p>
+            </header>
         <?php elseif ($isadmin || $PAGE->pagelayout === 'mypublic'): ?>
 
             <?php echo $OUTPUT->full_header(); ?>
@@ -724,7 +737,7 @@ $adminsidebarlinks = [
 
         <?php endif; ?>
 
-        <?php if ($secondarynavigation): ?>
+        <?php if ($secondarynavigation && $PAGE->pagetype !== 'admin-user'): ?>
             <?php if ($PAGE->pagetype === 'course-management'): ?>
                 <details class="westfield-management-settings">
                     <summary><?php echo get_string('coursemanagementsettings', 'theme_westfield'); ?></summary>
