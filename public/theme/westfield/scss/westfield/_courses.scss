@@ -228,6 +228,15 @@ body.page-mycourses #region-main.westfield-main-content {
 
 /* Course name */
 
+// Keep course and category title links plain when hovered.
+a.coursename:hover,
+.coursename a:hover,
+.course-card .categoryname a:hover,
+.dashboard-card .categoryname a:hover,
+.course_category_tree .categoryname a:hover {
+    text-decoration: none;
+}
+
 .coursename,
 .course-card .coursename {
     color:

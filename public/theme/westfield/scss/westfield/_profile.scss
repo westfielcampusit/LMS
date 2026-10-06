@@ -2,6 +2,10 @@
    USER PROFILE
    ========================================================= */
 
+.pagelayout-mypublic a:hover {
+    text-decoration: none;
+}
+
 // Boost's fixed action bar depends on #page, which the WestField layout does not use.
 // Keep native submit/cancel controls inside the profile form instead.
 #page-user-edit,
