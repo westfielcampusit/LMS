@@ -13,7 +13,7 @@ if ($PAGE->pagetype === 'user-profile') {
 }
 
 $bodyclass = $isadmin
-    ? 'westfield-admin-layout'
+    ? 'westfield-admin-layout westfield-has-sidebar'
     : 'westfield-has-sidebar';
 if ($showcourseheading) {
     $bodyclass .= ' westfield-course-view';
@@ -138,22 +138,18 @@ echo $OUTPUT->doctype();
 
     <div class="westfield-navbar-left">
 
-        <!-- Sidebar Toggle - Students only -->
-
-        <?php if (!$isadmin): ?>
+        <!-- Sidebar Toggle -->
 
             <button
                 type="button"
                 class="westfield-menu-button"
                 id="westfield-sidebar-toggle"
                 aria-label="Toggle sidebar"
+                aria-controls="westfield-sidebar"
                 aria-expanded="true"
             >
                 <i class="fa fa-bars"></i>
             </button>
-
-        <?php endif; ?>
-
 
         <!-- Brand -->
 
@@ -440,10 +436,33 @@ echo $OUTPUT->doctype();
 
 <!-- =====================================================
      WESTFIELD SIDEBAR
-     STUDENT / NON-ADMIN USERS ONLY
+     ROLE-SPECIFIC NAVIGATION
      ===================================================== -->
 
-<?php if (!$isadmin): ?>
+<?php if ($isadmin): ?>
+
+<?php
+$adminsidebarlinks = [
+    ['icon' => 'fa-tachometer-alt', 'text' => get_string('myhome'), 'url' => $dashboardurl],
+    ['icon' => 'fa-graduation-cap', 'text' => get_string('courses'), 'url' => new moodle_url('/course/management.php')],
+    ['icon' => 'fa-users', 'text' => get_string('users'), 'url' => new moodle_url('/' . $CFG->admin . '/user.php')],
+    ['icon' => 'fa-credit-card', 'text' => get_string('payments', 'theme_westfield'),
+        'url' => new moodle_url('/local/westfieldpayments/index.php')],
+];
+?>
+<aside class="westfield-sidebar" id="westfield-sidebar">
+    <nav class="westfield-sidebar-content" aria-label="<?php echo s(get_string('administration')); ?>">
+        <?php foreach ($adminsidebarlinks as $link): ?>
+            <?php $active = $PAGE->url->compare($link['url'], URL_MATCH_BASE); ?>
+            <a href="<?php echo $link['url']; ?>" class="westfield-sidebar-link<?php echo $active ? ' active' : ''; ?>"<?php echo $active ? ' aria-current="page"' : ''; ?>>
+                <span class="westfield-sidebar-icon"><i class="fa <?php echo s($link['icon']); ?>" aria-hidden="true"></i></span>
+                <span class="westfield-sidebar-label"><?php echo s($link['text']); ?></span>
+            </a>
+        <?php endforeach; ?>
+    </nav>
+</aside>
+
+<?php else: ?>
 
 <aside
     class="westfield-sidebar"

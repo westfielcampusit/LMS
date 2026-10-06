@@ -23,15 +23,6 @@ body.path-admin #page-content {
   padding: 24px 28px 40px;
 }
 
-/* =========================================================
-   NO SIDEBAR ON ADMIN SIDE
-   Reclaim the space normally reserved for the student sidebar.
-   ========================================================= */
-
-body.westfield-admin-layout .westfield-page-area {
-  margin-left: 0 !important;
-}
-
 body.path-admin #region-main {
   background: #ffffff;
 
