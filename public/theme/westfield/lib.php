@@ -102,6 +102,7 @@ function theme_westfield_get_main_scss_content($theme) {
         '_sidebar.scss',
         '_dashboard.scss',
         '_courses.scss',
+        '_coursemanagement.scss',
         '_cards.scss',
         '_forms.scss',
         '_buttons.scss',

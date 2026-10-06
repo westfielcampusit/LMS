@@ -112,6 +112,21 @@ hr {
     color: $wf-navy-800;
 }
 
+// Reserve a separate gutter for selected-option ticks.
+.dropdown-menu:has(.dropdown-item[aria-selected]) .dropdown-item,
+.dropdown-menu:has(.dropdown-item[aria-current]) .dropdown-item {
+    padding-inline-start: 36px;
+}
+
+.dropdown-item[aria-selected="true"]::before,
+.dropdown-item[aria-current="true"]::before {
+    left: auto;
+    right: auto;
+    inset-inline-start: 12px;
+    width: 12px;
+    text-align: center;
+}
+
 
 /* Moodle page header */
 

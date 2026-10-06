@@ -5,6 +5,9 @@ defined('MOODLE_INTERNAL') || die();
 global $PAGE, $OUTPUT, $SITE, $USER, $CFG;
 
 $isadmin = is_siteadmin($USER);
+if ($PAGE->pagetype === 'course-management') {
+    $PAGE->requires->js(new moodle_url('/theme/westfield/js/management_selects.js'));
+}
 $showcourseheading = !$isadmin && $PAGE->pagelayout === 'course' && $PAGE->course->id != SITEID;
 
 // Keep profile headers free of dashboard customisation controls.
@@ -659,7 +662,9 @@ $adminsidebarlinks = [
 
         <!-- Page header -->
 
-        <?php if ($isadmin || $PAGE->pagelayout === 'mypublic'): ?>
+        <?php if ($PAGE->pagetype === 'course-management'): ?>
+            <div class="westfield-breadcrumb"><?php echo $OUTPUT->navbar(); ?></div>
+        <?php elseif ($isadmin || $PAGE->pagelayout === 'mypublic'): ?>
 
             <?php echo $OUTPUT->full_header(); ?>
 
@@ -720,10 +725,16 @@ $adminsidebarlinks = [
         <?php endif; ?>
 
         <?php if ($secondarynavigation): ?>
+            <?php if ($PAGE->pagetype === 'course-management'): ?>
+                <details class="westfield-management-settings">
+                    <summary><?php echo get_string('coursemanagementsettings', 'theme_westfield'); ?></summary>
+            <?php endif; ?>
 
             <div class="westfield-admin-secondary-navigation d-print-none">
                 <?php echo $OUTPUT->render_from_template('core/moremenu', $secondarynavigation); ?>
             </div>
+
+            <?php if ($PAGE->pagetype === 'course-management'): ?></details><?php endif; ?>
 
         <?php endif; ?>
 

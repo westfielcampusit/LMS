@@ -1,0 +1,316 @@
+/* Course/category administration: preserve Moodle's forms, tree and action hooks. */
+#page-course-management {
+    #region-main {
+        padding: 0;
+        background: transparent;
+        border: 0;
+        box-shadow: none;
+        overflow: visible;
+    }
+
+    .westfield-breadcrumb { margin-bottom: 8px; }
+    .westfield-management-heading {
+        margin: 8px 0 18px;
+        h1 { margin: 0 0 6px; font-size: 28px; }
+        p { margin: 0; font-size: 14px; color: $wf-text-secondary; }
+    }
+    .westfield-management-settings {
+        margin: 0 0 8px;
+        summary { width: fit-content; margin-inline-start: auto; padding: 6px 0; color: $wf-text-secondary; font-size: 13px; cursor: pointer; }
+        .westfield-admin-secondary-navigation { margin: 8px 0 16px; }
+    }
+    .westfield-management-view-options {
+        position: relative;
+        margin-inline-start: auto;
+        summary { padding: 11px 14px; border: 1px solid $wf-border-dark; border-radius: 10px; background: $wf-surface; font-size: 13px; cursor: pointer; }
+        .westfield-management-view-fields { position: absolute; inset-inline-end: 0; top: calc(100% + 8px); z-index: 10; min-width: 280px; max-width: calc(100vw - 56px); padding: 18px; background: $wf-surface; border: 1px solid $wf-border; border-radius: $wf-radius; box-shadow: $wf-shadow-lg; }
+        .navitem + .navitem { margin-top: 12px !important; }
+    }
+    .westfield-management-bulk-options {
+        margin-top: 18px;
+        border-top: 1px solid $wf-border;
+        padding-top: 14px;
+        summary { color: $wf-text-secondary; font-size: 13px; cursor: pointer; }
+        &[open] summary { color: $wf-blue; }
+    }
+    summary:focus-visible { outline: 2px solid $wf-blue; outline-offset: 3px; }
+    #action_bar {
+        margin: 0 0 20px;
+        padding: 0;
+        background: transparent;
+        border: 0;
+        box-shadow: none;
+        .westfield-management-filters { display: flex; flex-wrap: wrap; align-items: end; gap: 18px; }
+        .navitem { display: flex; flex-direction: column; align-items: stretch; margin: 0; padding: 0; max-width: 100%; }
+        .westfield-management-label { display: block; margin-bottom: 8px; color: $wf-text-secondary; font-size: 12px; font-weight: 700; }
+        .westfield-management-search { flex: 1 1 240px; max-width: 640px; margin-inline-start: 0; }
+        form, .simplesearchform { margin: 0 !important; }
+        .input-group { width: 100%; }
+        .form-select { max-width: 100%; }
+    }
+    .westfield-management-help {
+        display: flex;
+        gap: 8px;
+        margin: 0 2px 20px;
+        color: $wf-text-secondary;
+        font-size: 13px;
+        line-height: 1.6;
+        .fa { margin-top: 4px; color: $wf-blue; }
+    }
+    select.form-select {
+        background-image: escape-svg($form-select-indicator);
+        background-repeat: no-repeat;
+        background-position: right 12px center;
+        background-size: 16px 12px;
+        padding-inline-end: 36px;
+        color: $wf-navy-900;
+        border-color: $wf-border-dark;
+        border-radius: 10px;
+        &:disabled { color: $wf-text-secondary; background-color: $wf-surface-soft; cursor: not-allowed; }
+        &:focus { border-color: $wf-blue; box-shadow: 0 0 0 3px rgba($wf-blue, .12); }
+        option { background: $wf-surface; color: $wf-text; }
+    }
+    .westfield-category-move-hint { margin: 0 0 14px; color: $wf-text-secondary; font-size: 13px; line-height: 1.6; }
+    select[data-westfield-menu][hidden] { display: none !important; }
+    .westfield-select-menu { min-width: 0; flex: 1 1 160px; }
+    .westfield-select-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        width: 100%;
+        min-height: 44px;
+        padding: 8px 14px;
+        border: 1px solid $wf-border-dark;
+        border-radius: 10px;
+        background: $wf-surface;
+        color: $wf-navy-900;
+        text-align: start;
+        white-space: normal;
+        font-size: 14px;
+        font-weight: 600;
+        box-shadow: $wf-shadow-sm;
+        &:hover, &[aria-expanded="true"] { border-color: $wf-blue; background: $wf-blue-light; color: $wf-navy-800; transform: none; }
+        &:disabled { opacity: 1; color: $wf-text-secondary; background: $wf-surface-soft; border-color: $wf-border; box-shadow: none; cursor: not-allowed; }
+        &:focus-visible { outline: 2px solid $wf-blue; outline-offset: 3px; }
+    }
+    .westfield-select-options {
+        top: calc(100% + 6px);
+        inset-inline-start: 0;
+        min-width: 100%;
+        width: max-content;
+        max-width: min(440px, calc(100vw - 64px));
+        max-height: 300px;
+        overflow-y: auto;
+        padding: 8px;
+        border: 1px solid $wf-border;
+        border-radius: $wf-radius;
+        background: $wf-surface;
+        box-shadow: $wf-shadow;
+        .dropdown-item {
+            padding: 9px 12px;
+            padding-inline-start: 36px;
+            border-radius: 8px;
+            font-size: 14px;
+            color: $wf-text;
+            white-space: normal;
+            &:hover, &:focus, &.active { background: $wf-blue-light; color: $wf-navy-800; }
+            &.active { font-weight: 700; }
+            &:disabled { opacity: .5; }
+        }
+    }
+
+    // Style the opened native picker in supporting browsers, keeping keyboard and form behaviour.
+    @supports (appearance: base-select) {
+        .category-bulk-actions select,
+        .category-bulk-actions select::picker(select) { appearance: base-select; }
+        .category-bulk-actions select {
+            background-image: none;
+            padding-inline-end: 14px;
+            align-items: center;
+            &::picker-icon { color: $wf-navy-800; }
+            &::picker(select) {
+                margin-top: 6px;
+                padding: 6px;
+                background: $wf-surface;
+                border: 1px solid $wf-border-dark;
+                border-radius: $wf-radius;
+                box-shadow: $wf-shadow-lg;
+            }
+            option {
+                padding: 10px 12px;
+                border-radius: 7px;
+                white-space: normal;
+                &:hover, &:focus { background: $wf-blue-light; color: $wf-navy-800; }
+                &:checked { background: $wf-navy-800; color: $wf-white; }
+            }
+        }
+    }
+    #course-category-listings {
+        display: grid !important;
+        align-items: start;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 22px;
+        margin: 0;
+        background: transparent;
+        > #category-listing, > #course-listing, > #course-detail {
+            display: block;
+            width: auto;
+            min-width: 0;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        #course-detail { grid-column: 1 / -1; }
+        // Span both columns while keeping category controls within Moodle's JS container.
+        > #category-listing {
+            display: grid !important;
+            grid-column: 1 / -1;
+            grid-row: 1 / span 2;
+            grid-template-columns: subgrid;
+            grid-template-rows: subgrid;
+            align-items: start;
+            > .category-listing { grid-column: 1; grid-row: 1; }
+            > .westfield-management-bulk-options {
+                grid-column: 1 / -1;
+                grid-row: 2;
+                margin: 0;
+                padding: 18px;
+                min-width: 0;
+                border: 1px solid $wf-border;
+                border-radius: $wf-radius;
+                background: $wf-surface;
+            }
+        }
+        &.viewmode-combined > #course-listing { grid-column: 1; grid-row: 3; }
+        &.viewmode-combined > #course-detail { grid-row: 4; }
+        #category-listing > .westfield-management-bulk-options .category-bulk-actions {
+            margin: 14px 0 0;
+            .pair-value > div:not(.d-flex) {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                gap: 10px;
+                > div { flex: 1 1 220px; min-width: 0; }
+                select { width: 100%; margin-top: 0 !important; }
+                input[type="submit"] { flex: 0 0 auto; margin: 0 !important; }
+            }
+            .detail-pair:last-child .pair-value > .d-flex { max-width: 600px; }
+        }
+        #course-listing > .course-listing { height: auto; left: auto; }
+        > div > div { min-height: 0; left: auto; height: auto; }
+        .card {
+            border: 1px solid $wf-border;
+            border-radius: $wf-radius-lg;
+            background: $wf-surface;
+            box-shadow: $wf-shadow-sm;
+            overflow: visible;
+        }
+        .card-header {
+            padding: 20px;
+            background: $wf-surface-soft;
+            border-bottom: 1px solid $wf-border;
+            border-radius: $wf-radius-lg $wf-radius-lg 0 0;
+            color: $wf-navy-800;
+            font-size: 18px;
+            font-weight: 700;
+            h3 { padding: 0; color: inherit; font-size: inherit; }
+        }
+        #course-detail-title { text-transform: capitalize; }
+        .card-body { padding: 18px; }
+        .listing-actions {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px 12px;
+            text-align: start;
+            margin-bottom: 18px;
+            .btn { font-size: 13px; }
+            > a[href*="/course/edit.php"], > a[href*="/course/editcategory.php"] {
+                background: $wf-gradient;
+                border-color: transparent;
+                color: $wf-white;
+                box-shadow: $wf-shadow-sm;
+            }
+        }
+        .course-list, .category-list { gap: 8px; margin: 0 !important; }
+        .listitem {
+            padding: 14px 12px;
+            border: 1px solid $wf-border;
+            border-radius: $wf-radius-sm;
+            background: $wf-surface;
+            color: $wf-text;
+            transition: background-color .15s ease, border-color .15s ease;
+            + .listitem { border-top-width: 1px; }
+            &:hover { background: $wf-surface-soft; border-color: $wf-border-dark; }
+            &[data-selected="1"] {
+                padding-inline-start: 12px;
+                border: 1px solid rgba($wf-blue, .35);
+                background: $wf-blue-light;
+                box-shadow: inset 3px 0 $wf-blue;
+            }
+            &[data-visible="0"] > div > a { color: $wf-text-secondary; }
+            .coursename, .categoryname { font-size: 14px; font-weight: 600; line-height: 1.5; text-decoration: none; overflow-wrap: anywhere; }
+            .coursename { flex-basis: 180px; margin-bottom: 0 !important; }
+            > .d-flex { align-items: center; row-gap: 10px; }
+            .form-check { margin-bottom: 0; }
+            .form-check-input { cursor: pointer; }
+            .item-actions { margin: 0; }
+            .item-actions .action-icon, .item-actions .dropdown-toggle {
+                border-radius: 6px;
+                padding: 5px;
+                color: $wf-text-secondary;
+                &:hover { background: $wf-blue-light; color: $wf-blue; text-decoration: none; }
+            }
+            .idnumber { display: inline-block; margin-inline-end: 8px; font-size: 11px; overflow-wrap: anywhere; }
+        }
+        #category-listing {
+            .listitem > .clearfix { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
+            .categoryname { flex: 1 1 100px; min-width: 0; }
+            .listitem > div > .float-end { margin-inline-start: auto; align-items: center; }
+            .course-count { margin: 0 0 0 8px; min-width: 0; padding: 3px 8px; font-size: 12px; background: $wf-blue-light; border-radius: 20px; }
+            ul.ml { padding-inline-start: 14px; margin-top: 12px; border-inline-start: 1px solid $wf-border; }
+            ul.ml > li + li { margin-top: 8px; }
+        }
+        .bulk-actions {
+            padding: 16px;
+            margin: 20px 0 0;
+            border: 1px solid $wf-border;
+            border-radius: $wf-radius;
+            background: $wf-surface-soft;
+            .detail-pair { display: block; margin: 0 0 14px; padding: 0; border: 0; }
+            .detail-pair:last-child { margin-bottom: 0; }
+            .pair-key, .pair-value { width: 100%; padding: 0; }
+            .pair-key { margin-bottom: 8px; font-size: 12px; color: $wf-text-secondary; }
+            .pair-value > .d-flex { flex-wrap: wrap; gap: 8px; }
+            select { flex: 1 1 130px; min-width: 0; width: auto; }
+        }
+        .course-detail .detail-pair {
+            margin: 0;
+            padding: 14px 0;
+            border-bottom: 1px solid $wf-border;
+            font-size: 14px;
+            &:last-child { border-bottom: 0; }
+            .pair-key { color: $wf-text-secondary; }
+            .pair-value { overflow-wrap: anywhere; }
+        }
+        .listing-pagination { margin: 12px 0; .pagination { flex-wrap: wrap; gap: 4px; } }
+        .listing-pagination-totals { font-size: 12px; color: $wf-text-secondary; }
+        a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid $wf-blue; outline-offset: 3px; }
+        .dropdown-menu { border: 1px solid $wf-border; border-radius: $wf-radius; box-shadow: $wf-shadow-lg; }
+        @media (min-width: 1280px) {
+            &.viewmode-combined { grid-template-columns: minmax(300px, 1fr) minmax(0, 1.65fr); }
+            &.viewmode-combined > #course-listing { grid-column: 2; grid-row: 1; }
+            &.viewmode-combined > #course-detail { grid-row: 3; }
+        }
+    }
+    @media (max-width: 575px) {
+        #action_bar .navitem { width: 100%; }
+        #action_bar select { width: 100%; }
+        #course-category-listings .card-body { padding: 12px; }
+        #course-category-listings .card-header { padding: 16px; }
+        #course-category-listings .course-detail .pair-key,
+        #course-category-listings .course-detail .pair-value { width: 100%; }
+    }
+}
+
+[dir="rtl"] #page-course-management select.form-select { background-position: left 12px center; }

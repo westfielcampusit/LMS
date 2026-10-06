@@ -1,0 +1,32 @@
+{{! Compact workspace using Moodle's existing search and selectors. }}
+<div class="westfield-management-heading">
+    <h1>{{#str}}courses{{/str}}</h1>
+    <p>{{#str}}coursemanagementsimpleintro, theme_westfield{{/str}}</p>
+</div>
+<div class="container-fluid tertiary-navigation westfield-management-toolbar" id="action_bar">
+    <div class="westfield-management-filters">
+        {{#search}}
+        <div class="navitem westfield-management-search">{{> core/search_input }}</div>
+        {{/search}}
+        {{#backbutton}}
+        <div class="navitem westfield-management-back">{{> core/single_button }}</div>
+        {{/backbutton}}
+        <details class="westfield-management-view-options">
+            <summary>{{#str}}coursemanagementviewoptions, theme_westfield{{/str}}</summary>
+            <div class="westfield-management-view-fields">
+                {{#urlselect}}
+                <div class="navitem" role="group" aria-labelledby="westfield-management-view">
+                    <span class="westfield-management-label" id="westfield-management-view">{{#str}}coursemanagementview, theme_westfield{{/str}}</span>
+                    {{> core/url_select }}
+                </div>
+                {{/urlselect}}
+                {{#categoryselect}}
+                <div class="navitem" role="group" aria-labelledby="westfield-management-category">
+                    <span class="westfield-management-label" id="westfield-management-category">{{#str}}category{{/str}}</span>
+                    {{> core/url_select }}
+                </div>
+                {{/categoryselect}}
+            </div>
+        </details>
+    </div>
+</div>
