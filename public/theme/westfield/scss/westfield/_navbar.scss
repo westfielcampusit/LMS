@@ -153,6 +153,40 @@
   gap: 16px;
 }
 
+/* Keep unread counts above and beside both navbar icons. */
+.westfield-navbar-plugins .popover-region-toggle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  overflow: visible;
+
+  .icon {
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    font-size: 20px;
+    line-height: 20px;
+  }
+
+  .count-container {
+    top: -2px;
+    right: auto;
+    left: calc(50% + 9px);
+    min-width: 16px;
+    padding: 2px 4px;
+    border-radius: 8px;
+    font-size: 10px;
+    line-height: 12px;
+    text-align: center;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+}
+
 /* Keep white icons on the dark navbar, outside the light popover content. */
 .westfield-navbar-plugins .popover-region-toggle,
 .westfield-navbar-plugins .popover-region-toggle .icon,

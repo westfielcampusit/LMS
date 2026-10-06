@@ -16,9 +16,12 @@
         $wf-radius;
 }
 
-/* Keep the view and course filter controls the same height. */
-.maincalendar .header #calendarviewdropdown,
-.maincalendar .header select.form-select {
+.maincalendar .header [data-action="new-event-button"] {
+    margin-inline-start: auto !important;
+}
+
+/* Keep the calendar view control height consistent. */
+.maincalendar .header #calendarviewdropdown {
     box-sizing: border-box;
     height: 44px;
     min-height: 44px;
@@ -26,46 +29,6 @@
     padding-bottom: 8px;
     line-height: 1.5;
     vertical-align: top;
-}
-
-.maincalendar .header select.form-select {
-    // Restore the chevron cleared by the theme's form background shorthand.
-    appearance: none;
-    background-color: $wf-blue-light;
-    background-image: escape-svg($form-select-indicator);
-    background-repeat: no-repeat;
-    background-position: right 12px center;
-    background-size: 16px 12px;
-    padding-inline-end: 36px;
-    padding-inline-start: 14px;
-    border: 1px solid $wf-border-dark;
-    border-radius: 10px;
-    color: $wf-navy-900;
-    font-weight: 600;
-    box-shadow: $wf-shadow-sm;
-    cursor: pointer;
-    transition: background-color .2s ease, border-color .2s ease, box-shadow .2s ease;
-
-    &:hover {
-        background-color: $wf-surface;
-        border-color: $wf-blue;
-    }
-
-    &:focus {
-        background-color: $wf-surface;
-        border-color: $wf-blue;
-        box-shadow: 0 0 0 3px rgba($wf-blue, .15);
-    }
-
-    option {
-        background-color: $wf-surface;
-        color: $wf-text;
-        font-weight: 400;
-    }
-}
-
-[dir="rtl"] .maincalendar .header select.form-select {
-    background-position: left 12px center;
 }
 
 .maincalendar .calendarmonth td {
