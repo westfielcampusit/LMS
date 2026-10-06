@@ -1,0 +1,54 @@
+<section class="westfield-payments" aria-label="{{#str}}payments, theme_westfield{{/str}}">
+    <div class="westfield-payments-intro">
+        <span class="westfield-payments-icon" aria-hidden="true"><i class="fa fa-credit-card"></i></span>
+        <div>
+            <h2>{{#str}}payments, theme_westfield{{/str}}</h2>
+            <p>{{#str}}paymentintro, theme_westfield{{/str}}</p>
+        </div>
+        <span class="westfield-payments-count">{{coursecount}} {{#str}}courses{{/str}}</span>
+    </div>
+    {{#courses}}
+    <details class="westfield-payment-course" {{#open}}open{{/open}}>
+        <summary>
+            <span class="westfield-payment-course-icon" aria-hidden="true"><i class="fa fa-graduation-cap"></i></span>
+            <span class="westfield-payment-course-name">{{{name}}}</span>
+            <span class="westfield-payment-record-count">{{paymentcount}} {{#str}}paymentrecords, theme_westfield{{/str}}</span>
+            <i class="fa fa-chevron-down westfield-payment-chevron" aria-hidden="true"></i>
+        </summary>
+        <div class="westfield-payment-columns">
+            <div class="westfield-payment-summary">
+                <h3>{{#str}}paymentsummary, theme_westfield{{/str}}</h3>
+                <dl>
+                    <div><dt>{{#hasaccount}}{{#str}}paymentcoursefee, theme_westfield{{/str}}{{/hasaccount}}{{^hasaccount}}{{#str}}paymentcurrentfee, theme_westfield{{/str}}{{/hasaccount}}</dt><dd>{{#fees}}<span>{{amount}}</span>{{/fees}}{{^fees}}{{#str}}paymentnotconfigured, theme_westfield{{/str}}{{/fees}}</dd></div>
+                    <div><dt>{{#str}}paymentdiscount, theme_westfield{{/str}}</dt><dd>{{#hasaccount}}{{discount}}{{/hasaccount}}{{^hasaccount}}{{#str}}paymentunavailable, theme_westfield{{/str}}{{/hasaccount}}</dd></div>
+                    <div><dt>{{#str}}paymenttotal, theme_westfield{{/str}}</dt><dd>{{#totals}}<span>{{amount}}</span>{{/totals}}{{^totals}}{{#str}}paymentnorecords, theme_westfield{{/str}}{{/totals}}</dd></div>
+                    <div class="westfield-payment-balance"><dt>{{#str}}paymentbalance, theme_westfield{{/str}}</dt><dd>{{#hasaccount}}{{balance}}{{/hasaccount}}{{^hasaccount}}{{#str}}paymentunavailable, theme_westfield{{/str}}{{/hasaccount}}</dd></div>
+                    {{#credit}}<div><dt>{{#str}}paymentcredit, theme_westfield{{/str}}</dt><dd>{{credit}}</dd></div>{{/credit}}
+                </dl>
+                <h3>{{#str}}paymentplan, theme_westfield{{/str}}</h3>
+                <p class="westfield-payment-note westfield-payment-plan">{{#plan}}{{plan}}{{/plan}}{{^plan}}{{#str}}paymentplannote, theme_westfield{{/str}}{{/plan}}</p>
+            </div>
+            <div class="westfield-payment-history">
+                <h3>{{#str}}paymenthistory, theme_westfield{{/str}}</h3>
+                {{#paymentcount}}
+                <div class="table-responsive">
+                    <table class="table">
+                        <caption class="visually-hidden">{{{name}}} — {{#str}}paymenthistory, theme_westfield{{/str}}</caption>
+                        <thead><tr>
+                            <th scope="col">{{#str}}paymentdate, theme_westfield{{/str}}</th>
+                            <th scope="col">{{#str}}paymentamount, theme_westfield{{/str}}</th>
+                            <th scope="col">{{#str}}paymentmethod, theme_westfield{{/str}}</th>
+                            <th scope="col">{{#str}}paymentreference, theme_westfield{{/str}}</th>
+                        </tr></thead>
+                        <tbody>{{#history}}<tr><td>{{date}}</td><td>{{amount}}</td><td>{{method}}</td><td>{{reference}}{{#note}}<small class="d-block text-muted">{{note}}</small>{{/note}}</td></tr>{{/history}}</tbody>
+                    </table>
+                </div>
+                {{/paymentcount}}
+                {{^paymentcount}}<div class="westfield-payment-empty"><i class="fa fa-credit-card" aria-hidden="true"></i><p>{{#str}}paymenthistoryempty, theme_westfield{{/str}}</p></div>{{/paymentcount}}
+                <p class="westfield-payment-note">{{#str}}paymentdatanote, theme_westfield{{/str}}</p>
+            </div>
+        </div>
+    </details>
+    {{/courses}}
+    {{^courses}}<div class="westfield-payment-empty"><p>{{#str}}paymentnocourses, theme_westfield{{/str}}</p></div>{{/courses}}
+</section>

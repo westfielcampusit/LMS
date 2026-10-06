@@ -1,0 +1,109 @@
+.westfield-payments {
+    .westfield-payment-plan { white-space: pre-line; }
+    .westfield-payments-intro {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        padding: 24px;
+        margin-bottom: 24px;
+        background: $wf-gradient;
+        color: $wf-white;
+        border-radius: $wf-radius-lg;
+        box-shadow: $wf-shadow;
+        h2 { margin: 0 0 6px; color: inherit; font-size: 24px; }
+        p { margin: 0; color: rgba(255, 255, 255, .8); }
+    }
+    .westfield-payments-icon {
+        display: grid;
+        place-items: center;
+        flex: 0 0 52px;
+        height: 52px;
+        background: rgba(255, 255, 255, .12);
+        border-radius: $wf-radius;
+        font-size: 22px;
+    }
+    .westfield-payments-count {
+        margin-inline-start: auto;
+        white-space: nowrap;
+        padding: 8px 14px;
+        background: rgba(255, 255, 255, .12);
+        border-radius: 24px;
+        font-size: 13px;
+    }
+    .westfield-payment-course {
+        margin-bottom: 16px;
+        border: 1px solid $wf-border;
+        border-radius: $wf-radius-lg;
+        background: $wf-surface;
+        box-shadow: $wf-shadow-sm;
+        overflow: hidden;
+        summary {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 20px 24px;
+            cursor: pointer;
+            list-style: none;
+            color: $wf-navy-900;
+            &::-webkit-details-marker { display: none; }
+            &:hover { background: $wf-surface-soft; }
+            &:focus-visible { outline: 2px solid $wf-blue; outline-offset: -4px; }
+        }
+        &[open] summary { background: $wf-blue-light; border-bottom: 1px solid $wf-border; }
+        &[open] .westfield-payment-chevron { transform: rotate(180deg); }
+    }
+    .westfield-payment-course-icon { color: $wf-blue; font-size: 20px; }
+    .westfield-payment-course-name { flex: 1; font-weight: 700; overflow-wrap: anywhere; }
+    .westfield-payment-record-count { color: $wf-text-secondary; font-size: 12px; }
+    .westfield-payment-chevron { font-size: 12px; }
+    .westfield-payment-columns { display: grid; grid-template-columns: minmax(260px, 1fr) minmax(0, 1.7fr); }
+    .westfield-payment-summary, .westfield-payment-history { padding: 24px; min-width: 0; }
+    .westfield-payment-summary { border-inline-end: 1px solid $wf-border; }
+    h3 { color: $wf-navy-800; font-size: 16px; font-weight: 700; margin: 0 0 20px; }
+    dl {
+        margin-bottom: 28px;
+        > div { display: flex; justify-content: space-between; gap: 18px; padding: 12px 0; }
+        dt { font-size: 13px; color: $wf-text-secondary; font-weight: 500; }
+        dd { margin: 0; text-align: end; color: $wf-text; font-size: 13px; font-weight: 600; }
+        dd span { display: block; }
+        .westfield-payment-balance { border-top: 1px solid $wf-border; margin-top: 12px; padding-top: 20px; }
+    }
+    .westfield-payment-note { color: $wf-text-secondary; font-size: 12px; line-height: 1.7; }
+    .westfield-payment-empty { text-align: center; padding: 32px 20px; color: $wf-text-secondary; background: $wf-surface-soft; border-radius: $wf-radius; margin-bottom: 18px; p { margin: 12px 0 0; } }
+    .table { font-size: 13px; th { white-space: nowrap; } }
+    @media (max-width: 991px) {
+        .westfield-payment-columns { grid-template-columns: 1fr; }
+        .westfield-payment-summary { border-inline-end: 0; border-bottom: 1px solid $wf-border; }
+    }
+    @media (max-width: 575px) {
+        .westfield-payments-intro { flex-wrap: wrap; padding: 20px; }
+        .westfield-payments-count { margin-inline-start: 0; }
+        .westfield-payment-course summary { padding: 16px; gap: 10px; }
+        .westfield-payment-record-count { display: none; }
+        .westfield-payment-summary, .westfield-payment-history { padding: 18px; }
+    }
+}
+
+.westfield-payment-admin {
+    .westfield-payment-picker, .westfield-payment-admin-card {
+        padding: 24px;
+        background: $wf-surface;
+        border: 1px solid $wf-border;
+        border-radius: $wf-radius-lg;
+        box-shadow: $wf-shadow-sm;
+        margin-bottom: 24px;
+    }
+    .westfield-payment-picker form {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 12px;
+        + form { margin-top: 18px; }
+        label { min-width: 70px; margin: 0; font-weight: 600; }
+        select { flex: 1; min-width: 180px; width: auto; }
+    }
+    .westfield-payment-admin-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+    .westfield-payment-admin-card h4 { color: $wf-navy-800; margin-bottom: 24px; }
+    @media (max-width: 1100px) { .westfield-payment-admin-grid { grid-template-columns: 1fr; gap: 0; } }
+    @media (max-width: 575px) { .westfield-payment-picker form { flex-direction: column; align-items: stretch; } }
+}

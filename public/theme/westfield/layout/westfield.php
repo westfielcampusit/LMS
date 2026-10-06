@@ -385,6 +385,13 @@ echo $OUTPUT->doctype();
 
                 <!-- Preferences -->
 
+                <?php if ($isadmin): ?>
+                <a href="<?php echo new moodle_url('/local/westfieldpayments/index.php'); ?>" class="westfield-dropdown-item">
+                    <span class="westfield-dropdown-icon"><i class="fa fa-credit-card" aria-hidden="true"></i></span>
+                    <span><?php echo get_string('payments', 'theme_westfield'); ?></span>
+                </a>
+                <?php endif; ?>
+
                 <a
                     href="<?php echo $preferencesurl; ?>"
                     class="westfield-dropdown-item"
@@ -521,23 +528,13 @@ echo $OUTPUT->doctype();
         </a>
 
 
-        <!-- Profile -->
-
-        <a
-            href="<?php echo $profileurl; ?>"
-            class="westfield-sidebar-link"
-        >
-
+        <!-- Payments -->
+        <a class="westfield-sidebar-link" href="<?php echo new moodle_url('/theme/westfield/payments.php'); ?>">
             <span class="westfield-sidebar-icon">
-                <i class="fa fa-user"></i>
+                <i class="fa fa-credit-card" aria-hidden="true"></i>
             </span>
-
-            <span class="westfield-sidebar-label">
-                Profile
-            </span>
-
+            <span class="westfield-sidebar-label"><?php echo get_string('payments', 'theme_westfield'); ?></span>
         </a>
-
 
         <!-- Grades -->
 
@@ -573,6 +570,24 @@ echo $OUTPUT->doctype();
             </span>
 
         </a>
+
+        <!-- Profile -->
+
+        <a
+            href="<?php echo $profileurl; ?>"
+            class="westfield-sidebar-link"
+        >
+
+            <span class="westfield-sidebar-icon">
+                <i class="fa fa-user"></i>
+            </span>
+
+            <span class="westfield-sidebar-label">
+                Profile
+            </span>
+
+        </a>
+
 
     </div>
 
