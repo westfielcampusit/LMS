@@ -51,3 +51,6 @@ $string['profilenoprogress'] = 'Not tracked';
 $string['profilenocourses'] = 'No courses to display.';
 $string['mobileqrsetup'] = 'Once mobile app login is enabled, scan your QR code with the mobile app to log in automatically. Login QR codes expire in 10 minutes.';
 $string['mobileqrunavailable'] = 'QR login is not available on this site yet. Your administrator needs to enable mobile services and automatic QR login on an HTTPS site.';
+$string['uploadchoosehint'] = 'Use Add file to choose a document from your device.';
+$string['uploadsavehint'] = 'Add your documents, then save the form. For assignments, check the submission status and submit for grading if required.';
+$string['uploadfilehint'] = 'Choose your document, then select Upload. Leave Save as empty to keep the original filename.';

@@ -462,6 +462,12 @@ $adminsidebarlinks = [
             </a>
         <?php endforeach; ?>
     </nav>
+    <div class="westfield-sidebar-bottom">
+        <a href="<?php echo $logouturl; ?>" class="westfield-sidebar-help westfield-sidebar-logout">
+            <span class="westfield-sidebar-icon"><i class="fa fa-sign-out-alt" aria-hidden="true"></i></span>
+            <span class="westfield-sidebar-label"><?php echo get_string('logout'); ?></span>
+        </a>
+    </div>
 </aside>
 
 <?php else: ?>
