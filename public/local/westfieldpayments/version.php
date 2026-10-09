@@ -1,7 +1,7 @@
 <?php
 defined('MOODLE_INTERNAL') || die();
 $plugin->component = 'local_westfieldpayments';
-$plugin->version = 2026100600;
+$plugin->version = 2026101200;
 $plugin->requires = 2026042000;
 $plugin->maturity = MATURITY_STABLE;
 $plugin->release = '1.0.0';

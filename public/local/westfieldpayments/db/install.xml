@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="local/westfieldpayments/db" VERSION="20261006" COMMENT="WestField student course payment records">
+<XMLDB PATH="local/westfieldpayments/db" VERSION="20261012" COMMENT="WestField student course payment records">
   <TABLES>
     <TABLE NAME="local_wfp_accounts" COMMENT="Agreed fees and plan for an enrolled student course">
       <FIELDS>
@@ -22,11 +22,58 @@
       </KEYS>
       <INDEXES><INDEX NAME="user-course" UNIQUE="true" FIELDS="userid, courseid"/></INDEXES>
     </TABLE>
+    <TABLE NAME="local_wfp_courseplans" COMMENT="Fee and payment plan shared by all students in a course">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="currency" TYPE="char" LENGTH="3" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="fee" TYPE="int" LENGTH="15" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Amount in minor currency units"/>
+        <FIELD NAME="discount" TYPE="int" LENGTH="15" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="plan" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="modifiedby" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="courseid" TYPE="foreign-unique" FIELDS="courseid" REFTABLE="course" REFFIELDS="id"/>
+      </KEYS>
+    </TABLE>
+    <TABLE NAME="local_wfp_courseinst" COMMENT="Installment schedule shared by all students in a course">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="planid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="installmentnumber" TYPE="int" LENGTH="4" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="amount" TYPE="int" LENGTH="15" NOTNULL="true" SEQUENCE="false" COMMENT="Amount in minor currency units"/>
+        <FIELD NAME="duedate" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="paymentdue" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="planid" TYPE="foreign" FIELDS="planid" REFTABLE="local_wfp_courseplans" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES><INDEX NAME="plan-installment" UNIQUE="true" FIELDS="planid, installmentnumber"/></INDEXES>
+    </TABLE>
+    <TABLE NAME="local_wfp_installments" COMMENT="Payment installments and due dates for an account">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="accountid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="installmentnumber" TYPE="int" LENGTH="4" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="amount" TYPE="int" LENGTH="15" NOTNULL="true" SEQUENCE="false" COMMENT="Amount in minor currency units"/>
+        <FIELD NAME="duedate" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="paymentdue" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="accountid" TYPE="foreign" FIELDS="accountid" REFTABLE="local_wfp_accounts" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES><INDEX NAME="account-installment" UNIQUE="true" FIELDS="accountid, installmentnumber"/></INDEXES>
+    </TABLE>
     <TABLE NAME="local_wfp_payments" COMMENT="Administrator recorded course payments">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="accountid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
         <FIELD NAME="amount" TYPE="int" LENGTH="15" NOTNULL="true" SEQUENCE="false" COMMENT="Amount in minor currency units"/>
+        <FIELD NAME="currency" TYPE="char" LENGTH="3" NOTNULL="true" SEQUENCE="false"/>
         <FIELD NAME="paidat" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
         <FIELD NAME="method" TYPE="char" LENGTH="30" NOTNULL="true" SEQUENCE="false"/>
         <FIELD NAME="reference" TYPE="char" LENGTH="100" NOTNULL="true" DEFAULT="" SEQUENCE="false"/>

@@ -26,6 +26,9 @@
                     {{#credit}}<div><dt>{{#str}}paymentcredit, theme_westfield{{/str}}</dt><dd>{{credit}}</dd></div>{{/credit}}
                 </dl>
                 <h3>{{#str}}paymentplan, theme_westfield{{/str}}</h3>
+                {{#installments}}
+                <p class="westfield-payment-note"><strong>{{#str}}paymentinstallment, theme_westfield{{/str}} {{number}}:</strong> {{amount}} — {{#str}}paymentduedate, theme_westfield{{/str}}: {{duedate}}{{#due}} — <strong>{{#str}}paymentdue, theme_westfield{{/str}}</strong>{{/due}}</p>
+                {{/installments}}
                 <p class="westfield-payment-note westfield-payment-plan">{{#plan}}{{plan}}{{/plan}}{{^plan}}{{#str}}paymentplannote, theme_westfield{{/str}}{{/plan}}</p>
             </div>
             <div class="westfield-payment-history">
