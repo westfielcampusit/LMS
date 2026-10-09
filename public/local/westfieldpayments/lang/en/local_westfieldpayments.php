@@ -1,6 +1,6 @@
 <?php
-$string['pluginname'] = 'Student payments';
-$string['managepayments'] = 'Manage student payments';
+$string['pluginname'] = 'Student Payments';
+$string['managepayments'] = 'Manage Student Payments';
 $string['intro'] = 'Set the fee and installment schedule once for a course, then select individual enrolled students to record their payments.';
 $string['choosecourse'] = 'Choose course';
 $string['choosestudent'] = 'Open student payments';
@@ -18,6 +18,7 @@ $string['onlydue'] = 'Show only students with unpaid marked-due installments';
 $string['dueduebalance'] = 'Unpaid due installments';
 $string['noduestudents'] = 'No students currently have an unpaid installment marked as due.';
 $string['savecourseplan'] = 'Save course payment plan';
+$string['editcourseplan'] = 'Edit course payment plan';
 $string['savecourseplanfirst'] = 'Save the shared course fee and payment plan before recording a student payment.';
 $string['selectonestudent'] = 'Select exactly one student from the course list.';
 $string['fee'] = 'Total course fee';

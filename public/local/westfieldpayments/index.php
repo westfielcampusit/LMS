@@ -8,6 +8,7 @@ require_login();
 $courseid = optional_param('courseid', 0, PARAM_INT);
 $userid = optional_param('userid', 0, PARAM_INT);
 $onlydue = optional_param('onlydue', 0, PARAM_BOOL);
+$editplan = optional_param('editplan', 0, PARAM_BOOL);
 $selectedusers = optional_param_array('selectedusers', [], PARAM_INT);
 $openstudent = optional_param('openstudent', 0, PARAM_BOOL);
 $search = trim(optional_param('search', '', PARAM_TEXT));
@@ -41,12 +42,10 @@ if ($courseid) {
         ? $DB->get_records('local_wfp_courseinst', ['planid' => $courseplan->id], 'installmentnumber ASC')
         : [];
 
-    $planform = new \local_westfieldpayments\form\course_plan($courseurl);
     $formdata = [
         'fee' => $courseplan ? \local_westfieldpayments\ledger::decimal((int)$courseplan->fee) : '',
         'discount' => $courseplan ? \local_westfieldpayments\ledger::decimal((int)$courseplan->discount) : '0.00',
         'currency' => $courseplan ? $courseplan->currency : 'LKR',
-        'plan' => $courseplan ? $courseplan->plan : '',
         'installmentcount' => count($installments),
     ];
     foreach ($installments as $installment) {
@@ -59,14 +58,23 @@ if ($courseid) {
             $markedDueAmount += (int)$installment->amount;
         }
     }
-    $planform->set_data((object)$formdata);
-    $PAGE->requires->js(new moodle_url('/local/westfieldpayments/installments.js'));
+    if (!$courseplan || $editplan) {
+        $planurl = new moodle_url($courseurl, ['editplan' => (int)$editplan]);
+        $planform = new \local_westfieldpayments\form\course_plan($planurl,
+            ['showcancel' => (bool)$courseplan]);
+        $planform->set_data((object)$formdata);
+        $PAGE->requires->js(new moodle_url('/local/westfieldpayments/installments.js'));
 
-    if ($data = $planform->get_data()) {
-        require_sesskey();
-        \local_westfieldpayments\ledger::save_course_plan($courseid, $data);
-        redirect($courseurl, get_string('plansaved', 'local_westfieldpayments'), null,
-            \core\output\notification::NOTIFY_SUCCESS);
+        if ($planform->is_cancelled()) {
+            redirect($courseurl);
+        }
+        if ($data = $planform->get_data()) {
+            require_sesskey();
+            $data->plan = $courseplan ? $courseplan->plan : '';
+            \local_westfieldpayments\ledger::save_course_plan($courseid, $data);
+            redirect($courseurl, get_string('plansaved', 'local_westfieldpayments'), null,
+                \core\output\notification::NOTIFY_SUCCESS);
+        }
     }
 
     $students = get_enrolled_users(context_course::instance($courseid), '', 0, 'u.*', 'u.firstname, u.lastname');
@@ -140,10 +148,43 @@ echo html_writer::end_div();
 if (!$courseid) {
     echo $OUTPUT->notification(get_string('selectprompt', 'local_westfieldpayments'), 'info');
 } else {
-    echo $OUTPUT->heading(format_string($course->fullname), 3);
+    echo $OUTPUT->heading(format_string($course->fullname), 3, 'text-capitalize');
     echo html_writer::start_div('westfield-payment-admin-card');
     echo $OUTPUT->heading(get_string('courseplanheading', 'local_westfieldpayments'), 4);
-    $planform->display();
+    if ($planform) {
+        $planform->display();
+    } else {
+        $details = [
+            'fee' => s(\local_westfieldpayments\ledger::decimal((int)$courseplan->fee)),
+            'discount' => s(\local_westfieldpayments\ledger::decimal((int)$courseplan->discount)),
+            'currency' => s($courseplan->currency),
+            'installmentcount' => count($installments),
+        ];
+        echo html_writer::start_tag('dl', ['class' => 'row']);
+        foreach ($details as $label => $value) {
+            echo html_writer::tag('dt', get_string($label, 'local_westfieldpayments'), ['class' => 'col-sm-4']);
+            echo html_writer::tag('dd', $value, ['class' => 'col-sm-8']);
+        }
+        echo html_writer::end_tag('dl');
+        if ($installments) {
+            $schedule = new html_table();
+            $schedule->head = [get_string('paymentinstallment', 'theme_westfield'),
+                get_string('installmentamount', 'local_westfieldpayments'),
+                get_string('duedate', 'local_westfieldpayments')];
+            foreach ($installments as $installment) {
+                $schedule->data[] = [
+                    (int)$installment->installmentnumber,
+                    s(\local_westfieldpayments\ledger::decimal((int)$installment->amount) . ' ' . $courseplan->currency),
+                    userdate((int)$installment->duedate, get_string('strftimedatefullshort')),
+                ];
+            }
+            echo html_writer::div(html_writer::table($schedule), 'table-responsive');
+        }
+        echo html_writer::div(
+            html_writer::link(new moodle_url($courseurl, ['editplan' => 1]),
+                get_string('editcourseplan', 'local_westfieldpayments'), ['class' => 'btn btn-primary']),
+            'mt-4');
+    }
     echo html_writer::end_div();
 
     echo html_writer::start_div('westfield-payment-admin-card');

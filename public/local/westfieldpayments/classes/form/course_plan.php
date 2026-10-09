@@ -17,8 +17,6 @@ class course_plan extends \moodleform {
             \local_westfieldpayments\ledger::CURRENCIES);
         $mform->addElement('select', 'currency', get_string('currency', 'local_westfieldpayments'), $currencies);
         $mform->setDefault('currency', 'LKR');
-        $mform->addElement('textarea', 'plan', get_string('plan', 'local_westfieldpayments'), ['rows' => 3]);
-        $mform->setType('plan', PARAM_TEXT);
         $mform->addElement('text', 'installmentcount', get_string('installmentcount', 'local_westfieldpayments'),
             ['type' => 'number', 'min' => 0, 'max' => \local_westfieldpayments\ledger::MAX_INSTALLMENTS,
                 'data-max-installments' => \local_westfieldpayments\ledger::MAX_INSTALLMENTS]);
@@ -39,7 +37,8 @@ class course_plan extends \moodleform {
             $mform->setType($due, PARAM_BOOL);
             $mform->setDefault($due, 0);
         }
-        $this->add_action_buttons(false, get_string('savecourseplan', 'local_westfieldpayments'));
+        $this->add_action_buttons(!empty($this->_customdata['showcancel']),
+            get_string('savecourseplan', 'local_westfieldpayments'));
     }
 
     public function validation($data, $files) {
