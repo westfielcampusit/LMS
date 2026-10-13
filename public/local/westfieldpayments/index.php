@@ -33,7 +33,6 @@ $planform = $paymentform = null;
 $students = [];
 $balances = [];
 $duebalances = [];
-$markedDueAmount = 0;
 $hasdueinstallment = false;
 if ($courseid) {
     $course = get_course($courseid);
@@ -54,9 +53,6 @@ if ($courseid) {
         $formdata['installmentdate_' . $index] = (int)$installment->duedate;
         $formdata['installmentdue_' . $index] = (int)$installment->paymentdue;
         $hasdueinstallment = $hasdueinstallment || !empty($installment->paymentdue);
-        if (!empty($installment->paymentdue)) {
-            $markedDueAmount += (int)$installment->amount;
-        }
     }
     if (!$courseplan || $editplan) {
         $planurl = new moodle_url($courseurl, ['editplan' => (int)$editplan]);
@@ -114,7 +110,7 @@ if ($courseid) {
         foreach ($students as $student) {
             $paid = $paidamounts[$student->id] ?? 0;
             $balances[$student->id] = max(0, $planbalance - $paid);
-            $duebalances[$student->id] = max(0, $markedDueAmount - $paid);
+            $duebalances[$student->id] = \local_westfieldpayments\reminders::due((int)$student->id, $courseid);
         }
     }
 
@@ -235,7 +231,12 @@ if (!$courseid) {
         html_writer::tag('th', get_string('selectstudent', 'local_westfieldpayments')) .
         html_writer::tag('th', get_string('student', 'local_westfieldpayments')) .
         html_writer::tag('th', get_string('paymentbalance', 'theme_westfield')) .
-        html_writer::tag('th', get_string('dueduebalance', 'local_westfieldpayments'))));
+        html_writer::tag('th', get_string('dueduebalance', 'local_westfieldpayments')) .
+        html_writer::tag('th', get_string('reminderstatus', 'local_westfieldpayments'))));
+    $reminderstates = [];
+    foreach ($DB->get_records('local_wfp_reminders', ['courseid' => $courseid]) as $state) {
+        $reminderstates[$state->userid] = $state;
+    }
     echo html_writer::start_tag('tbody');
     $visiblecount = 0;
     foreach ($students as $student) {
@@ -263,6 +264,17 @@ if (!$courseid) {
             ? \local_westfieldpayments\ledger::decimal((int)($duebalances[$student->id] ?? 0)) .
                 ' ' . $courseplan->currency
             : get_string('paymentnotconfigured', 'theme_westfield');
+        $state = $reminderstates[$student->id] ?? null;
+        $reminderstatus = get_string('reminderstatusnone', 'local_westfieldpayments');
+        if ($state && $state->remindercount && ($duebalances[$student->id] ?? 0) > 0) {
+            $reminderstatus = get_string('reminderstatuscount', 'local_westfieldpayments', $state->remindercount);
+            if ($state->blockat && \local_westfieldpayments\reminders::enabled()
+                    && \local_westfieldpayments\reminders::eligible((int)$student->id, $courseid)) {
+                $reminderstatus = $state->blockat <= time()
+                    ? get_string('reminderstatusblocked', 'local_westfieldpayments')
+                    : get_string('reminderstatusdeadline', 'local_westfieldpayments', userdate($state->blockat));
+            }
+        }
         echo html_writer::tag('tr',
             html_writer::tag('td', $checkbox) .
             html_writer::tag('td', html_writer::link(new moodle_url('/user/profile.php',
@@ -270,7 +282,8 @@ if (!$courseid) {
                 'westfield-profile-payments'), fullname($student),
                 ['class' => 'westfield-payment-student-link']) . ' (' . s($student->email) . ')') .
             html_writer::tag('td', $balancecontent) .
-            html_writer::tag('td', $duebalancecontent));
+            html_writer::tag('td', $duebalancecontent) .
+            html_writer::tag('td', s($reminderstatus)));
     }
     echo html_writer::end_tag('tbody');
     echo html_writer::end_tag('table');

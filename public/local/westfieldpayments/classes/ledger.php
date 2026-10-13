@@ -113,6 +113,7 @@ class ledger {
                     'paymentdue' => empty($data->{'installmentdue_' . $index}) ? 0 : 1,
                 ]);
             }
+            reminders::reconcile_course($courseid);
             $transaction->allow_commit();
             return $planid;
         } catch (\Throwable $e) {
@@ -178,7 +179,7 @@ class ledger {
                 }
                 return (int)$existing->id;
             }
-            return (int)$DB->insert_record('local_wfp_payments', (object)[
+            $paymentid = (int)$DB->insert_record('local_wfp_payments', (object)[
                 'accountid' => $account->id, 'amount' => $amount, 'paidat' => $data->paidat,
                 'currency' => $account->currency,
                 'paymenttype' => $paymenttype, 'installmentnumber' => $installmentnumber,
@@ -186,6 +187,8 @@ class ledger {
                 'note' => trim($data->note ?? ''), 'requestid' => $data->requestid,
                 'createdby' => $USER->id, 'timecreated' => time(),
             ]);
+            reminders::reconcile_course($courseid);
+            return $paymentid;
         } finally {
             $lock->release();
         }

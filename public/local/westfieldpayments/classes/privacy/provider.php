@@ -34,6 +34,11 @@ class provider implements \core_privacy\local\metadata\provider,
             'planid' => 'privacy:courseplan', 'installmentnumber' => 'privacy:installments',
             'amount' => 'privacy:fees', 'duedate' => 'privacy:duedate', 'paymentdue' => 'privacy:paymentdue',
         ], 'privacy:installments');
+        $collection->add_database_table('local_wfp_reminders', [
+            'userid' => 'privacy:student', 'courseid' => 'privacy:course',
+            'remindercount' => 'privacy:reminders', 'lastsent' => 'privacy:date', 'blockat' => 'privacy:date',
+        ], 'privacy:reminders');
+        $collection->add_subsystem_link('core_message', [], 'privacy:reminders');
         return $collection;
     }
 
@@ -42,6 +47,9 @@ class provider implements \core_privacy\local\metadata\provider,
         $list->add_from_sql('SELECT c.id FROM {context} c JOIN {local_wfp_accounts} a
             ON a.userid = c.instanceid WHERE c.contextlevel = :level AND a.userid = :userid',
             ['level' => CONTEXT_USER, 'userid' => $userid]);
+        $list->add_from_sql('SELECT c.id FROM {context} c JOIN {local_wfp_reminders} r
+            ON r.userid = c.instanceid WHERE c.contextlevel = :level AND r.userid = :userid',
+            ['level' => CONTEXT_USER, 'userid' => $userid]);
         return $list;
     }
 
@@ -49,6 +57,7 @@ class provider implements \core_privacy\local\metadata\provider,
         $context = $userlist->get_context();
         if ($context->contextlevel == CONTEXT_USER) {
             $userlist->add_from_sql('userid', 'SELECT userid FROM {local_wfp_accounts} WHERE userid = ?', [$context->instanceid]);
+            $userlist->add_from_sql('userid', 'SELECT userid FROM {local_wfp_reminders} WHERE userid = ?', [$context->instanceid]);
         }
     }
 
@@ -58,6 +67,10 @@ class provider implements \core_privacy\local\metadata\provider,
             if ($context->contextlevel != CONTEXT_USER || $context->instanceid != $contextlist->get_user()->id) {
                 continue;
             }
+            $reminders = $DB->get_records('local_wfp_reminders', ['userid' => $context->instanceid]);
+            \core_privacy\local\request\writer::with_context($context)->export_data(
+                [get_string('pluginname', 'local_westfieldpayments'), 'reminders'],
+                (object)['reminders' => array_values($reminders)]);
             $accounts = $DB->get_records('local_wfp_accounts', ['userid' => $context->instanceid]);
             foreach ($accounts as $account) {
                 $payments = $DB->get_records('local_wfp_payments', ['accountid' => $account->id]);
@@ -105,6 +118,7 @@ class provider implements \core_privacy\local\metadata\provider,
             $DB->delete_records('local_wfp_installments', ['accountid' => $account->id]);
         }
         $DB->delete_records('local_wfp_accounts', ['userid' => $userid]);
+        $DB->delete_records('local_wfp_reminders', ['userid' => $userid]);
         $transaction->allow_commit();
     }
 }

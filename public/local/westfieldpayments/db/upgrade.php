@@ -144,5 +144,22 @@ function xmldb_local_westfieldpayments_upgrade($oldversion) {
         }
         upgrade_plugin_savepoint(true, 2026101201, 'local', 'westfieldpayments');
     }
+    if ($oldversion < 2026101300) {
+        $table = new xmldb_table('local_wfp_reminders');
+        if (!$dbman->table_exists($table)) {
+            $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE);
+            $table->add_field('userid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL);
+            $table->add_field('courseid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL);
+            $table->add_field('remindercount', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, '0');
+            $table->add_field('lastsent', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0');
+            $table->add_field('blockat', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0');
+            $table->add_key('primary', XMLDB_KEY_PRIMARY, ['id']);
+            $table->add_key('userid', XMLDB_KEY_FOREIGN, ['userid'], 'user', ['id']);
+            $table->add_key('courseid', XMLDB_KEY_FOREIGN, ['courseid'], 'course', ['id']);
+            $table->add_index('user-course', XMLDB_INDEX_UNIQUE, ['userid', 'courseid']);
+            $dbman->create_table($table);
+        }
+        upgrade_plugin_savepoint(true, 2026101300, 'local', 'westfieldpayments');
+    }
     return true;
 }
