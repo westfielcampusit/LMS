@@ -1,15 +1,20 @@
 {{! Profile courses and original Moodle details, rendered by the theme profile renderer. }}
 <div class="westfield-profile-tabs">
     <div class="nav nav-pills westfield-profile-tablist" role="tablist" aria-label="{{#str}}profiletabs, theme_westfield{{/str}}">
-        <button class="nav-link active" id="westfield-courses-tab" data-bs-toggle="tab" data-bs-target="#westfield-profile-courses" type="button" role="tab" aria-controls="westfield-profile-courses" aria-selected="true">
+        <button class="nav-link{{^paymentactive}} active{{/paymentactive}}" id="westfield-courses-tab" data-bs-toggle="tab" data-bs-target="#westfield-profile-courses" type="button" role="tab" aria-controls="westfield-profile-courses" aria-selected="{{#paymentactive}}false{{/paymentactive}}{{^paymentactive}}true{{/paymentactive}}"{{#paymentactive}} tabindex="-1"{{/paymentactive}}>
             {{#str}}courses{{/str}}
         </button>
         <button class="nav-link" id="westfield-details-tab" data-bs-toggle="tab" data-bs-target="#westfield-profile-details" type="button" role="tab" aria-controls="westfield-profile-details" aria-selected="false" tabindex="-1">
             {{#str}}profiledetails, theme_westfield{{/str}}
         </button>
+        {{#showpayments}}
+        <button class="nav-link{{#paymentactive}} active{{/paymentactive}}" id="westfield-payments-tab" data-bs-toggle="tab" data-bs-target="#westfield-profile-payments" type="button" role="tab" aria-controls="westfield-profile-payments" aria-selected="{{#paymentactive}}true{{/paymentactive}}{{^paymentactive}}false{{/paymentactive}}"{{^paymentactive}} tabindex="-1"{{/paymentactive}}>
+            {{#str}}paymentdetails, local_westfieldpayments{{/str}}
+        </button>
+        {{/showpayments}}
     </div>
     <div class="tab-content">
-        <div class="tab-pane show active" id="westfield-profile-courses" role="tabpanel" aria-labelledby="westfield-courses-tab" tabindex="0">
+        <div class="tab-pane{{^paymentactive}} show active{{/paymentactive}}" id="westfield-profile-courses" role="tabpanel" aria-labelledby="westfield-courses-tab" tabindex="0">
             {{#courses}}
                 <article class="westfield-profile-course">
                     <img class="westfield-profile-course-image" src="{{image}}" alt="" loading="lazy">
@@ -33,5 +38,10 @@
         <div class="tab-pane" id="westfield-profile-details" role="tabpanel" aria-labelledby="westfield-details-tab" tabindex="0">
             <div class="profile_tree">{{{details}}}</div>
         </div>
+        {{#showpayments}}
+        <div class="tab-pane{{#paymentactive}} show active{{/paymentactive}}" id="westfield-profile-payments" role="tabpanel" aria-labelledby="westfield-payments-tab" tabindex="0">
+            {{{paymenthtml}}}
+        </div>
+        {{/showpayments}}
     </div>
 </div>

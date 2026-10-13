@@ -1,5 +1,13 @@
 <?php
 $string['pluginname'] = 'Student Payments';
+$string['paymentdetails'] = 'Payment details';
+$string['addpaymentbutton'] = 'Add payment';
+$string['paymenttype'] = 'Payment for';
+$string['paid'] = 'Paid';
+$string['partiallypaid'] = 'Partially paid';
+$string['unpaid'] = 'Unpaid';
+$string['coursefee'] = 'Course fee';
+$string['registration'] = 'Registration fee';
 $string['managepayments'] = 'Manage Student Payments';
 $string['intro'] = 'Set the fee and installment schedule once for a course, then select individual enrolled students to record their payments.';
 $string['choosecourse'] = 'Choose course';

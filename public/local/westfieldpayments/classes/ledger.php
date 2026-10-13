@@ -138,6 +138,19 @@ class ledger {
         }
         $lock = self::lock_course($courseid);
         try {
+            $paymenttype = $data->paymenttype ?? 'coursefee';
+            $installmentnumber = 0;
+            if (preg_match('/^installment_([1-9][0-9]*)$/D', $paymenttype, $matches)) {
+                $installmentnumber = (int)$matches[1];
+                $plan = self::course_plan($courseid);
+                if (!$plan || !$DB->record_exists('local_wfp_courseinst',
+                        ['planid' => $plan->id, 'installmentnumber' => $installmentnumber])) {
+                    throw new \invalid_parameter_exception(get_string('invalidinstallment', 'local_westfieldpayments'));
+                }
+                $paymenttype = 'installment';
+            } else if (!in_array($paymenttype, ['coursefee', 'registration'], true)) {
+                throw new \invalid_parameter_exception(get_string('invalidpayment', 'local_westfieldpayments'));
+            }
             $account = self::account($userid, $courseid);
             if (!$account) {
                 $plan = self::course_plan($courseid);
@@ -168,6 +181,7 @@ class ledger {
             return (int)$DB->insert_record('local_wfp_payments', (object)[
                 'accountid' => $account->id, 'amount' => $amount, 'paidat' => $data->paidat,
                 'currency' => $account->currency,
+                'paymenttype' => $paymenttype, 'installmentnumber' => $installmentnumber,
                 'method' => $data->method, 'reference' => trim($data->reference ?? ''),
                 'note' => trim($data->note ?? ''), 'requestid' => $data->requestid,
                 'createdby' => $USER->id, 'timecreated' => time(),

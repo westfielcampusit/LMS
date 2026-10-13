@@ -27,12 +27,13 @@
                 </dl>
                 <h3>{{#str}}paymentplan, theme_westfield{{/str}}</h3>
                 {{#installments}}
-                <p class="westfield-payment-note"><strong>{{#str}}paymentinstallment, theme_westfield{{/str}} {{number}}:</strong> {{amount}} — {{#str}}paymentduedate, theme_westfield{{/str}}: {{duedate}}{{#due}} — <strong>{{#str}}paymentdue, theme_westfield{{/str}}</strong>{{/due}}</p>
+                <p class="westfield-payment-note"><strong>{{#str}}paymentinstallment, theme_westfield{{/str}} {{number}}:</strong> {{amount}} — {{#str}}paymentduedate, theme_westfield{{/str}}: {{duedate}} — <strong>{{status}}</strong>{{#due}} — <strong>{{#str}}paymentdue, theme_westfield{{/str}}</strong>{{/due}}</p>
                 {{/installments}}
                 <p class="westfield-payment-note westfield-payment-plan">{{#plan}}{{plan}}{{/plan}}{{^plan}}{{#str}}paymentplannote, theme_westfield{{/str}}{{/plan}}</p>
             </div>
             <div class="westfield-payment-history">
                 <h3>{{#str}}paymenthistory, theme_westfield{{/str}}</h3>
+                {{#addpaymenturl}}<a class="btn btn-primary mb-3" href="{{addpaymenturl}}">{{#str}}addpaymentbutton, local_westfieldpayments{{/str}}</a>{{/addpaymenturl}}
                 {{#paymentcount}}
                 <div class="table-responsive">
                     <table class="table">
@@ -40,10 +41,11 @@
                         <thead><tr>
                             <th scope="col">{{#str}}paymentdate, theme_westfield{{/str}}</th>
                             <th scope="col">{{#str}}paymentamount, theme_westfield{{/str}}</th>
+                            <th scope="col">{{#str}}paymenttype, local_westfieldpayments{{/str}}</th>
                             <th scope="col">{{#str}}paymentmethod, theme_westfield{{/str}}</th>
                             <th scope="col">{{#str}}paymentreference, theme_westfield{{/str}}</th>
                         </tr></thead>
-                        <tbody>{{#history}}<tr><td>{{date}}</td><td>{{amount}}</td><td>{{method}}</td><td>{{reference}}{{#note}}<small class="d-block text-muted">{{note}}</small>{{/note}}</td></tr>{{/history}}</tbody>
+                        <tbody>{{#history}}<tr><td>{{date}}</td><td>{{amount}}</td><td>{{paymenttype}}</td><td>{{method}}</td><td>{{reference}}{{#note}}<small class="d-block text-muted">{{note}}</small>{{/note}}</td></tr>{{/history}}</tbody>
                     </table>
                 </div>
                 {{/paymentcount}}

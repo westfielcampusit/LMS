@@ -75,6 +75,8 @@
         <FIELD NAME="amount" TYPE="int" LENGTH="15" NOTNULL="true" SEQUENCE="false" COMMENT="Amount in minor currency units"/>
         <FIELD NAME="currency" TYPE="char" LENGTH="3" NOTNULL="true" SEQUENCE="false"/>
         <FIELD NAME="paidat" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="paymenttype" TYPE="char" LENGTH="20" NOTNULL="true" DEFAULT="coursefee" SEQUENCE="false"/>
+        <FIELD NAME="installmentnumber" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
         <FIELD NAME="method" TYPE="char" LENGTH="30" NOTNULL="true" SEQUENCE="false"/>
         <FIELD NAME="reference" TYPE="char" LENGTH="100" NOTNULL="true" DEFAULT="" SEQUENCE="false"/>
         <FIELD NAME="note" TYPE="text" NOTNULL="false" SEQUENCE="false"/>

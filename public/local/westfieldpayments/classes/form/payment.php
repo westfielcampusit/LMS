@@ -7,6 +7,13 @@ require_once($CFG->libdir . '/formslib.php');
 class payment extends \moodleform {
     public function definition() {
         $mform = $this->_form;
+        $choices = ['coursefee' => get_string('coursefee', 'local_westfieldpayments'),
+            'registration' => get_string('registration', 'local_westfieldpayments')];
+        foreach ($this->_customdata['installments'] ?? [] as $installment) {
+            $choices['installment_' . $installment->installmentnumber] =
+                get_string('installmentnumber', 'local_westfieldpayments', $installment->installmentnumber);
+        }
+        $mform->addElement('select', 'paymenttype', get_string('paymenttype', 'local_westfieldpayments'), $choices);
         $mform->addElement('text', 'amount', get_string('amount', 'local_westfieldpayments') . ' (' . $this->_customdata['currency'] . ')');
         $mform->setType('amount', PARAM_RAW_TRIMMED);
         $mform->addRule('amount', null, 'required', null, 'client');
@@ -23,7 +30,7 @@ class payment extends \moodleform {
         $mform->setType('note', PARAM_TEXT);
         $mform->addElement('hidden', 'requestid', bin2hex(random_bytes(16)));
         $mform->setType('requestid', PARAM_ALPHANUM);
-        $this->add_action_buttons(false, get_string('addpayment', 'local_westfieldpayments'));
+        $this->add_action_buttons(true, get_string('addpayment', 'local_westfieldpayments'));
     }
 
     public function validation($data, $files) {

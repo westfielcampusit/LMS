@@ -18,6 +18,7 @@ class provider implements \core_privacy\local\metadata\provider,
             'accountid' => 'privacy:accounts', 'amount' => 'privacy:fees', 'currency' => 'privacy:fees',
             'paidat' => 'privacy:date', 'method' => 'privacy:payment', 'reference' => 'privacy:payment',
             'note' => 'privacy:payment', 'requestid' => 'privacy:payment',
+            'paymenttype' => 'privacy:payment', 'installmentnumber' => 'privacy:installments',
             'createdby' => 'privacy:admin', 'timecreated' => 'privacy:date',
         ], 'privacy:payment');
         $collection->add_database_table('local_wfp_installments', [

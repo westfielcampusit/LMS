@@ -84,6 +84,8 @@ if ($courseid) {
             throw new moodle_exception('selectonestudent', 'local_westfieldpayments');
         }
         $userid = (int)$selectedusers[0];
+        redirect(new moodle_url('/user/profile.php',
+            ['id' => $userid, 'paymentdetails' => 1, 'paymentcourse' => $courseid], 'westfield-profile-payments'));
     }
     if ($userid && !isset($students[$userid])) {
         throw new moodle_exception('notenrolled', 'local_westfieldpayments');
@@ -93,7 +95,8 @@ if ($courseid) {
         $paidamounts = [];
         $manualpayments = $DB->get_records_sql("SELECT a.userid, SUM(p.amount) AS amount
             FROM {local_wfp_accounts} a JOIN {local_wfp_payments} p ON p.accountid = a.id
-            WHERE a.courseid = :courseid AND p.currency = :currency GROUP BY a.userid",
+            WHERE a.courseid = :courseid AND p.currency = :currency AND p.paymenttype <> 'registration'
+            GROUP BY a.userid",
             ['courseid' => $courseid, 'currency' => $courseplan->currency]);
         foreach ($manualpayments as $payment) {
             $paidamounts[$payment->userid] = (int)$payment->amount;
@@ -119,7 +122,10 @@ if ($courseid) {
         $paymenturl = new moodle_url('/local/westfieldpayments/index.php',
             ['courseid' => $courseid, 'userid' => $userid, 'onlydue' => $onlydue]);
         $paymentform = new \local_westfieldpayments\form\payment($paymenturl,
-            ['currency' => $courseplan->currency]);
+            ['currency' => $courseplan->currency, 'installments' => $installments]);
+        if ($paymentform->is_cancelled()) {
+            redirect($courseurl);
+        }
         if ($data = $paymentform->get_data()) {
             require_sesskey();
             \local_westfieldpayments\ledger::add_payment($userid, $courseid, $data);
@@ -192,7 +198,7 @@ if (!$courseid) {
     echo html_writer::start_tag('form', [
         'method' => 'get',
         'action' => new moodle_url('/local/westfieldpayments/index.php'),
-        'class' => 'd-flex mb-3',
+        'class' => 'westfield-payment-student-search',
         'role' => 'search',
     ]);
     echo html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'courseid', 'value' => $courseid]);
@@ -202,7 +208,7 @@ if (!$courseid) {
         'name' => 'search',
         'value' => $search,
         'id' => 'payment-student-search',
-        'class' => 'form-control mr-2',
+        'class' => 'form-control',
         'placeholder' => get_string('searchstudents', 'local_westfieldpayments'),
         'aria-label' => get_string('searchstudents', 'local_westfieldpayments'),
     ]);
@@ -218,10 +224,12 @@ if (!$courseid) {
     ]);
     echo html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'courseid', 'value' => $courseid]);
     echo html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'search', 'value' => $search]);
+    echo html_writer::start_div('westfield-payment-due-filter');
     echo html_writer::checkbox('onlydue', 1, $onlydue, get_string('onlydue', 'local_westfieldpayments'), [
         'id' => 'payment-only-due',
         'onchange' => 'this.form.submit()',
     ]);
+    echo html_writer::end_div();
     echo html_writer::start_tag('table', ['class' => 'table table-striped']);
     echo html_writer::tag('thead', html_writer::tag('tr',
         html_writer::tag('th', get_string('selectstudent', 'local_westfieldpayments')) .
@@ -249,15 +257,18 @@ if (!$courseid) {
             'checked' => $ischecked,
         ]);
         $balancecontent = $courseplan
-            ? \local_westfieldpayments\ledger::decimal((int)$balance / 100) . ' ' . $courseplan->currency
+            ? \local_westfieldpayments\ledger::decimal((int)$balance) . ' ' . $courseplan->currency
             : get_string('paymentnotconfigured', 'theme_westfield');
         $duebalancecontent = $courseplan
-            ? \local_westfieldpayments\ledger::decimal((int)($duebalances[$student->id] ?? 0) / 100) .
+            ? \local_westfieldpayments\ledger::decimal((int)($duebalances[$student->id] ?? 0)) .
                 ' ' . $courseplan->currency
             : get_string('paymentnotconfigured', 'theme_westfield');
         echo html_writer::tag('tr',
             html_writer::tag('td', $checkbox) .
-            html_writer::tag('td', fullname($student) . ' (' . s($student->email) . ')') .
+            html_writer::tag('td', html_writer::link(new moodle_url('/user/profile.php',
+                ['id' => $student->id, 'paymentdetails' => 1, 'paymentcourse' => $courseid],
+                'westfield-profile-payments'), fullname($student),
+                ['class' => 'westfield-payment-student-link']) . ' (' . s($student->email) . ')') .
             html_writer::tag('td', $balancecontent) .
             html_writer::tag('td', $duebalancecontent));
     }

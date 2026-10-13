@@ -89,12 +89,38 @@ class payments {
             'paymentcount' => count($records) + count($manual),
             'hasaccount' => (bool)$paymentplan,
         ];
+        $allocated = [];
+        $unallocated = 0;
+        if ($paymentplan) {
+            foreach ($records as $record) {
+                if ($record->currency === $paymentplan->currency) {
+                    $unallocated += (int)round((float)$record->amount * 100);
+                }
+            }
+            foreach ($manual as $record) {
+                if ($record->currency !== $paymentplan->currency || ($record->paymenttype ?? '') === 'registration') {
+                    continue;
+                }
+                if (($record->paymenttype ?? '') === 'installment') {
+                    $number = (int)$record->installmentnumber;
+                    $allocated[$number] = ($allocated[$number] ?? 0) + (int)$record->amount;
+                } else {
+                    $unallocated += (int)$record->amount;
+                }
+            }
+        }
         foreach ($installments as $installment) {
+            $paid = $allocated[(int)$installment->installmentnumber] ?? 0;
+            $applied = min(max(0, (int)$installment->amount - $paid), $unallocated);
+            $paid += $applied;
+            $unallocated -= $applied;
             $data['installments'][] = [
                 'number' => (int)$installment->installmentnumber,
                 'amount' => self::money((int)$installment->amount / 100, $paymentplan->currency),
                 'duedate' => userdate((int)$installment->duedate, get_string('strftimedatefullshort')),
-                'due' => !empty($installment->paymentdue),
+                'due' => !empty($installment->paymentdue) && $paid < (int)$installment->amount,
+                'status' => get_string($paid >= (int)$installment->amount ? 'paid'
+                    : ($paid > 0 ? 'partiallypaid' : 'unpaid'), 'local_westfieldpayments'),
             ];
         }
         foreach ($fees as $fee) {
@@ -112,16 +138,24 @@ class payments {
                 'date' => userdate($record->timecreated),
                 'amount' => self::money($record->amount, $record->currency),
                 'method' => $gateway,
+                'paymenttype' => get_string('coursefee', 'local_westfieldpayments'),
                 'reference' => '#' . $record->id,
                 'timestamp' => (int)$record->timecreated,
             ];
         }
+        $registrationtotals = [];
         foreach ($manual as $record) {
+            if (($record->paymenttype ?? 'coursefee') === 'registration') {
+                $registrationtotals[$record->currency] = ($registrationtotals[$record->currency] ?? 0) + (int)$record->amount;
+            }
             $totals[$record->currency] = ($totals[$record->currency] ?? 0) + (int)$record->amount;
             $data['history'][] = [
                 'date' => userdate($record->paidat),
                 'amount' => self::money($record->amount / 100, $record->currency),
                 'method' => get_string($record->method, 'local_westfieldpayments'),
+                'paymenttype' => ($record->paymenttype ?? 'coursefee') === 'installment'
+                    ? get_string('installmentnumber', 'local_westfieldpayments', $record->installmentnumber)
+                    : get_string($record->paymenttype ?? 'coursefee', 'local_westfieldpayments'),
                 'reference' => $record->reference ?: 'WF-' . $record->id,
                 'note' => $record->note,
                 'timestamp' => (int)$record->paidat,
@@ -132,7 +166,8 @@ class payments {
             $data['fees'] = [['amount' => self::money($paymentplan->fee / 100, $paymentplan->currency)]];
             $data['discount'] = self::money($paymentplan->discount / 100, $paymentplan->currency);
             $totals[$paymentplan->currency] = $totals[$paymentplan->currency] ?? 0;
-            $balance = (int)$paymentplan->fee - (int)$paymentplan->discount - $totals[$paymentplan->currency];
+            $balance = (int)$paymentplan->fee - (int)$paymentplan->discount - $totals[$paymentplan->currency]
+                + ($registrationtotals[$paymentplan->currency] ?? 0);
             $data['balance'] = self::money(max(0, $balance) / 100, $paymentplan->currency);
             if ($balance < 0) {
                 $data['credit'] = self::money(-$balance / 100, $paymentplan->currency);
