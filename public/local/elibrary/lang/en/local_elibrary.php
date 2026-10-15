@@ -1,0 +1,20 @@
+<?php
+$string['pluginname'] = 'E-Library';
+$string['manage'] = 'Manage E-Library';
+$string['addresource'] = 'Add resource';
+$string['editresource'] = 'Edit resource';
+$string['name'] = 'Resource title';
+$string['description'] = 'Description';
+$string['file'] = 'File';
+$string['file_help'] = 'Upload one PDF, video, or other learning file. Moodle accepted file types and upload limits apply.';
+$string['resources'] = 'Library resources';
+$string['nofiles'] = 'No file uploaded';
+$string['noresources'] = 'There are no resources yet. Add a file to start the library.';
+$string['actions'] = 'Actions';
+$string['confirmdelete'] = 'Are you sure you want to delete “{$a}” and its file?';
+$string['resourceadded'] = 'Resource added.';
+$string['resourceupdated'] = 'Resource updated.';
+$string['resourcedeleted'] = 'Resource deleted.';
+$string['invalidresource'] = 'The requested resource does not exist.';
+$string['elibrary:manage'] = 'Manage E-Library resources';
+$string['elibrary:view'] = 'View E-Library resource files';

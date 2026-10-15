@@ -450,6 +450,8 @@ $adminsidebarlinks = [
     ['icon' => 'fa-users', 'text' => get_string('users'), 'url' => new moodle_url('/' . $CFG->admin . '/user.php')],
     ['icon' => 'fa-credit-card', 'text' => get_string('payments', 'theme_westfield'),
         'url' => new moodle_url('/local/westfieldpayments/index.php')],
+    ['icon' => 'fa-book', 'text' => get_string('manage', 'local_elibrary'),
+        'url' => new moodle_url('/local/elibrary/index.php')],
 ];
 ?>
 <aside class="westfield-sidebar" id="westfield-sidebar">
