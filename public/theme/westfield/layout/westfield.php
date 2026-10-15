@@ -84,9 +84,10 @@ $logouturl = new moodle_url(
     ['sesskey' => sesskey()]
 );
 
+$hideadminsecondarynavigation = strpos($PAGE->url->get_path(), '/local/elibrary/') === 0;
 $secondarynavigation = false;
 
-if ($isadmin && $PAGE->has_secondary_navigation()) {
+if ($isadmin && !$hideadminsecondarynavigation && $PAGE->has_secondary_navigation()) {
     $tablistnav = $PAGE->has_tablist_secondary_navigation();
     $moremenu = new \core\navigation\output\more_menu(
         $PAGE->secondarynav,
