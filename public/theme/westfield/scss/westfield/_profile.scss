@@ -6,6 +6,16 @@
     text-decoration: none;
 }
 
+// The payment deep link focuses this panel; avoid a browser outline around its contents.
+#westfield-profile-payments {
+    border: 0;
+
+    &:focus {
+        outline: none;
+        box-shadow: none;
+    }
+}
+
 // Boost's fixed action bar depends on #page, which the WestField layout does not use.
 // Keep native submit/cancel controls inside the profile form instead.
 #page-user-edit,

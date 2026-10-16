@@ -5,15 +5,17 @@ defined('MOODLE_INTERNAL') || die();
 global $PAGE, $OUTPUT, $SITE, $USER, $CFG;
 
 $isadmin = is_siteadmin($USER);
+if ($PAGE->pagetype === 'course-management') {
+    $PAGE->requires->js(new moodle_url('/theme/westfield/js/management_selects.js'));
+}
 $showcourseheading = !$isadmin && $PAGE->pagelayout === 'course' && $PAGE->course->id != SITEID;
 
-// Keep profile headers free of dashboard customisation controls.
 if ($PAGE->pagetype === 'user-profile') {
     $PAGE->set_button('');
 }
 
 $bodyclass = $isadmin
-    ? 'westfield-admin-layout'
+    ? 'westfield-admin-layout westfield-has-sidebar'
     : 'westfield-has-sidebar';
 if ($showcourseheading) {
     $bodyclass .= ' westfield-course-view';
@@ -82,9 +84,10 @@ $logouturl = new moodle_url(
     ['sesskey' => sesskey()]
 );
 
+$hideadminsecondarynavigation = strpos($PAGE->url->get_path(), '/local/elibrary/') === 0;
 $secondarynavigation = false;
 
-if ($isadmin && $PAGE->has_secondary_navigation()) {
+if ($isadmin && !$hideadminsecondarynavigation && $PAGE->has_secondary_navigation()) {
     $tablistnav = $PAGE->has_tablist_secondary_navigation();
     $moremenu = new \core\navigation\output\more_menu(
         $PAGE->secondarynav,
@@ -138,22 +141,18 @@ echo $OUTPUT->doctype();
 
     <div class="westfield-navbar-left">
 
-        <!-- Sidebar Toggle - Students only -->
-
-        <?php if (!$isadmin): ?>
+        <!-- Sidebar Toggle -->
 
             <button
                 type="button"
                 class="westfield-menu-button"
                 id="westfield-sidebar-toggle"
                 aria-label="Toggle sidebar"
+                aria-controls="westfield-sidebar"
                 aria-expanded="true"
             >
                 <i class="fa fa-bars"></i>
             </button>
-
-        <?php endif; ?>
-
 
         <!-- Brand -->
 
@@ -385,6 +384,13 @@ echo $OUTPUT->doctype();
 
                 <!-- Preferences -->
 
+                <?php if ($isadmin): ?>
+                <a href="<?php echo new moodle_url('/local/westfieldpayments/index.php'); ?>" class="westfield-dropdown-item">
+                    <span class="westfield-dropdown-icon"><i class="fa fa-credit-card" aria-hidden="true"></i></span>
+                    <span><?php echo get_string('payments', 'theme_westfield'); ?></span>
+                </a>
+                <?php endif; ?>
+
                 <a
                     href="<?php echo $preferencesurl; ?>"
                     class="westfield-dropdown-item"
@@ -433,10 +439,39 @@ echo $OUTPUT->doctype();
 
 <!-- =====================================================
      WESTFIELD SIDEBAR
-     STUDENT / NON-ADMIN USERS ONLY
+     ROLE-SPECIFIC NAVIGATION
      ===================================================== -->
 
-<?php if (!$isadmin): ?>
+<?php if ($isadmin): ?>
+
+<?php
+$adminsidebarlinks = [
+    ['icon' => 'fa-tachometer-alt', 'text' => get_string('myhome'), 'url' => $dashboardurl],
+    ['icon' => 'fa-graduation-cap', 'text' => get_string('courses'), 'url' => new moodle_url('/course/management.php')],
+    ['icon' => 'fa-users', 'text' => get_string('users'), 'url' => new moodle_url('/' . $CFG->admin . '/user.php')],
+    ['icon' => 'fa-credit-card', 'text' => get_string('payments', 'theme_westfield'),
+        'url' => new moodle_url('/local/westfieldpayments/index.php')],
+];
+?>
+<aside class="westfield-sidebar" id="westfield-sidebar">
+    <nav class="westfield-sidebar-content" aria-label="<?php echo s(get_string('administration')); ?>">
+        <?php foreach ($adminsidebarlinks as $link): ?>
+            <?php $active = $PAGE->url->compare($link['url'], URL_MATCH_BASE); ?>
+            <a href="<?php echo $link['url']; ?>" class="westfield-sidebar-link<?php echo $active ? ' active' : ''; ?>"<?php echo $active ? ' aria-current="page"' : ''; ?>>
+                <span class="westfield-sidebar-icon"><i class="fa <?php echo s($link['icon']); ?>" aria-hidden="true"></i></span>
+                <span class="westfield-sidebar-label"><?php echo s($link['text']); ?></span>
+            </a>
+        <?php endforeach; ?>
+    </nav>
+    <div class="westfield-sidebar-bottom">
+        <a href="<?php echo $logouturl; ?>" class="westfield-sidebar-help westfield-sidebar-logout">
+            <span class="westfield-sidebar-icon"><i class="fa fa-sign-out-alt" aria-hidden="true"></i></span>
+            <span class="westfield-sidebar-label"><?php echo get_string('logout'); ?></span>
+        </a>
+    </div>
+</aside>
+
+<?php else: ?>
 
 <aside
     class="westfield-sidebar"
@@ -520,24 +555,27 @@ echo $OUTPUT->doctype();
 
         </a>
 
-
-        <!-- Profile -->
-
+        <!-- E-Library -->
         <a
-            href="<?php echo $profileurl; ?>"
+            href="<?php echo new moodle_url('/local/elibrary/view.php'); ?>"
             class="westfield-sidebar-link"
         >
-
             <span class="westfield-sidebar-icon">
-                <i class="fa fa-user"></i>
+                <i class="fa fa-book-open" aria-hidden="true"></i>
             </span>
-
             <span class="westfield-sidebar-label">
-                Profile
+                <?php echo get_string('pluginname', 'local_elibrary'); ?>
             </span>
-
         </a>
 
+
+        <!-- Payments -->
+        <a class="westfield-sidebar-link" href="<?php echo new moodle_url('/theme/westfield/payments.php'); ?>">
+            <span class="westfield-sidebar-icon">
+                <i class="fa fa-credit-card" aria-hidden="true"></i>
+            </span>
+            <span class="westfield-sidebar-label"><?php echo get_string('payments', 'theme_westfield'); ?></span>
+        </a>
 
         <!-- Grades -->
 
@@ -573,6 +611,24 @@ echo $OUTPUT->doctype();
             </span>
 
         </a>
+
+        <!-- Profile -->
+
+        <a
+            href="<?php echo $profileurl; ?>"
+            class="westfield-sidebar-link"
+        >
+
+            <span class="westfield-sidebar-icon">
+                <i class="fa fa-user"></i>
+            </span>
+
+            <span class="westfield-sidebar-label">
+                Profile
+            </span>
+
+        </a>
+
 
     </div>
 
@@ -625,7 +681,23 @@ echo $OUTPUT->doctype();
 
         <!-- Page header -->
 
-        <?php if ($isadmin || $PAGE->pagelayout === 'mypublic'): ?>
+        <?php if ($PAGE->pagetype === 'course-management'): ?>
+            <div class="westfield-breadcrumb"><?php echo $OUTPUT->navbar(); ?></div>
+        <?php elseif ($PAGE->pagetype === 'admin-user'): ?>
+            <div class="westfield-breadcrumb"><?php echo $OUTPUT->navbar(); ?></div>
+            <header class="westfield-users-heading">
+                <h1><?php echo get_string('users'); ?></h1>
+                <?php if ($secondarynavigation): ?>
+                    <details class="westfield-users-settings d-print-none">
+                        <summary><?php echo get_string('userssettings', 'theme_westfield'); ?></summary>
+                        <div class="westfield-admin-secondary-navigation">
+                            <?php echo $OUTPUT->render_from_template('core/moremenu', $secondarynavigation); ?>
+                        </div>
+                    </details>
+                <?php endif; ?>
+                <p><?php echo get_string('usersintro', 'theme_westfield'); ?></p>
+            </header>
+        <?php elseif ($isadmin || $PAGE->pagelayout === 'mypublic'): ?>
 
             <?php echo $OUTPUT->full_header(); ?>
 
@@ -685,11 +757,17 @@ echo $OUTPUT->doctype();
 
         <?php endif; ?>
 
-        <?php if ($secondarynavigation): ?>
+        <?php if ($secondarynavigation && $PAGE->pagetype !== 'admin-user'): ?>
+            <?php if ($PAGE->pagetype === 'course-management'): ?>
+                <details class="westfield-management-settings">
+                    <summary><?php echo get_string('coursemanagementsettings', 'theme_westfield'); ?></summary>
+            <?php endif; ?>
 
             <div class="westfield-admin-secondary-navigation d-print-none">
                 <?php echo $OUTPUT->render_from_template('core/moremenu', $secondarynavigation); ?>
             </div>
+
+            <?php if ($PAGE->pagetype === 'course-management'): ?></details><?php endif; ?>
 
         <?php endif; ?>
 

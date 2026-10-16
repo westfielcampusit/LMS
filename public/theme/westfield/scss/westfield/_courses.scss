@@ -5,6 +5,19 @@
 
 /* Course cards */
 
+// Keep course names consistent across cards, profiles, payments and navigation.
+.coursename,
+.coursefullname,
+.westfield-course-title,
+.westfield-course-name,
+.westfield-payment-course-name,
+.pagelayout-course .page-header-headings h1,
+a[href*="/course/view.php"],
+select[name="course"] option,
+select[name="courseid"] option {
+    text-transform: capitalize;
+}
+
 // Full catalogue and category pages, separate from the Course overview block.
 body.westfield-course-catalogue {
     #page-header {

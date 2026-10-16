@@ -386,6 +386,11 @@
    PAGE MOVEMENT
    ========================================================= */
 
+.westfield-sidebar-help.westfield-sidebar-logout,
+.westfield-sidebar-help.westfield-sidebar-logout .westfield-sidebar-icon {
+    color: #ff6b6b !important;
+}
+
 .westfield-page-area {
     margin-left:
         var(--westfield-sidebar-width);
