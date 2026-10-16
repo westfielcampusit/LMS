@@ -1,6 +1,5 @@
 <?php
 require('../../config.php');
-require_once($CFG->libdir . '/adminlib.php');
 require_once(__DIR__ . '/classes/form/resource_form.php');
 
 $id = optional_param('id', 0, PARAM_INT);
@@ -9,10 +8,9 @@ require_login();
 require_capability('local/elibrary:manage', $context);
 $resource = $id ? $DB->get_record('local_elibrary_item', ['id' => $id], '*', MUST_EXIST) : null;
 $url = new moodle_url('/local/elibrary/edit.php', $id ? ['id' => $id] : []);
-admin_externalpage_setup('local_elibrary_manage', '', null, $url);
-
 $title = $id ? get_string('editresource', 'local_elibrary') : get_string('addresource', 'local_elibrary');
 $PAGE->set_url($url);
+$PAGE->set_pagelayout('admin');
 $PAGE->set_title($title);
 $PAGE->set_heading($title);
 $mform = new \local_elibrary\form\resource_form($url);

@@ -1,13 +1,11 @@
 <?php
 require('../../config.php');
-require_once($CFG->libdir . '/adminlib.php');
 
 $context = context_system::instance();
 require_login();
 require_capability('local/elibrary:manage', $context);
-admin_externalpage_setup('local_elibrary_manage');
-
 $PAGE->set_url(new moodle_url('/local/elibrary/index.php'));
+$PAGE->set_pagelayout('admin');
 $PAGE->set_title(get_string('manage', 'local_elibrary'));
 $PAGE->set_heading(get_string('manage', 'local_elibrary'));
 
