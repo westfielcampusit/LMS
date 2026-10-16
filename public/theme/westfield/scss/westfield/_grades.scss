@@ -18,6 +18,19 @@
     #region-main {
         min-width: 0;
 
+        // Cover student course rows and the teacher's course report links.
+        #overview-grade tbody td:first-child a,
+        a[href*="/grade/report/index.php"],
+        a[href*="/grade/report/user/index.php"],
+        a[href*="/course/user.php"] {
+            text-transform: capitalize;
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: none;
+            }
+        }
+
         .table-responsive,
         .no-overflow,
         .user-report-container {

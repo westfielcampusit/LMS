@@ -20,6 +20,10 @@
     margin-inline-start: auto !important;
 }
 
+.maincalendar [id^="month-navigation-"] .arrow_link:hover {
+    text-decoration: none;
+}
+
 /* Keep the calendar view control height consistent. */
 .maincalendar .header #calendarviewdropdown {
     box-sizing: border-box;

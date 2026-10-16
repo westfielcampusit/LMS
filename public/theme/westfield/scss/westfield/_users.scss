@@ -1,0 +1,245 @@
+// Keep the native report filters, sorting and bulk-action behaviour intact.
+#page-admin-user {
+    .westfield-users-heading {
+        position: relative;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: center;
+        gap: 8px 16px;
+        margin: 20px 0;
+
+        h1 { margin: 0; font-size: 2rem; }
+        p { grid-column: 1 / -1; margin: 0; color: $wf-text-secondary; }
+    }
+
+    .westfield-users-settings {
+        margin: 0;
+
+        summary {
+            width: fit-content;
+            padding: 8px 0;
+            color: $wf-navy-800;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .westfield-admin-secondary-navigation {
+            position: absolute;
+            inset-inline-end: 0;
+            z-index: 10;
+            width: min(700px, 100%);
+            margin-top: 10px;
+            padding: 12px;
+            background: $wf-surface;
+            border: 1px solid $wf-border;
+            border-radius: $wf-radius;
+            box-shadow: $wf-shadow;
+
+            .nav-tabs { margin-bottom: 0; }
+        }
+    }
+
+    #region-main {
+        padding: 24px;
+        overflow: visible;
+        min-width: 0;
+        border-color: $wf-border;
+        box-shadow: $wf-shadow-sm;
+    }
+
+    .reportbuilder-wrapper > .dropdown {
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 12px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid $wf-border;
+    }
+
+    .btn-primary {
+        background: $wf-gradient;
+        border-color: $wf-navy-800;
+    }
+
+    [data-action="add-user"], #dropdownFiltersButton {
+        min-height: 44px;
+        padding: 10px 18px;
+        font-weight: 600;
+        border-radius: $wf-radius;
+    }
+
+    #dropdownFiltersButton {
+        background: $wf-surface-soft;
+        color: $wf-navy-900;
+        border-color: $wf-border-dark;
+
+        &:hover, &[aria-expanded="true"] {
+            background: $wf-blue-light;
+            border-color: $wf-blue;
+        }
+    }
+
+    .reportbuilder-wrapper .filters-dropdown {
+        max-width: 100%;
+        border: 1px solid $wf-border;
+        border-radius: $wf-radius;
+        box-shadow: $wf-shadow-lg;
+    }
+
+    .reportbuilder-filters-sidebar {
+        .filter { border-color: $wf-border; }
+        .filter-name { color: $wf-navy-900; font-weight: 600; }
+        .fitem[data-groupname="buttonar"] { background: $wf-surface-soft; }
+    }
+
+    .table-responsive {
+        overflow-x: auto;
+        border: 1px solid $wf-border;
+        border-radius: $wf-radius;
+    }
+
+    .reportbuilder-table {
+        margin-bottom: 0;
+        color: $wf-text;
+        --bs-table-striped-bg: #fff;
+        --bs-table-hover-bg: #{$wf-surface-soft};
+
+        th, td { padding: 16px; vertical-align: middle; }
+        thead th {
+            background: $wf-surface-soft;
+            color: $wf-navy-900;
+            font-size: .875rem;
+            font-weight: 700;
+            border-bottom: 1px solid $wf-border;
+            white-space: nowrap;
+        }
+
+        .userpicture { border-radius: 50%; margin-inline-end: 10px; }
+        .badge { padding: 5px 9px; border-radius: 6px; font-weight: 600; }
+        input[type="checkbox"] { accent-color: $wf-navy-800; width: 17px; height: 17px; }
+    }
+
+    #region-main .reportbuilder-table a:not(.btn):hover {
+        text-decoration: none;
+    }
+
+    #user-bulk-action-form {
+        margin-top: 20px;
+        padding: 16px 20px;
+        border: 1px solid $wf-border;
+        border-radius: $wf-radius;
+        background: $wf-surface-soft;
+
+        .fitem { margin-bottom: 0; }
+        .col-form-label { color: $wf-text; font-weight: 600; }
+        [data-fieldtype="group"] .fitem { flex: 1 1 100%; min-width: 0; }
+        [data-fieldtype="selectgroups"] { display: block; width: 100%; }
+        select { width: 100%; max-width: 100%; min-height: 46px; }
+        .row { align-items: center; }
+    }
+
+    .reportbuilder-wrapper form:has(select[name="download"]) > .d-flex {
+        align-items: center !important;
+        gap: 12px;
+        margin-top: 16px;
+
+        label { margin-bottom: 0; }
+        select { flex: 1 1 280px; width: auto; min-width: 0; min-height: 46px; }
+        button { min-height: 46px; }
+    }
+
+    // Native pickers retain Moodle's change handlers, optgroups and keyboard controls.
+    @supports (appearance: base-select) {
+        select:not([multiple]):not([size]),
+        select:not([multiple]):not([size])::picker(select) {
+            appearance: base-select;
+        }
+
+        select:not([multiple]):not([size]) {
+            display: inline-flex;
+            flex-wrap: nowrap;
+            justify-content: space-between;
+            background-image: none;
+            align-items: center;
+            gap: 12px;
+            padding-inline: 14px;
+            color: $wf-text;
+
+            &::picker-icon { color: $wf-navy-800; margin-inline-start: auto; }
+            &:open { border-color: $wf-blue; background-color: $wf-blue-light; }
+
+            &::picker(select) {
+                margin-block: 6px;
+                padding: 8px;
+                max-height: 320px;
+                max-width: calc(100vw - 32px);
+                overflow-y: auto;
+                background: $wf-surface;
+                color: $wf-text;
+                border: 1px solid $wf-border;
+                border-radius: $wf-radius;
+                box-shadow: $wf-shadow-lg;
+            }
+
+            option {
+                position: relative;
+                min-height: 40px;
+                padding: 10px 14px;
+                padding-inline-start: 38px;
+                border-radius: $wf-radius-sm;
+                background: $wf-surface;
+                color: $wf-text;
+                white-space: normal;
+
+                &::checkmark {
+                    position: absolute;
+                    inset-inline-start: 12px;
+                    width: 14px;
+                    color: $wf-navy-800;
+                }
+
+                &:hover, &:focus, &:checked {
+                    background: $wf-blue-light;
+                    color: $wf-navy-800;
+                }
+                &:checked { font-weight: 600; }
+                &:disabled { color: $wf-muted; background: $wf-surface-soft; }
+            }
+
+            optgroup { color: $wf-text-secondary; }
+        }
+    }
+
+    .form-autocomplete-suggestions {
+        padding: 8px;
+        border: 1px solid $wf-border;
+        border-radius: $wf-radius;
+        background: $wf-surface;
+        box-shadow: $wf-shadow-lg;
+
+        [role="option"] {
+            padding: 10px 14px;
+            border-radius: $wf-radius-sm;
+            color: $wf-text;
+
+            &:hover, &:focus, &[aria-selected="true"] {
+                background: $wf-blue-light;
+                color: $wf-navy-800;
+            }
+            &[aria-disabled="true"] { color: $wf-muted; }
+        }
+    }
+
+    .pagination {
+        gap: 5px;
+        .page-link { border-radius: 8px; border-color: $wf-border; color: $wf-navy-800; }
+        .active .page-link { background: $wf-navy-800; color: #fff; border-color: $wf-navy-800; }
+    }
+
+    @media (max-width: 767.98px) {
+        #region-main { padding: 16px; }
+        .westfield-users-heading h1 { font-size: 1.65rem; }
+        .reportbuilder-table th, .reportbuilder-table td { padding: 12px; }
+        #user-bulk-action-form { padding: 14px; }
+        #user-bulk-action-form .col-form-label { margin-bottom: 8px; }
+    }
+}

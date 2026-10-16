@@ -50,7 +50,30 @@ class myprofile_renderer extends \core_user\output\myprofile\renderer {
             }
         }
 
+        $canmanage = has_capability('moodle/site:config', \context_system::instance());
+        $showpayments = ($isowner || $canmanage) && get_config('local_westfieldpayments', 'version');
+        $paymenthtml = '';
+        $paymentactive = $showpayments && optional_param('paymentdetails', 0, PARAM_BOOL);
+        if ($showpayments) {
+            require_once($CFG->libdir . '/enrollib.php');
+            $paymentdata = \theme_westfield\output\payments::for_user((int)$userid);
+            $selectedcourse = optional_param('paymentcourse', 0, PARAM_INT);
+            foreach ($paymentdata['courses'] as &$paymentcourse) {
+                if ($selectedcourse) {
+                    $paymentcourse['open'] = $paymentcourse['courseid'] === $selectedcourse;
+                }
+                if ($canmanage && $paymentcourse['hasaccount']) {
+                    $paymentcourse['addpaymenturl'] = (new \moodle_url('/local/westfieldpayments/payment.php',
+                        ['userid' => $userid, 'courseid' => $paymentcourse['courseid']]))->out(false);
+                }
+            }
+            unset($paymentcourse);
+            $paymenthtml = $this->render_from_template('theme_westfield/payments', $paymentdata);
+        }
         return $this->render_from_template('theme_westfield/profile_tabs', [
+            'showpayments' => $showpayments,
+            'paymentactive' => $paymentactive,
+            'paymenthtml' => $paymenthtml,
             'courses' => $courses,
             'hascourses' => !empty($courses),
             'isowner' => $isowner,

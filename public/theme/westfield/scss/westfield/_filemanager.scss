@@ -1,5 +1,6 @@
 /* File edit dialog, scoped to the file manager selection panel. */
-.moodle-dialogue-base .moodle-dialogue:has(.filemanager.fp-select) {
+.moodle-dialogue-base .moodle-dialogue:has(.filemanager.fp-select),
+.moodle-dialogue-base .moodle-dialogue.filepicker {
     max-width: calc(100vw - 24px);
 
     .moodle-dialogue-wrap {
@@ -42,6 +43,173 @@
         max-height: calc(100dvh - 160px);
         overflow-y: auto;
         background: $wf-surface;
+    }
+}
+
+// Shared by course resources, assignment attachments and student submissions.
+.westfield-upload-guidance {
+    margin: 0 0 16px;
+    color: $wf-text-secondary;
+    font-size: .875rem;
+    line-height: 1.6;
+}
+
+.westfield-filemanager {
+    .fp-restrictions {
+        text-align: start;
+        color: $wf-text-secondary;
+        font-size: .875rem;
+        line-height: 1.6;
+    }
+
+    .fp-navbar {
+        border-color: $wf-border;
+        border-radius: $wf-radius $wf-radius 0 0;
+        background: $wf-surface-soft;
+    }
+
+    .filemanager-toolbar {
+        padding: 12px;
+    }
+
+    .filemanager-toolbar .btn {
+        min-height: 40px;
+        padding: 8px 12px;
+    }
+
+    .fp-btn-add .btn {
+        background: $wf-navy-800;
+        border-color: $wf-navy-800;
+        color: $wf-white;
+        font-weight: 600;
+
+        &:hover {
+            background: $wf-navy-900;
+        }
+
+        .icon {
+            margin-inline-end: 6px;
+        }
+    }
+
+    .filemanager-container {
+        min-height: 240px;
+        border-color: $wf-border;
+        border-radius: 0 0 $wf-radius $wf-radius;
+        background: $wf-surface;
+    }
+
+    .fp-content {
+        min-height: 238px;
+    }
+
+    &.fm-noitems .fm-empty-container,
+    .filemanager-container .dndupload-target {
+        border-color: rgba($wf-blue, .4);
+        border-radius: $wf-radius;
+        background: $wf-surface-soft;
+        padding: 94px 16px 16px;
+        color: $wf-text;
+    }
+
+    .westfield-upload-hint {
+        margin-bottom: 8px;
+        font-weight: 600;
+    }
+
+    .dndupload-arrow {
+        color: $wf-blue;
+        left: 0;
+    }
+
+    .filemanager-container.dndupload-over .dndupload-target {
+        background: $wf-blue-light;
+        border-color: $wf-blue;
+    }
+
+    .fp-pathbar {
+        padding: 0 12px 8px;
+    }
+}
+
+.file-picker {
+    .fp-repo-area .nav-link {
+        border-radius: $wf-radius-sm;
+        padding: 12px;
+        overflow-wrap: anywhere;
+    }
+
+    .fp-repo.active .nav-link {
+        background: $wf-navy-800;
+        color: $wf-white;
+    }
+
+    .fp-repo-items {
+        border-color: $wf-border;
+        border-radius: $wf-radius;
+        overflow: hidden;
+    }
+
+    .fp-upload-form {
+        padding: 20px;
+
+        .fp-content-center {
+            vertical-align: top;
+        }
+
+        label {
+            color: $wf-text;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .fp-file {
+            padding: 16px;
+            border: 2px dashed rgba($wf-blue, .4);
+            border-radius: $wf-radius;
+            background: $wf-surface-soft;
+
+            > div {
+                padding-inline: 0 !important;
+            }
+        }
+
+        input[type="file"] {
+            width: 100%;
+            max-width: 100%;
+            color: $wf-text;
+
+            &::file-selector-button {
+                min-height: 44px;
+                margin-inline-end: 12px;
+                padding: 8px 14px;
+                border: 0;
+                border-radius: $wf-radius-sm;
+                background: $wf-navy-800;
+                color: $wf-white;
+                cursor: pointer;
+            }
+        }
+
+        .fp-upload-btn {
+            min-height: 44px;
+            width: 100%;
+        }
+    }
+}
+
+@media (max-width: 575.98px) {
+    .westfield-filemanager .fp-viewbar {
+        clear: both;
+        margin-top: 8px;
+    }
+
+    .file-picker .fp-upload-form {
+        padding: 12px;
+    }
+
+    .moodle-dialogue-base .moodle-dialogue.filepicker .moodle-dialogue-bd {
+        padding: 16px;
     }
 }
 
